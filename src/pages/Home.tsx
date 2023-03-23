@@ -9,22 +9,19 @@ import Echarts from '@/echarts/Echarts'
 import { useState } from 'react'
 import Spin from '@/component/common/Spin'
 import Button from '@/component/common/Button'
-import message from '@/component/common/Message'
 
 export default function Home() {
-  const [data, setData] = useState([
-    820, 932, 901, 934, 1290, 1330, 1320,
-  ])
-  const [loading, setLoading] = useState(true)
+	const [data, setData] = useState([820, 932, 901, 934, 1290, 1330, 1320]);
+	const [loading, setLoading] = useState(true);
 
-  const tabList = ['All', 'Art', 'Music', 'Video']
-  const tabPanelList = ['All', 'Art', 'Music', 'Video']
+	const tabList = ['All', 'Art', 'Music', 'Video'];
+	const tabPanelList = ['All', 'Art', 'Music', 'Video'];
 
   return (
     <>
       <Header />
-       <button className='btn mt-40' onClick={()=>{message.success('成功了！！')}}>hhh</button>
-      {/* <div className="mt-[60px]"> 
+
+      <div className="mt-[60px]">
         <Divider />
         <Tabs
           className={'px-4'}
@@ -34,22 +31,23 @@ export default function Home() {
         <Carousel />
         <Divider />
 
-        <Title title={'Trending'} />
-        <Trending />
-        <Divider />
+				<Title title={'Trending'} />
+				<Trending />
+				<Divider />
 
-        <Title title={'Trending In Art'} />
-        <CardList />
+				<Title title={'Trending In Art'} />
+				<CardList />
 
-        <button
-          className="btn"
-          onClick={() => setData([1, 2, 3])}
-        >
-          setNum
-        </button>
+				<button className="btn" onClick={() => setData([1, 2, 3])}>
+					setNum
+				</button>
+
+				<button className="btn" onClick={() => message.success('123')}>
+					123
+				</button>
 
         <Echarts type="line" data={data} />
-      </div> */}
+      </div>
     </>
   )
 }
