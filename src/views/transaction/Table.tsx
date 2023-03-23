@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import Tableitem from '../../component/common/Tableitem'
-import Tablehead from '../../component/common/Tablehead'
-import Tablefooter from '../../component/common/Tablefooter'
+import Tableitem from '../../component/common/table/Tableitem'
+import Tablehead from '../../component/common/table/Tablehead'
+import Tablefooter from '../../component/common/table/Tablefooter'
 import { Table, Tfoot } from '@chakra-ui/react'
 export default function TableComponent() {
   const [total, settotal] = useState(0)

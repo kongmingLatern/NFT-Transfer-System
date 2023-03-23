@@ -1,6 +1,6 @@
 import Stat from '@/component/admin/Stat'
-import Table from '@/component/common/Table'
-import Space from '@/component/common/Space'
+import Table from '@/component/common/table/Table'
+import Space from '@/component/common/space/Space'
 import Echarts from '@/echarts/Echarts'
 
 export interface columnsType {

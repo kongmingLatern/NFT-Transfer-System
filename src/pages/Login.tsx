@@ -18,7 +18,7 @@ import {
 	useDisclosure,
 	Spinner
 } from '@chakra-ui/react';
-import Space from '@/component/common/Space';
+import Space from '@/component/common/space/Space';
 import Img from '@/assets/gd1.png';
 import { Link, useNavigate } from 'react-router-dom';
 import Header from '@/component/common/Header';

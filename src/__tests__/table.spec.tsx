@@ -1,4 +1,4 @@
-import Table from '@/component/common/Table'
+import Table from '@/component/common/table/Table'
 import { columnsType } from '@/views/admin/Main'
 import { render } from '@testing-library/react'
 
