@@ -9,6 +9,7 @@ import Echarts from '@/echarts/Echarts'
 import { useState } from 'react'
 import Spin from '@/component/common/Spin'
 import Button from '@/component/common/Button'
+import message from '@/component/common/Message'
 
 export default function Home() {
   const [data, setData] = useState([
@@ -22,8 +23,8 @@ export default function Home() {
   return (
     <>
       <Header />
-
-      <div className="mt-[60px]">
+       <button className='btn mt-40' onClick={()=>{message.success('成功了！！')}}>hhh</button>
+      {/* <div className="mt-[60px]"> 
         <Divider />
         <Tabs
           className={'px-4'}
@@ -48,7 +49,7 @@ export default function Home() {
         </button>
 
         <Echarts type="line" data={data} />
-      </div>
+      </div> */}
     </>
   )
 }
