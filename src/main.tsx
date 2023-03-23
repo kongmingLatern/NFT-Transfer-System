@@ -5,7 +5,7 @@ import ReactDOM from 'react-dom/client';
 import '@/assets/index.css';
 import '@/assets/global.css';
 import '@/component/paint/i18n';
-import { MessageList } from './component/common/Message';
+import { MessageList } from './component/common/message/Message';
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
 	<ChakraProvider>
