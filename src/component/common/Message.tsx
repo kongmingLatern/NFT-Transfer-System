@@ -6,14 +6,14 @@ import Messageitem from './Messageitem';
 type Message = {
 	success: (message: string) => void;
 	error: (message: string) => void;
-	warning: (message: string) => void;
+	warn: (message: string) => void;
 	info: (message: string) => void;
 };
 // 消息的类型枚举
 enum MessageType {
 	Success = 'success',
 	Error = 'error',
-	Warning = 'warning',
+	Warn = 'warn',
 	Info = 'info'
 }
 // 消息组件参数
@@ -59,8 +59,8 @@ const MessageList = () => {
 		_message(MessageType.Error, content);
 	};
 
-	message.warning = (content: string) => {
-		_message(MessageType.Warning, content);
+	message.warn = (content: string) => {
+		_message(MessageType.Warn, content);
 	};
 
 	message.info = (content: string) => {
@@ -69,15 +69,7 @@ const MessageList = () => {
 
 	return (
 		<div
-			className={classNames(
-				'fixed',
-				// 'top-[2%]',
-				'top-0',
-				'left-[30%]',
-				'z-50',
-				' w-[40%]',
-				// styles.moveOut
-			)}
+			className={classNames('fixed', 'top-0', 'left-[30%]', 'z-50', ' w-[40%]')}
 		>
 			{Object.keys(messageList).map((key) => {
 				const item = messageList[key];
@@ -97,4 +89,4 @@ const MessageList = () => {
 
 export { MessageList };
 
-export default message as Message;
+export default message

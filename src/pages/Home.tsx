@@ -41,7 +41,7 @@ export default function Home() {
 					setNum
 				</button>
 
-				<button className="btn" onClick={() => message.success('123')}>
+				<button className="btn" onClick={() => message.error('123')}>
 					HH
 				</button>
 

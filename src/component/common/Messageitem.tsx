@@ -5,7 +5,7 @@ import classNames from 'classnames';
 enum MessageType {
 	Success = 'success',
 	Error = 'error',
-	Warning = 'warning',
+	Warn = 'warn',
 	Info = 'info'
 }
 
@@ -28,7 +28,9 @@ export default function Messageitem({
 				return (
 					<Icon
 						icon="clarity:success-standard-line"
-						color="green"
+						style={{
+							color: 'green'
+						}}
 						width={30}
 						height={30}
 					/>
@@ -37,16 +39,20 @@ export default function Messageitem({
 				return (
 					<Icon
 						icon="fluent-mdl2:error-badge"
-						color="red"
+						style={{
+							color: 'red'
+						}}
 						width={30}
 						height={30}
 					/>
 				);
-			case MessageType.Warning:
+			case MessageType.Warn:
 				return (
 					<Icon
 						icon="ep:warn-triangle-filled"
-						color="#382800"
+						style={{
+							color: '#382800'
+						}}
 						width={30}
 						height={30}
 					/>
@@ -62,6 +68,18 @@ export default function Messageitem({
 				);
 		}
 	}
+	function getColorByType() {
+		switch (type) {
+			case MessageType.Success:
+				return 'text-black';
+			case MessageType.Error:
+				return 'text-[#fff]';
+			case MessageType.Warn:
+				return 'text-[#382800]';
+			case MessageType.Info:
+				return 'text-[#1769aa]';
+		}
+	}
 	setTimeout(() => {
 		onRemove?.(id);
 	}, 5000);
@@ -71,7 +89,8 @@ export default function Messageitem({
 				className={classNames(
 					'alert',
 					'shadow-lg',
-					type ? `alert-${type}` : null,
+					type ? (type === 'warn' ? `alert-warning` : `alert-${type}`) : '',
+					getColorByType(),
 					styles.move,
 					'transition'
 				)}
