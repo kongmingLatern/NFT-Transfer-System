@@ -28,7 +28,7 @@ import { getFaceDetector, loadModels } from '@/face/model';
 import { faceapi } from '@/face';
 import Divider from '@/component/common/Divider';
 import styles from '@/assets/img.module.css';
-import Spin from '@/component/common/Spin';
+import Spin from '@/component/common/spin/Spin';
 interface LoginType {
 	name?: string;
 }

@@ -1,4 +1,4 @@
-import Spin from '@/component/common/Spin'
+import Spin from '@/component/common/spin/Spin'
 import { render } from '@testing-library/react'
 
 describe('spin basic function', () => {
