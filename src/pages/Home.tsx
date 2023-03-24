@@ -22,13 +22,12 @@ export default function Home() {
 
 			<div className="mt-[60px]">
 				<Divider />
+				<Carousel />
 				<Tabs
 					className={'px-4'}
 					tabList={tabList}
 					tabPanelList={tabPanelList}
 				/>
-				<Carousel />
-				<Divider />
 
 				<Title title={'Trending'} />
 				<Trending />

@@ -1,20 +1,7 @@
-import styles from '@/assets/message.module.css';
+import styles from './style/message.module.css';
 import { Icon } from '@iconify-icon/react';
 import classNames from 'classnames';
-
-enum MessageType {
-	Success = 'success',
-	Error = 'error',
-	Warn = 'warn',
-	Info = 'info'
-}
-
-interface MessageProps {
-	id: string;
-	type: MessageType;
-	content: string;
-	onRemove?: (id: string) => void;
-}
+import { MessageProps, MessageType } from './type/Message.type';
 
 export default function Messageitem({
 	onRemove,
@@ -73,12 +60,15 @@ export default function Messageitem({
 			case MessageType.Success:
 				return 'text-black';
 			case MessageType.Error:
-				return 'text-[#fff]';
+				return 'text-black';
 			case MessageType.Warn:
 				return 'text-[#382800]';
 			case MessageType.Info:
 				return 'text-[#1769aa]';
 		}
+	}
+	function getAlertByType() {
+		return type ? (type === 'warn' ? `alert-warning` : `alert-${type}`) : '';
 	}
 	setTimeout(() => {
 		onRemove?.(id);
@@ -89,7 +79,8 @@ export default function Messageitem({
 				className={classNames(
 					'alert',
 					'shadow-lg',
-					type ? (type === 'warn' ? `alert-warning` : `alert-${type}`) : '',
+					// type ? (type === 'warn' ? `alert-warning` : `alert-${type}`) : '',
+					getAlertByType(),
 					getColorByType(),
 					styles.move,
 					'transition'

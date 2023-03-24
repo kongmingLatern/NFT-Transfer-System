@@ -29,11 +29,13 @@ import { faceapi } from '@/face';
 import Divider from '@/component/common/Divider';
 import styles from '@/assets/img.module.css';
 import Spin from '@/component/common/spin/Spin';
+import { useForm } from 'react-hook-form';
 interface LoginType {
 	name?: string;
 }
 export default function Login({ name = '登录' }: LoginType) {
 	const { isOpen, onOpen, onClose } = useDisclosure();
+	const formRef = useRef(null);
 	const webcamRef = useRef(null);
 	const canvas = useRef<HTMLCanvasElement>(null);
 	const navigate = useNavigate();
@@ -44,6 +46,8 @@ export default function Login({ name = '登录' }: LoginType) {
 		getFaceDetectorOptions,
 		isFaceDetectionModelLoaded
 	} = getFaceDetector();
+
+	const { register, handleSubmit } = useForm();
 
 	async function onPlay() {
 		if (!isFaceDetectionModelLoaded()) {
@@ -83,7 +87,11 @@ export default function Login({ name = '登录' }: LoginType) {
 		const imageSrc = webcamRef.current.getScreenshot();
 		setImgSrc(imageSrc);
 		webcamRef.current.stream = false;
-		navigate('/home');
+		const { username, password } = formRef.current;
+		// TODO: API 【登录 / 注册】 接口
+		console.log('formData', username.value, password.value);
+		console.log('imageSrc', imageSrc);
+		// navigate('/home');
 	}, [webcamRef]);
 
 	return (
@@ -105,59 +113,68 @@ export default function Login({ name = '登录' }: LoginType) {
 					/>
 
 					<Stack>
-						<CardBody className="text-center justify-center">
-							<Heading size="md" className="mb-3">
-								{name}
-							</Heading>
-
-							<Space size={20} direction={'vertical'}>
-								<label className="flex items-center whitespace-nowrap">
-									账号：
-									<Input opacity={0.5} placeholder={'请输入账号'} />
-								</label>
-								<label className="flex items-center whitespace-nowrap">
-									密码：
-									<Input
-										type={'password'}
-										w={72}
-										opacity={0.5}
-										placeholder={'请输入密码'}
-									/>
-								</label>
-							</Space>
-						</CardBody>
-
-						<CardFooter className="justify-center">
-							<Space direction="horizontal">
-								<Button
-									w={24}
-									display={'block'}
-									mt={2}
-									variant="solid"
-									colorScheme="blue"
-								>
-									{name === '登录' ? (
-										<Link to={'/register'}>去注册</Link>
-									) : (
-										<Link to={'/login'}>去登录</Link>
-									)}
-								</Button>
-								<Button
-									w={24}
-									display={'block'}
-									mt={2}
-									variant="solid"
-									colorScheme="whatsapp"
-									onClick={() => onOpen()}
-								>
+						<form
+							ref={formRef}
+							onSubmit={handleSubmit((data) => console.log(data))}
+						>
+							<CardBody className="text-center justify-center">
+								<Heading size="md" className="mb-3">
 									{name}
-								</Button>
-							</Space>
-						</CardFooter>
+								</Heading>
+								<Space size={20} direction={'vertical'}>
+									<label className="flex items-center whitespace-nowrap">
+										账号：
+										<Input
+											opacity={0.5}
+											placeholder={'请输入账号'}
+											{...register('username')}
+										/>
+									</label>
+									<label className="flex items-center whitespace-nowrap">
+										密码：
+										<Input
+											type={'password'}
+											w={72}
+											opacity={0.5}
+											placeholder={'请输入密码'}
+											{...register('password')}
+										/>
+									</label>
+								</Space>
+							</CardBody>
+
+							<CardFooter className="justify-center">
+								<Space direction="horizontal">
+									<Button
+										w={24}
+										display={'block'}
+										mt={2}
+										variant="solid"
+										colorScheme="blue"
+									>
+										{name === '登录' ? (
+											<Link to={'/register'}>去注册</Link>
+										) : (
+											<Link to={'/login'}>去登录</Link>
+										)}
+									</Button>
+
+									<Button
+										w={24}
+										display={'block'}
+										mt={2}
+										variant="solid"
+										colorScheme="whatsapp"
+										onClick={() => onOpen()}
+									>
+										{name}
+									</Button>
+								</Space>
+							</CardFooter>
+						</form>
 					</Stack>
 				</Card>
 			</div>
-
 			{isOpen ? (
 				<div className="absolute top-[50%] left-[50%] translate-x-[-50%]  translate-y-[-50%]">
 					<Modal isOpen={isOpen} onClose={onClose}>
@@ -203,7 +220,7 @@ export default function Login({ name = '登录' }: LoginType) {
 							<ModalFooter>
 								<Space>
 									<Button colorScheme="purple" onClick={() => capture()}>
-										点击拍照
+										登录
 									</Button>
 									<Button colorScheme="blue" mr={3} onClick={onClose}>
 										关闭

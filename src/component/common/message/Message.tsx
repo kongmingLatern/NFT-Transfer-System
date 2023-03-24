@@ -1,34 +1,14 @@
-import classNames from 'classnames';
 import { useState } from 'react';
+import { Message, MessageProps, MessageType } from './type/Message.type';
+import classNames from 'classnames';
 import Messageitem from './Messageitem';
-
-// 消息对象类型
-type Message = {
-	success: (message: string) => void;
-	error: (message: string) => void;
-	warn: (message: string) => void;
-	info: (message: string) => void;
-};
-// 消息的类型枚举
-enum MessageType {
-	Success = 'success',
-	Error = 'error',
-	Warn = 'warn',
-	Info = 'info'
-}
-// 消息组件参数
-type MessageProps = {
-	id: string;
-	type: MessageType;
-	content: string;
-	onRemove?: (id: string) => void;
-};
 
 // 消息对象
 const message: Partial<Message> = {};
 
 // 标识消息的ID
 let incrementId = 0;
+
 // 消息列表对象
 const messageList: { [key: string]: MessageProps } = {};
 
@@ -89,4 +69,4 @@ const MessageList = () => {
 
 export { MessageList };
 
-export default message
+export default message;
