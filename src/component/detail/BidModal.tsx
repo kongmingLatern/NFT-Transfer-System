@@ -11,10 +11,10 @@ export default function BidModal() {
 					onClick={() => onOpen()}
 				>
 					<img src="" alt="" />
-					<span>立即购买12313</span>
+					<span>参与竞拍</span>
 				</button>
 			)}
-			title="竞拍"
+			title="参与竞拍"
 			bodyContent={() => (
 				<Form
 					formItem={[
@@ -55,7 +55,7 @@ export default function BidModal() {
 								type="submit"
 								className="btn btn-primary"
 							>
-								参与竞拍
+								竞拍
 							</Button>
 						</Space>
 					)}
