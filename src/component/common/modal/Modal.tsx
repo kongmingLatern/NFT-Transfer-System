@@ -33,7 +33,7 @@ export default function modal({
 				<ModalContent>
 					<ModalHeader>{title}</ModalHeader>
 					<ModalCloseButton />
-					<ModalBody>{bodyContent()}</ModalBody>
+					<ModalBody>{bodyContent && bodyContent()}</ModalBody>
 
 					{footerContent ? (
 						<ModalFooter>

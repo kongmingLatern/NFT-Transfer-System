@@ -14,20 +14,21 @@ export default function Form({ formItem, footer }: Partial<FormType>) {
 			{formItem.map((item) =>
 				item.type === 'file' ? (
 					<Input
+						{...register(item.name)}
 						height={50}
 						key={item.name}
 						type={item.type}
 						placeholder={item.label}
-						{...register(item.name)}
 						className="file-input file-input-bordered  w-full"
 					/>
 				) : (
 					<Input
+						{...register(item.name)}
 						height={50}
 						key={item.name}
 						type={item.type}
+						disabled={item.disabled ? item.disabled : false}
 						placeholder={item.label}
-						{...register(item.name)}
 					/>
 				)
 			)}
