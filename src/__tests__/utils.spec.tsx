@@ -1,4 +1,4 @@
-import { isLegalSortArray } from "@/component/beginner/Beginner";
+import { isLegalSortArray } from "@/component/common/beginner/Beginner";
 import { combineDate, getColumnIndexByKey } from "@/utils";
 import { columnsType, dataSourceType } from "@/views/admin/Main";
 

@@ -1,20 +1,18 @@
-import Admin from '@/pages/Admin'
-import Create from '@/pages/Create'
-import Detail from '@/pages/Detail'
-import Home from '@/pages/Home'
-import Login from '@/pages/Login'
-import Personal from '@/pages/Personal'
-import Register from '@/pages/Register'
-import Transaction from '@/pages/Transaction'
-import Main from '@/views/admin/Main'
-import {
-  createBrowserRouter,
-  Navigate,
-} from 'react-router-dom'
+import Beginner from "@/component/common/beginner/Beginner";
+import Admin from "@/pages/Admin";
+import Create from "@/pages/Create";
+import Detail from "@/pages/Detail";
+import Home from "@/pages/Home";
+import Login from "@/pages/Login";
+import Personal from "@/pages/Personal";
+import Register from "@/pages/Register";
+import Transaction from "@/pages/Transaction";
+import Main from "@/views/admin/Main";
+import { createBrowserRouter, Navigate } from "react-router-dom";
 
 export const router = createBrowserRouter([
   {
-    path: '/',
+    path: "/",
     children: [
       {
         index: true,
@@ -23,35 +21,35 @@ export const router = createBrowserRouter([
     ],
   },
   {
-    path: '/home',
+    path: "/home",
     element: <Home />,
   },
   {
-    path: '/login',
+    path: "/login",
     element: <Login />,
   },
   {
-    path: '/register',
+    path: "/register",
     element: <Register />,
   },
   {
-    path: '/detail',
+    path: "/detail",
     element: <Detail />,
   },
   {
-    path: '/personal',
+    path: "/personal",
     element: <Personal />,
   },
   {
-    path: '/paint',
+    path: "/paint",
     element: <Create />,
   },
   {
-    path: '/transaction',
+    path: "/transaction",
     element: <Transaction />,
   },
   {
-    path: '/admin',
+    path: "/admin",
     element: <Admin />,
     children: [
       {
@@ -59,21 +57,21 @@ export const router = createBrowserRouter([
         element: <Navigate to="/admin/user" />,
       },
       {
-        path: 'user',
+        path: "user",
         element: <Main />,
       },
       {
-        path: 'nft',
+        path: "nft",
         element: <Main />,
       },
       {
-        path: 'setting',
+        path: "setting",
         element: <Main />,
       },
       {
-        path: 'upgrade',
+        path: "upgrade",
         element: <Main />,
       },
     ],
   },
-])
+]);

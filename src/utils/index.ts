@@ -1,4 +1,4 @@
-import { Step } from '@/component/beginner/Beginner'
+import { Step } from '@/component/common/beginner/Beginner'
 import { columnsType } from '@/views/admin/Main'
 
 export function combineDate(month: number, day: number) {
