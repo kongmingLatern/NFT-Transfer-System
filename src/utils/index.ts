@@ -46,3 +46,13 @@ export function getColumnIndexByKey(
   })
   return index
 }
+
+export function isLegalSortArray(arr: Array<number>) {
+  const len = arr.length;
+  for (let i = 0; i < len - 1; i++) {
+    if (arr[i + 1] - arr[i] !== 1) {
+      return false;
+    }
+  }
+  return true;
+}
