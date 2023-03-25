@@ -10,7 +10,7 @@ import { useState } from "react";
 import message from "@/component/common/message/Message";
 import Bread from "@/component/home/Bread";
 import Item from "@/component/home/Item";
-import { TestBeginer } from "@/component/beginner/Beginner";
+import Beginner, { Step, TestBeginer } from "@/component/beginner/Beginner";
 
 export default function Home() {
   const [data, setData] = useState([820, 932, 901, 934, 1290, 1330, 1320]);
@@ -50,6 +50,16 @@ export default function Home() {
         </button>
 
         <TestBeginer />
+
+        {/* <Step order={1}>
+          <div>我是 Step1 </div>
+        </Step>
+        <Step order={2}>
+          <div>我是 Step2 </div>
+        </Step>
+        <Step order={3}>
+          <div>我是 Step3 </div>
+        </Step> */}
 
         <Echarts type="line" data={data} />
       </div>

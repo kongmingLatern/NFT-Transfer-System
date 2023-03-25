@@ -1,3 +1,4 @@
+import { Step } from '@/component/beginner/Beginner'
 import { columnsType } from '@/views/admin/Main'
 
 export function combineDate(month: number, day: number) {
@@ -55,4 +56,14 @@ export function isLegalSortArray(arr: Array<number>) {
     }
   }
   return true;
+}
+
+export function getChildrenOrderByProps(children: any) {
+  const orderList = [];
+  children.map((item) => {
+    if (item.type === Step) {
+      orderList.push(item.props.order);
+    }
+  });
+  return orderList.sort();
 }

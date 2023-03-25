@@ -1,10 +1,11 @@
-import { isLegalSortArray } from "@/utils";
+import { getChildrenOrderByProps, isLegalSortArray } from "@/utils";
 import React, { useMemo, useState } from "react";
 
 // NOTE: 新手导航
 function Beginner(props) {
   console.log(props);
   const { children } = props;
+  // NOTE: 获取到所有 Step 内部的 order 属性
   const orderList = useMemo(
     () => getChildrenOrderByProps(children),
     [children]
@@ -18,7 +19,7 @@ function Beginner(props) {
   return (
     <>
       {React.Children.map(children, (child) => {
-        if (child.props.order === currentStep) {
+        if (child?.props?.order === currentStep) {
           return (
             <>
               {React.cloneElement(child)}
@@ -30,18 +31,12 @@ function Beginner(props) {
               </button>
             </>
           );
+        } else {
+          return null;
         }
       })}
     </>
   );
-}
-
-function getChildrenOrderByProps(children: any) {
-  const orderList = [];
-  children.map((item) => {
-    orderList.push(item.props.order);
-  });
-  return orderList.sort();
 }
 
 // NOTE: 新手导航步骤
@@ -59,6 +54,7 @@ Beginner.Step = Step;
 export function TestBeginer() {
   return (
     <Beginner>
+      123123
       <Step order={1}>
         <div>1</div>
         <div>1</div>
