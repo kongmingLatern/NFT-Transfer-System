@@ -1,10 +1,8 @@
 import { getChildrenOrderByProps, isLegalSortArray } from "@/utils";
-import React, { useMemo, useState } from "react";
+import React, { Fragment, useMemo, useState } from "react";
 
 // NOTE: 新手导航
-function Beginner(props) {
-  console.log(props);
-  const { children } = props;
+function Beginner({ children }) {
   // NOTE: 获取到所有 Step 内部的 order 属性
   const orderList = useMemo(
     () => getChildrenOrderByProps(children),
@@ -18,10 +16,10 @@ function Beginner(props) {
   }
   return (
     <>
-      {React.Children.map(children, (child) => {
+      {children.map((child) => {
         if (child?.props?.order === currentStep) {
           return (
-            <>
+            <Fragment key={child}>
               {React.cloneElement(child)}
               <button
                 className="btn"
@@ -29,7 +27,7 @@ function Beginner(props) {
               >
                 下一步
               </button>
-            </>
+            </Fragment>
           );
         } else {
           return null;
@@ -54,7 +52,6 @@ Beginner.Step = Step;
 export function TestBeginer() {
   return (
     <Beginner>
-      123123
       <Step order={1}>
         <div>1</div>
         <div>1</div>
