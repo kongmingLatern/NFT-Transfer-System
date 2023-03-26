@@ -1,5 +1,6 @@
-import { getChildrenOrderByProps, isLegalSortArray, isObject } from "@/utils";
-import React, { Fragment, useMemo, useRef, useState } from "react";
+import { getChildrenOrderByProps, isLegalSortArray } from "@/utils";
+import React, { Fragment, useMemo, useState } from "react";
+import { Step } from "./Step";
 import "./style/beginner.css";
 
 interface BeginnerType {
@@ -10,17 +11,9 @@ interface BeginnerType {
     targetCover: Element & {
       style: Record<string, any>;
     },
-    setStep: () => void,
+    setStep: React.Dispatch<any>,
     onSkip: () => void
   ) => void;
-  onContinue: () => void;
-  onSkip: () => void;
-}
-
-interface StepType {
-  order: number;
-  children: any;
-  step: number;
 }
 
 // NOTE: 新手导航
@@ -28,8 +21,6 @@ function Beginner({
   type = "remove",
   children,
   render,
-  onContinue,
-  onSkip,
 }: Partial<BeginnerType>) {
   const orderList = useMemo(
     () => getChildrenOrderByProps(children),
@@ -37,7 +28,7 @@ function Beginner({
   );
   const [currentStep, setCurrentStep] = useState(orderList[0]);
 
-  function removeCover(currentStep) {
+  function removeCover(currentStep: number) {
     const cover: Element & {
       style: Record<string, any>;
     } = document.querySelector(`#cover${currentStep}`);
@@ -54,7 +45,7 @@ function Beginner({
     if (cover) {
       cover.style.display = "none";
       // 设置到最大值
-      setCurrentStep(9999);
+      setCurrentStep(Math.max);
     }
   }
 
@@ -111,169 +102,8 @@ function Beginner({
       return child;
     }
   });
-  // console.log(children);
-  // if (!Array.isArray(children) && children.props.children) {
-  //   return className ? (
-  //     <div className={className}>{render(children.props.children)}</div>
-  //   ) : (
-  //     render(children.props.children)
-  //   );
-  // }
-  // // NOTE: 获取到所有 Step 内部的 order 属性
-
-  // return className ? (
-  //   <div className={className}>{render(children)}</div>
-  // ) : (
-  //   render(children)
-  // );
-}
-
-function HighLight({ cover, children }) {
-  function helpers(node) {
-    // 获取到children的位置
-    if (!node) {
-      return;
-    }
-    const body = document.body;
-    const doc = document.documentElement;
-
-    const targetWidth = node?.clientWidth,
-      targetHeight = node?.clientHeight;
-    // page size
-    const pageWidth = doc?.scrollWidth,
-      pageHeight = doc?.scrollHeight;
-    // offset of node
-    const offsetTop =
-        node.getBoundingClientRect()?.top + (body?.scrollTop || doc?.scrollTop),
-      offsetLeft =
-        node.getBoundingClientRect()?.left +
-        (body?.scrollLeft || doc?.scrollLeft);
-
-    const top = offsetTop;
-    const right = pageWidth - targetWidth - offsetLeft;
-    const bottom = pageHeight - targetHeight - offsetTop;
-    const left = offsetLeft;
-
-    return {
-      targetHeight,
-      targetWidth,
-      pageHeight,
-      pageWidth,
-      offsetTop,
-      offsetLeft,
-      top,
-      right,
-      bottom,
-      left,
-    };
-  }
-  function addStyles(node, { targetHeight, targetWidth, offsetLeft, top }) {
-    if (!node) {
-      return;
-    }
-    console.log(node);
-    node.style.width = targetWidth + "px";
-    node.style.height = targetHeight + "px";
-    node.style.top = top + "px";
-    node.style.left = offsetLeft + "px";
-    // node.style.borderWidth =
-    //   offsetTop +
-    //   "px " +
-    //   (pageWidth - targetWidth - offsetLeft) +
-    //   "px " +
-    //   (pageHeight - targetHeight - offsetTop) +
-    //   "px " +
-    //   offsetLeft +
-    //   "px";
-    node.style.display = "block";
-  }
-  const renderChildren = () => {
-    return React.Children.map(children, (child, index) => {
-      return React.cloneElement(child, {
-        ref: (node) => {
-          if (index !== 0 || !node) {
-            return;
-          }
-          const positionInfo = helpers(node);
-          const coverNode = cover.current;
-          addStyles(coverNode, positionInfo);
-        },
-        key: child + index,
-      });
-    });
-  };
-  return (
-    <>
-      {/* 高亮显示 children   */}
-      {renderChildren()}
-    </>
-  );
-}
-
-// NOTE: 新手导航步骤
-function Step({ order, children, step }: Partial<StepType>) {
-  console.log("step", step);
-  console.log("order", order);
-  console.log("children", children);
-
-  const cover = useRef(null);
-  // 根据order来渲染
-  return (
-    <>
-      {/* 需要对这个children进行高亮处理 */}
-      {/* 遮罩层 */}
-      {step === order && (
-        <div className="cover" id={"cover" + order} ref={cover}></div>
-      )}
-      <HighLight cover={cover}>
-        <div>
-          {React.Children.map(children, (child) => {
-            return React.cloneElement(child, {
-              key: child,
-              order,
-            });
-          })}
-        </div>
-      </HighLight>
-    </>
-  );
 }
 
 Beginner.Step = Step;
-
-export function TestBeginer() {
-  return (
-    <Beginner>
-      <Step order={1}>
-        <div>第一部分的内容</div>
-        <div>第一部分的内容</div>
-        <div>第一部分的内容</div>
-      </Step>
-      <Step order={2}>
-        <div>2</div>
-        <div>2</div>
-        <div>2</div>
-        <div>2</div>
-        <div>2</div>
-      </Step>
-      <Step order={4}>
-        <div>10</div>
-        <div>10</div>
-        <div>10</div>
-        <div>10</div>
-        <div>10</div>
-      </Step>
-      <Step order={3}>
-        <div>8</div>
-        <div>8</div>
-        <div>8</div>
-        <div>8</div>
-        <div>8</div>
-      </Step>
-    </Beginner>
-  );
-}
-
-export { Step };
 
 export default Beginner;

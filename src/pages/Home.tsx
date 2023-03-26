@@ -8,7 +8,8 @@ import CardList from "@/views/home/CardList";
 import Echarts from "@/echarts/Echarts";
 import { useState } from "react";
 import message from "@/component/common/message/Message";
-import Beginner, { Step } from "@/component/common/beginner/Beginner";
+import Beginner from "@/component/common/beginner/Beginner";
+import { Step } from "@/component/common/beginner/Step";
 
 export default function Home() {
   const [data, setData] = useState([820, 932, 901, 934, 1290, 1330, 1320]);
