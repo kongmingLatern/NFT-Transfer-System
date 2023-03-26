@@ -43,11 +43,22 @@ export function HighLight({ cover, children }) {
     if (!node) {
       return;
     }
+    const root: any = document.querySelector("#root");
+    console.log(root);
     console.log(node);
+    // 如果 top 大于 当前页面高度，页面就滚动到指定位置
     node.style.width = targetWidth + "px";
     node.style.height = targetHeight + "px";
     node.style.top = top + "px";
     node.style.left = offsetLeft + "px";
+    if (top > window.innerHeight) {
+      root.style.transition = "all .6s";
+      root.style.transform = `translateY(-${top}px)`;
+    }
+
+    root.style.position = "fixed";
+    root.style.inset = 0;
+    root.style.zIndex = 1001;
     // node.style.borderWidth =
     //   offsetTop +
     //   "px " +
@@ -58,6 +69,8 @@ export function HighLight({ cover, children }) {
     //   offsetLeft +
     //   "px";
     node.style.display = "block";
+
+    // 找到节点 root
   }
   const renderChildren = () => {
     return React.Children.map(children, (child, index) => {

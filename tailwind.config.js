@@ -20,7 +20,7 @@ module.exports = {
     themes: ['emerald'],
   },
 
-  // corePlugins: {
-  //   preflight: false,
-  // },
+  corePlugins: {
+    preflight: false,
+  },
 }

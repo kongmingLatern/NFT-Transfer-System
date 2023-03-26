@@ -1,13 +1,13 @@
-import Carousel, { CarouselProps } from 'nuka-carousel'
+import Carousel, { CarouselProps } from "nuka-carousel";
 
-import Image from '@/assets/gd1.png'
+import Image from "@/assets/gd1.png";
 export default function SimpleSlider() {
   const props: CarouselProps = {
     autoplay: true,
     zoomScale: 0.5,
-    cellAlign: 'center',
+    cellAlign: "center",
     cellSpacing: 20,
-  }
+  };
   return (
     <Carousel {...props}>
       <img className="mx-auto h-[300px]" src={Image} />
@@ -16,5 +16,5 @@ export default function SimpleSlider() {
       <img className="mx-auto h-[300px]" src={Image} />
       <img className="mx-auto h-[300px]" src={Image} />
     </Carousel>
-  )
+  );
 }

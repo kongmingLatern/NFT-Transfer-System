@@ -10,6 +10,7 @@ import { useState } from "react";
 import message from "@/component/common/message/Message";
 import Beginner from "@/component/common/beginner/Beginner";
 import { Step } from "@/component/common/beginner/Step";
+import Test from "@/component/common/beginner/Test";
 
 export default function Home() {
   const [data, setData] = useState([820, 932, 901, 934, 1290, 1330, 1320]);
@@ -35,7 +36,7 @@ export default function Home() {
         <Header />
       </div>
 
-      <Beginner
+      {/* <Beginner
         type={"origin"}
         render={(step, targetCover, setStep, skip) => (
           <>
@@ -48,7 +49,8 @@ export default function Home() {
             <button onClick={() => skip()}>skip</button>
           </>
         )}
-      >
+      > */}
+      <Beginner type={"origin"}>
         <Step order={1}>
           <Carousel />
         </Step>
@@ -69,9 +71,9 @@ export default function Home() {
         <Divider />
 
         <Title title={"Trending In Art"} />
-        <Step order={4}>
-          <CardList />
-        </Step>
+        {/* <Step order={4}> */}
+        <CardList />
+        {/* </Step> */}
 
         <Divider />
 

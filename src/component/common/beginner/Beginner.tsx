@@ -32,9 +32,12 @@ function Beginner({
     const cover: Element & {
       style: Record<string, any>;
     } = document.querySelector(`#cover${currentStep}`);
+    const root = document.querySelector(`#root`);
+    console.log("removeRoot", root);
     if (cover) {
-      cover.style.display = "none";
       setCurrentStep(currentStep + 1);
+      cover.style.display = "none";
+      root.style = "";
     }
   }
 
