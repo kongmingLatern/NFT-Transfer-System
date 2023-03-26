@@ -5,9 +5,10 @@ interface StepType {
 	order: number;
 	children: any;
 	step: number;
+  description: string
 }
 // NOTE: 新手导航步骤
-export function Step({ order, children, step }: Partial<StepType>) {
+export function Step({ order, children, step, description = '' }: Partial<StepType>) {
 	const cover = useRef(null);
 	// 根据order来渲染
 	return (
@@ -18,7 +19,7 @@ export function Step({ order, children, step }: Partial<StepType>) {
 				<div className="cover" id={'cover' + order} ref={cover}></div>
 			)}
 			<HighLight cover={cover}>
-				<div>
+				<div className="relative">
 					{typeof children === 'string'
 						? children
 						: React.Children.map(children, (child) => {

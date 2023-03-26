@@ -37,12 +37,12 @@ export default function Home() {
 			</div>
 
 			<Beginner type={'origin'}>
-				<Step order={1}>
+				<Step order={1} description="123123">
 					<Carousel />
 				</Step>
 				{/* <TestBeginer /> */}
 				<Divider />
-				<Step order={3}>1123123</Step>
+				{/* <Step order={3}>1123123</Step> */}
 				<Tabs
 					className={'px-4'}
 					tabList={tabList}
@@ -58,7 +58,7 @@ export default function Home() {
 
 				<Divider />
 
-				<Step order={2}>
+				<Step order={2} description="这个是步骤2">
 					<button className="btn" onClick={() => setData([1, 2, 3])}>
 						setNum
 					</button>
@@ -68,7 +68,9 @@ export default function Home() {
 					HH
 				</button>
 
-				<Echarts type="line" data={data} />
+				<Step order={3} description="步骤3">
+					<Echarts type="line" data={data} />
+				</Step>
 			</Beginner>
 		</>
 	);
