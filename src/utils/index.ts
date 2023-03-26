@@ -59,11 +59,21 @@ export function isLegalSortArray(arr: Array<number>) {
 }
 
 export function getChildrenOrderByProps(children: any) {
+  console.log('children', children);
   const orderList = [];
-  children.map((item) => {
-    if (item.type === Step) {
-      orderList.push(item.props.order);
-    }
-  });
+  if (!children) return orderList;
+  else if (isObject(children) && children.type === Step) {
+    orderList.push(children.props.order);
+  } else {
+    children.map((item) => {
+      if (item.type === Step) {
+        orderList.push(item.props.order);
+      }
+    });
+  }
+  console.log('orderList', orderList);
   return orderList.sort();
+}
+export function isObject(obj: any) {
+  return obj !== null && typeof obj === 'object';
 }

@@ -10,7 +10,10 @@ import { useState } from "react";
 import message from "@/component/common/message/Message";
 import Bread from "@/component/home/Bread";
 import Item from "@/component/home/Item";
-import Beginner, { Step, TestBeginer } from "@/component/common/beginner/Beginner";
+import Beginner, {
+  Step,
+  TestBeginer,
+} from "@/component/common/beginner/Beginner";
 
 export default function Home() {
   const [data, setData] = useState([820, 932, 901, 934, 1290, 1330, 1320]);
@@ -21,48 +24,49 @@ export default function Home() {
 
   return (
     <>
-      <Header />
+      <div className="min-h-[4rem]">
+        <Header />
+      </div>
 
-      <div className="mt-[60px]">
+      <Beginner type={"origin"}>
+        <Step order={1}>
+          <Carousel />
+        </Step>
+        {/* <TestBeginer /> */}
         <Divider />
-        <Carousel />
         <Tabs
           className={"px-4"}
           tabList={tabList}
           tabPanelList={tabPanelList}
         />
 
+        {/* <Step order={2}> */}
         <Title title={"Trending"} />
+        {/* </Step> */}
         <Trending />
         <Divider />
 
         <Title title={"Trending In Art"} />
-        <CardList />
+        <Step order={2}>
+          <CardList />
+        </Step>
 
         <Divider />
 
+        {/* <Step order={2}> */}
         <button className="btn" onClick={() => setData([1, 2, 3])}>
           setNum
         </button>
+        {/* </Step> */}
 
         <button className="btn" onClick={() => message.error("123")}>
           HH
         </button>
 
-        <TestBeginer />
-
-        {/* <Step order={1}>
-          <div>我是 Step1 </div>
-        </Step>
-        <Step order={2}>
-          <div>我是 Step2 </div>
-        </Step>
         <Step order={3}>
-          <div>我是 Step3 </div>
-        </Step> */}
-
-        <Echarts type="line" data={data} />
-      </div>
+          <Echarts type="line" data={data} />
+        </Step>
+      </Beginner>
     </>
   );
 }
