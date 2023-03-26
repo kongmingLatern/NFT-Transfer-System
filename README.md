@@ -1,7 +1,8 @@
-# NFT-Substrate-Frontend
+# NFT-Transfer-System
 
 ## 目前完成的功能点
 
+- [x] 新手导航
 - [x] 画板工具（引入了 `paint-canvas`，适配了 `i18n`）
 - [x] 可视化数据的展示（引入了 `Echarts`，并进行了简单封装）
 - [x] 人脸识别（引入了 `face-api.js`）
@@ -13,7 +14,11 @@
 - [x] Input
 - [x] Popover
 - [x] Space
+- [x] Spin
 - [x] Table
+- [x] Beginner
+- [x] Step
+- [x] Modal
 
 ## 前端技术架构
 
@@ -22,7 +27,8 @@
 - Vite
 - Vitest（测试框架）
 - Canvas（画板）
-- i18n
+- I18n
+- Iconify
 - Husky
 - Eslint
 - Prettier
@@ -33,6 +39,7 @@
 - DaisyUI
 - Chakra UI
 - Nuka Carousel
+- React-hook-form
 
 ## 后端技术架构
 
