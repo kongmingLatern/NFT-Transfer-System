@@ -3,9 +3,18 @@ import React, { Fragment, useMemo, useRef, useState } from "react";
 import "./style/beginner.css";
 
 interface BeginnerType {
-  className: string;
   type: "remove" | "origin";
   children: any;
+  render: (
+    step: number,
+    targetCover: Element & {
+      style: Record<string, any>;
+    },
+    setStep: () => void,
+    onSkip: () => void
+  ) => void;
+  onContinue: () => void;
+  onSkip: () => void;
 }
 
 interface StepType {
@@ -14,48 +23,13 @@ interface StepType {
   step: number;
 }
 
-function render(children) {
-  const orderList = useMemo(
-    () => getChildrenOrderByProps(children),
-    [children]
-  );
-  const [currentStep, setCurrentStep] = useState(orderList[0]);
-  console.log("render", currentStep);
-  // 根据 orderList 的顺序进行渲染
-  if (!isLegalSortArray(orderList)) {
-    console.warn("order 顺序不合法，各个步骤之间的差值只为1");
-    return;
-  } else if (currentStep > orderList[orderList.length - 1]) {
-    console.warn("已经是最后一步了");
-    return children;
-  }
-
-  return React.Children.map(children, (child) => {
-    // NOTE: 如果当前的 order 等于当前的步骤，就渲染出来
-    if (child?.props?.order && child?.props?.order === currentStep) {
-      console.log(child);
-      return (
-        <Fragment key={child}>
-          {React.cloneElement(child, { order: currentStep, step: currentStep })}
-          <button
-            className="btn"
-            onClick={() => setCurrentStep(currentStep + 1)}
-          >
-            下一步
-          </button>
-        </Fragment>
-      );
-    } else {
-      return child;
-    }
-  });
-}
-
 // NOTE: 新手导航
 function Beginner({
-  className,
   type = "remove",
   children,
+  render,
+  onContinue,
+  onSkip,
 }: Partial<BeginnerType>) {
   const orderList = useMemo(
     () => getChildrenOrderByProps(children),
@@ -64,13 +38,23 @@ function Beginner({
   const [currentStep, setCurrentStep] = useState(orderList[0]);
 
   function removeCover(currentStep) {
-    const cover: Element = document.querySelector(`#cover${currentStep}`);
-    console.log("cover", cover);
+    const cover: Element & {
+      style: Record<string, any>;
+    } = document.querySelector(`#cover${currentStep}`);
     if (cover) {
       cover.style.display = "none";
-      console.log("remove", cover);
       setCurrentStep(currentStep + 1);
-      // cover.remove();
+    }
+  }
+
+  function skip() {
+    const cover: Element & {
+      style: Record<string, any>;
+    } = document.querySelector(`#cover${currentStep}`);
+    if (cover) {
+      cover.style.display = "none";
+      // 设置到最大值
+      setCurrentStep(9999);
     }
   }
 
@@ -98,9 +82,26 @@ function Beginner({
               order: currentStep,
               step: currentStep,
             })}
-            <button className="btn" onClick={() => removeCover(currentStep)}>
-              下一步
-            </button>
+            {render ? (
+              render(
+                currentStep,
+                document.querySelector(`#cover${currentStep}`),
+                setCurrentStep,
+                skip
+              )
+            ) : (
+              <>
+                <button
+                  className="btn"
+                  onClick={() => removeCover(currentStep)}
+                >
+                  下一步
+                </button>
+                <button className="btn" onClick={() => skip()}>
+                  跳过
+                </button>
+              </>
+            )}
           </Fragment>
         );
       } else {

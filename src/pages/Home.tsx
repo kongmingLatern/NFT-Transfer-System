@@ -8,12 +8,7 @@ import CardList from "@/views/home/CardList";
 import Echarts from "@/echarts/Echarts";
 import { useState } from "react";
 import message from "@/component/common/message/Message";
-import Bread from "@/component/home/Bread";
-import Item from "@/component/home/Item";
-import Beginner, {
-  Step,
-  TestBeginer,
-} from "@/component/common/beginner/Beginner";
+import Beginner, { Step } from "@/component/common/beginner/Beginner";
 
 export default function Home() {
   const [data, setData] = useState([820, 932, 901, 934, 1290, 1330, 1320]);
@@ -22,13 +17,37 @@ export default function Home() {
   const tabList = ["All", "Art", "Music", "Video"];
   const tabPanelList = ["All", "Art", "Music", "Video"];
 
+  function removeCover(
+    step: number,
+    targetCover: Element & { style: Record<string, any> },
+    setStep,
+    skip?
+  ) {
+    message.success("下一步");
+    setStep(step + 1);
+    targetCover.style.display = "none";
+  }
+
   return (
     <>
       <div className="min-h-[4rem]">
         <Header />
       </div>
 
-      <Beginner type={"origin"}>
+      <Beginner
+        type={"origin"}
+        render={(step, targetCover, setStep, skip) => (
+          <>
+            <button
+              className="btn"
+              onClick={() => removeCover(step, targetCover, setStep)}
+            >
+              Next Step
+            </button>
+            <button onClick={() => skip()}>skip</button>
+          </>
+        )}
+      >
         <Step order={1}>
           <Carousel />
         </Step>
@@ -41,13 +60,15 @@ export default function Home() {
         />
 
         {/* <Step order={2}> */}
-        <Title title={"Trending"} />
+        <Step order={2}>
+          <Title title={"Trending"} />
+        </Step>
         {/* </Step> */}
         <Trending />
         <Divider />
 
         <Title title={"Trending In Art"} />
-        <Step order={2}>
+        <Step order={4}>
           <CardList />
         </Step>
 
