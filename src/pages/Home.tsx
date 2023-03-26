@@ -10,7 +10,6 @@ import { useState } from "react";
 import message from "@/component/common/message/Message";
 import Beginner from "@/component/common/beginner/Beginner";
 import { Step } from "@/component/common/beginner/Step";
-import Test from "@/component/common/beginner/Test";
 
 export default function Home() {
   const [data, setData] = useState([820, 932, 901, 934, 1290, 1330, 1320]);
