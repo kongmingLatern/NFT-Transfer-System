@@ -32,9 +32,7 @@ export default function Home() {
 
 	return (
 		<>
-			<div className="min-h-[4rem]">
-				<Header />
-			</div>
+			<Header />
 
 			{/* <Beginner type={'origin'}> */}
 			{/* <Step order={1} description="123123"> */}

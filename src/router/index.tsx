@@ -1,9 +1,9 @@
-import Beginner from '@/component/common/beginner/Beginner';
 import Admin from '@/pages/Admin';
 import Create from '@/pages/Create';
 import Detail from '@/pages/Detail';
 import Home from '@/pages/Home';
 import Login from '@/pages/Login';
+import BuyMessage from '@/pages/Message';
 import Personal from '@/pages/Personal';
 import Register from '@/pages/Register';
 import Transaction from '@/pages/Transaction';
@@ -47,6 +47,10 @@ export const router = createBrowserRouter([
 	{
 		path: '/transaction',
 		element: <Transaction />
+	},
+	{
+		path: '/message',
+		element: <BuyMessage />
 	},
 	{
 		path: '/admin',
