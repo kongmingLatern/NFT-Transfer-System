@@ -55,7 +55,11 @@ export default function Upload() {
 					]}
 					footer={() => (
 						<Space className="float-right mt-2">
-							<Button colorScheme={'messenger'} className="btn btn-primary">
+							<Button
+								type="submit"
+								colorScheme={'messenger'}
+								className="btn btn-primary"
+							>
 								上传
 							</Button>
 						</Space>

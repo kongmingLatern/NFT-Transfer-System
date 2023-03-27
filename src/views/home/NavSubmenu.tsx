@@ -40,15 +40,17 @@ export default function NavSubmenu() {
 			</li>
 			<li>
 				<Shoppingcart />
-				{/* <span>
-          <Icon
-            icon="material-symbols:shopping-cart-rounded"
-            color="rgba(204, 204, 204, 0.8)"
-            width={25}
-            height={25}
-          />
-          购物车
-        </span> */}
+			</li>
+			<li>
+				<Link to={'/message'}>
+					<Icon
+						icon="tabler:message"
+						color="rgba(204, 204, 204, 0.8)"
+						width={25}
+						height={25}
+					/>
+					消息
+				</Link>
 			</li>
 		</ul>
 	);

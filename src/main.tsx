@@ -15,11 +15,11 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
 		<RouterProvider router={router} />
 	</ChakraProvider>
 );
-start({
-	sandbox: {
-		experimentalStyleIsolation: true
-	}
-});
+// start({
+// 	sandbox: {
+// 		experimentalStyleIsolation: true
+// 	}
+// });
 
 // 在加载 JS 时在页面上挂载消息 model
 const messageModelContainer = document.createElement('div');
