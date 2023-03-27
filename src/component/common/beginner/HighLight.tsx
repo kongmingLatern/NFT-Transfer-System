@@ -43,14 +43,13 @@ export function HighLight({ cover, children }) {
 		if (!node) {
 			return;
 		}
-		const root: any = document.querySelector('#root');
-		console.log(root);
-		console.log(node);
-		// 如果 top 大于 当前页面高度，页面就滚动到指定位置
 		node.style.width = targetWidth + 'px';
 		node.style.height = targetHeight + 'px';
 		node.style.top = top + 'px';
 		node.style.left = offsetLeft + 'px';
+
+		const root: any = document.querySelector('#root');
+		// 如果 top 大于 当前页面高度，页面就滚动到指定位置
 		if (top > window.innerHeight) {
 			root.style.transition = 'all .6s';
 			root.style.transform = `translateY(-${top}px)`;
@@ -59,15 +58,6 @@ export function HighLight({ cover, children }) {
 		root.style.position = 'fixed';
 		root.style.inset = 0;
 		root.style.zIndex = 1001;
-		// node.style.borderWidth =
-		//   offsetTop +
-		//   "px " +
-		//   (pageWidth - targetWidth - offsetLeft) +
-		//   "px " +
-		//   (pageHeight - targetHeight - offsetTop) +
-		//   "px " +
-		//   offsetLeft +
-		//   "px";
 		node.style.display = 'block';
 
 		// 找到节点 root

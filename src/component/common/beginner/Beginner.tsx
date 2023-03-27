@@ -47,7 +47,7 @@ function Beginner({
 		const cover: Element & {
 			style: Record<string, any>;
 		} = document.querySelector(`#cover${currentStep}`);
-		const confirm = document.querySelector(`#confirm`);
+		const confirm: any = document.querySelector(`#confirm`);
 		if (cover) {
 			cover.style.display = 'none';
 			confirm.style.display = 'none';
@@ -92,7 +92,10 @@ function Beginner({
 										skip
 									)
 								) : (
-									<div className="absolute bottom-[-5] right-16 z-[10000] bg-blue-400 text-white w-[300px] h-[200px] rounded-lg" id='confirm'>
+									<div
+										className="absolute bottom-[-5] right-16 z-[10000] bg-blue-400 text-white w-[300px] h-[200px] rounded-lg"
+										id="confirm"
+									>
 										<Confirm
 											currentStep={currentStep}
 											description={child.props.description}
