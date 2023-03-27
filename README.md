@@ -25,6 +25,8 @@
 
 - TypeScript
 - React
+- Vue3
+- QianKun
 - Vite
 - Vitest（测试框架）
 - Canvas（画板）
