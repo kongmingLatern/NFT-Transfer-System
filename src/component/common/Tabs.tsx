@@ -14,7 +14,7 @@ export default function TabComponent({
 	return (
 		<>
 			<Tabs className={className}>
-				<TabList>
+				<TabList className="justify-center">
 					{tabList.map((item, index) => (
 						<Tab key={index}>{item}</Tab>
 					))}

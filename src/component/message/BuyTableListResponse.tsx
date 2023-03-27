@@ -1,7 +1,7 @@
 import Space from '../common/space/Space';
 import AdminTable from '../common/table/Table';
 
-export default function BuyTableList() {
+export default function BuyTableListResponse() {
 	const columns = [
 		{
 			title: 'ID',
@@ -9,7 +9,7 @@ export default function BuyTableList() {
 			key: 'id'
 		},
 		{
-			title: '求购者姓名',
+			title: '响应者姓名',
 			id: 'username',
 			key: 'username'
 		},
@@ -19,9 +19,13 @@ export default function BuyTableList() {
 			key: 'nft_name'
 		},
 		{
-			title: '求购金额',
+			title: '响应金额',
 			id: 'price',
-			key: 'price'
+			key: 'price',
+			render: (text, record) => {
+				console.log(text, record);
+				return <div>{text}</div>;
+			}
 		},
 		{
 			title: '操作',
@@ -33,7 +37,7 @@ export default function BuyTableList() {
 						className="btn btn-secondary w-[100px] font-thin text-white"
 						onClick={() => console.log(record.id)}
 					>
-						响应
+						确认
 					</button>
 					<button className="btn btn-error w-[100px] font-thin text-white">
 						忽略
