@@ -36,42 +36,38 @@ export default function Home() {
 				<Header />
 			</div>
 
-			<Beginner type={'origin'}>
-				<Step order={1} description="123123">
-					<Carousel />
-				</Step>
-				{/* <TestBeginer /> */}
-				<Divider />
-				{/* <Step order={3}>1123123</Step> */}
-				<Tabs
-					className={'px-4'}
-					tabList={tabList}
-					tabPanelList={tabPanelList}
-				/>
+			{/* <Beginner type={'origin'}> */}
+			{/* <Step order={1} description="123123"> */}
+			<Carousel />
+			{/* </Step> */}
+			{/* <TestBeginer /> */}
+			<Divider />
+			{/* <Step order={3}>1123123</Step> */}
+			<Tabs className={'px-4'} tabList={tabList} tabPanelList={tabPanelList} />
 
-				<Title title={'Trending'} />
-				<Trending />
-				<Divider />
+			<Title title={'Trending'} />
+			<Trending />
+			<Divider />
 
-				<Title title={'Trending In Art'} />
-				<CardList />
+			<Title title={'Trending In Art'} />
+			<CardList />
 
-				<Divider />
+			<Divider />
 
-				<Step order={2} description="这个是步骤2">
-					<button className="btn" onClick={() => setData([1, 2, 3])}>
-						setNum
-					</button>
-				</Step>
+			{/* <Step order={2} description="这个是步骤2"> */}
+			<button className="btn" onClick={() => setData([1, 2, 3])}>
+				setNum
+			</button>
+			{/* </Step> */}
 
-				<button className="btn" onClick={() => message.error('123')}>
-					HH
-				</button>
+			<button className="btn" onClick={() => message.error('123')}>
+				HH
+			</button>
 
-				<Step order={3} description="步骤3">
-					<Echarts type="line" data={data} />
-				</Step>
-			</Beginner>
+			{/* <Step order={3} description="步骤3"> */}
+			<Echarts type="line" data={data} />
+			{/* </Step> */}
+			{/* </Beginner> */}
 		</>
 	);
 }

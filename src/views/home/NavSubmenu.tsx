@@ -24,7 +24,7 @@ export default function NavSubmenu() {
 						width={25}
 						height={25}
 					/>
-					NFT 画展
+					<Link to={'/nft_gallery'}>NFT 画展</Link>
 				</span>
 			</li>
 			<li>
