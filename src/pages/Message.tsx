@@ -1,11 +1,11 @@
 import Header from '@/component/common/Header';
-import BuyList from '@/component/message/BuyList';
+import BuyTableList from '@/component/message/BuyTableList';
 
 export default function BuyMessage() {
 	return (
 		<>
 			<Header />
-			<BuyList />
+			<BuyTableList />
 		</>
 	);
 }

@@ -1,30 +1,31 @@
 import Space from '../common/space/Space';
 import AdminTable from '../common/table/Table';
 
-export default function BuyList() {
+export default function BuyTableList() {
 	const columns = [
 		{
 			title: 'ID',
-			id: 'ID',
-			key: 'ID'
+			id: 'id',
+			key: 'id'
 		},
 		{
 			title: '响应者姓名',
 			id: 'username',
-			key: 'username',
-			render: (text, record) => <div>{text}</div>
+			key: 'username'
 		},
 		{
 			title: 'NFT 名称',
 			id: 'nft_name',
-			key: 'nft_name',
-			render: (text, record) => <div>{text}</div>
+			key: 'nft_name'
 		},
 		{
 			title: '响应金额',
 			id: 'price',
 			key: 'price',
-			render: (text, record) => <div>{text}</div>
+			render: (text, record) => {
+				console.log(text, record);
+				return <div>{text}</div>;
+			}
 		},
 		{
 			title: '操作',
@@ -45,26 +46,16 @@ export default function BuyList() {
 			)
 		}
 	];
-	const dataSource = [
-		{
-			id: '1',
-			key: '1',
+	const dataSource = [];
+	for (let i = 0; i < 50; i++) {
+		dataSource.push({
+			id: i.toString(),
+			key: i.toString(),
 			username: 'John Doe',
-			nft_name: 'NFT 1',
+			nft_name: `NFT ${i}`,
 			price: '1000',
 			operation: '操作'
-		},
-
-		{
-			id: '2',
-			key: '2',
-			username: 'John Doe',
-			nft_name: 'NFT 2',
-			price: '2000',
-			operation: '操作'
-		}
-	];
-	return (
-			<AdminTable columns={columns} dataSource={dataSource} />
-	);
+		});
+	}
+	return <AdminTable columns={columns} dataSource={dataSource} />;
 }
