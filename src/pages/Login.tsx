@@ -97,7 +97,6 @@ export default function Login({ name = '登录' }: LoginType) {
 	return (
 		<>
 			<Header auth={false} text={name} />
-			<Divider />
 			<div className={styles.img}>
 				<Card
 					direction={{ base: 'column', sm: 'row' }}
