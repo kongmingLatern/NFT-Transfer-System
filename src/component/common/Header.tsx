@@ -22,19 +22,18 @@ export default function Header({
 							{auth ? '' : ` > ${text}`}
 						</span>
 					</button>
-					<div className="form-control w-[100%] relative">
-						{auth ? (
-							<>
-								<SearchInput
-									search={(value) => {
-										console.log('search', value);
-									}}
-								/>
-							</>
-						) : (
-							''
-						)}
-					</div>
+					{auth ? (
+						<>
+							<SearchInput
+								className={'w-[400px]'}
+								search={(value) => {
+									console.log('search', value);
+								}}
+							/>
+						</>
+					) : (
+						''
+					)}
 				</div>
 				{auth ? (
 					<div className="gap-2">

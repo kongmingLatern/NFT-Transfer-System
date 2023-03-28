@@ -11,7 +11,7 @@ export default function Upload() {
 
 	return (
 		<Modal
-			open={(onOpen) => <span onClick={() => onOpen()}>upload</span>}
+			open={(onOpen) => <span onClick={() => onOpen()}>Upload</span>}
 			title="上传"
 			bodyContent={(onClose) => {
 				function mentionCloseMsg(msg) {

@@ -1,5 +1,6 @@
 import Space from '@/component/common/space/Space';
 import Table from '@/component/common/table/Table';
+import SearchInput from '@/component/home/SearchInput';
 
 export default function OrderManage() {
 	const columns = [
@@ -77,8 +78,14 @@ export default function OrderManage() {
 			operation: '查看'
 		});
 	}
+	function search(value) {
+		console.log('search', value);
+	}
 	return (
 		<>
+			<div className="flex justify-end mb-2 pr-4 mt-2">
+				<SearchInput className={'w-[300px]'} search={search} />
+			</div>
 			<Table dataSource={dataSource} columns={columns} />
 		</>
 	);
