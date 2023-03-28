@@ -1,28 +1,33 @@
-export default function ImgList({ image }) {
-	function getImageSize() {
-		const img = new Image();
-		img.src = image;
-		const width = img.width;
-		const height = img.height;
-		return {
-			width,
-			height
-		};
-	}
-	// 获取 Image 的尺寸大小
-	const { width, height } = getImageSize();
-	const style = {
-		backgroundImage: `url(${image})`,
-		height: `${height / 3}px`
+import { useEffect, useState } from 'react';
+
+function getImageSize(image) {
+	const img = new Image();
+	img.src = image;
+	const width = img.width;
+	const height = img.height;
+	return {
+		width,
+		height
 	};
+}
+export default function ImgList({ image }) {
+	const { width, height } = getImageSize(image);
+	// 获取 Image 的尺寸大小
+	const [style, setStyle] = useState({});
+	console.log('width', width);
+	console.log('height', height);
+	const commonStyle = {
+		width: `${width}px`,
+		height: `${height}px`
+	};
+	useEffect(() => {
+		setStyle({
+			backgroundImage: `url(${image})`,
+			height: `${height / 3}px`
+		});
+	}, []);
 	return (
-		<div
-			className={`mx-auto grid grid-cols-3 gap-3`}
-			style={{
-				width: `${width}px`,
-				height: `${height}px`
-			}}
-		>
+		<div className={`mx-auto grid grid-cols-3 gap-3`} style={commonStyle}>
 			<div
 				className="bg-no-repeat bg-left-top brightness-50"
 				style={style}
