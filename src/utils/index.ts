@@ -59,7 +59,6 @@ export function isLegalSortArray(arr: Array<number>) {
 }
 
 export function getChildrenOrderByProps(children: any) {
-  console.log('children', children);
   const orderList = [];
   if (!children) return orderList;
   else if (isObject(children) && children.type === Step) {
@@ -71,7 +70,6 @@ export function getChildrenOrderByProps(children: any) {
       }
     });
   }
-  console.log('orderList', orderList);
   return orderList.sort();
 }
 export function isObject(obj: any) {

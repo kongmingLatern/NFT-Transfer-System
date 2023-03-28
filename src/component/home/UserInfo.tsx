@@ -41,6 +41,9 @@ export default function UserInfo() {
 						<Upload />
 					</li>
 					<li>
+						<Link to={'/collection'}>Collection</Link>
+					</li>
+					<li>
 						<a>Settings</a>
 					</li>
 					<li>

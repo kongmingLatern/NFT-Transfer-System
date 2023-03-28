@@ -2,7 +2,13 @@ import Modal from '@/component/common/modal/Modal';
 import Form from '../common/form/Form';
 import Space from '../common/space/Space';
 import { Button } from '@chakra-ui/react';
+import { DetailProvider } from '@/pages/Detail';
+import { useContext } from 'react';
 export default function BidModal() {
+	const { nft_name, price, lower_bid, high_bid } = useContext(
+		DetailProvider as any
+	);
+	console.log('price', price, lower_bid, high_bid);
 	return (
 		<Modal
 			open={(onOpen) => (
@@ -22,25 +28,29 @@ export default function BidModal() {
 							label: '竞拍商品名称',
 							type: 'text',
 							name: 'bid_name',
-							disabled: true
+							disabled: true,
+							value: `竞拍商品名称${nft_name}`
 						},
 						{
 							label: '当前竞价',
-							type: 'number',
+							type: 'text',
 							name: 'bid_price',
-							disabled: true
+							disabled: true,
+							value: `当前竞价${price}`
 						},
 						{
 							label: '最低竞拍价格起伏',
-							type: 'number',
+							type: 'text',
 							name: 'lower_bid',
-							disabled: true
+							disabled: true,
+							value: `最低竞拍价格起伏${lower_bid}`
 						},
 						{
 							label: '最高竞拍价格',
-							type: 'number',
+							type: 'text',
 							name: 'high_bid',
-							disabled: true
+							disabled: true,
+							value: `最高竞拍价格${high_bid}`
 						},
 						{
 							label: '请输入竞拍价格',

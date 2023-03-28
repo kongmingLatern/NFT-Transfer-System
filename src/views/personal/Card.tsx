@@ -14,8 +14,10 @@ import { Link } from 'react-router-dom';
 import Modal from '@/component/common/modal/Modal';
 import Form from '@/component/common/form/Form';
 import Space from '@/component/common/space/Space';
+import { useState } from 'react';
 
 export default function PersonalCard() {
+	const [user, setUser] = useState('凤之兮原');
 	return (
 		<div className="card flex-row">
 			{/* 左侧 */}
@@ -41,13 +43,15 @@ export default function PersonalCard() {
 								</button>
 							)}
 							title={'编辑个人信息'}
-							bodyContent={() => (
+							bodyContent={(onClose) => (
 								<Form
 									formItem={[
 										{
 											label: '用户名',
 											name: 'username',
-											type: 'text'
+											type: 'text',
+											value: user,
+											onChange: setUser
 										},
 										{
 											label: '密码',
@@ -57,7 +61,8 @@ export default function PersonalCard() {
 										{
 											label: '个人简介',
 											name: 'introduction',
-											type: 'textarea'
+											type: 'textarea',
+											value: '每天进步一点点'
 										},
 										{
 											label: '头像',
@@ -66,8 +71,12 @@ export default function PersonalCard() {
 										}
 									]}
 									footer={() => (
-										<Space className='float-right'>
-											<Button colorScheme={'messenger'} type="submit">
+										<Space className="float-right">
+											<Button
+												colorScheme={'messenger'}
+												type="submit"
+												onClick={() => onClose()}
+											>
 												更新信息
 											</Button>
 										</Space>

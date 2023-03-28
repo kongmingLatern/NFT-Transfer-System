@@ -70,7 +70,6 @@ export default function TableComponent() {
 				total += item.count * item.price;
 			}
 		});
-		console.log(data);
 
 		setTotal(total);
 	}, [data]);

@@ -1,4 +1,5 @@
 import Admin from '@/pages/Admin';
+import Collection from '@/pages/Collection';
 import Create from '@/pages/Create';
 import Detail from '@/pages/Detail';
 import Home from '@/pages/Home';
@@ -51,6 +52,10 @@ export const router = createBrowserRouter([
 	{
 		path: '/message',
 		element: <BuyMessage />
+	},
+	{
+		path: '/collection',
+		element: <Collection />
 	},
 	{
 		path: '/admin',

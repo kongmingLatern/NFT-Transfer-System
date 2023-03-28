@@ -13,8 +13,8 @@ import {
 interface ModalType {
 	open: (fn) => JSX.Element;
 	title: string;
-	bodyContent: () => JSX.Element;
-	footerContent?: () => JSX.Element;
+	bodyContent: (fn?) => JSX.Element;
+	footerContent?: (fn?) => JSX.Element;
 }
 
 export default function modal({
@@ -33,14 +33,14 @@ export default function modal({
 				<ModalContent>
 					<ModalHeader>{title}</ModalHeader>
 					<ModalCloseButton />
-					<ModalBody>{bodyContent && bodyContent()}</ModalBody>
+					<ModalBody>{bodyContent && bodyContent(onClose)}</ModalBody>
 
 					{footerContent ? (
 						<ModalFooter>
 							<Button colorScheme="blue" mr={3} onClick={onClose}>
 								Close
 							</Button>
-							{footerContent()}
+							{footerContent(onClose)}
 						</ModalFooter>
 					) : null}
 				</ModalContent>

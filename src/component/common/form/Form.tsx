@@ -20,6 +20,13 @@ export default function Form({ formItem, footer }: Partial<FormType>) {
 						type={item.type}
 						placeholder={item.label}
 						className="file-input file-input-bordered  w-full"
+						value={item?.value}
+						onChange={(e) => {
+							if (item.onChange) {
+								// 修改 item.value 的值
+								item.onChange(e.target.value);
+							}
+						}}
 					/>
 				) : (
 					<Input
@@ -29,6 +36,13 @@ export default function Form({ formItem, footer }: Partial<FormType>) {
 						type={item.type}
 						disabled={item.disabled ? item.disabled : false}
 						placeholder={item.label}
+						value={item?.value}
+						onChange={(e) => {
+							if (item.onChange) {
+								// 修改 item.value 的值
+								item.onChange(e.target.value);
+							}
+						}}
 					/>
 				)
 			)}
