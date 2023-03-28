@@ -1,4 +1,8 @@
 import Admin from '@/pages/Admin';
+import NFTManage from '@/pages/admin/NFTManage';
+import OrderManage from '@/pages/admin/OrderManage';
+import SettingManage from '@/pages/admin/SettingManage';
+import UserManage from '@/pages/admin/UserManage';
 import Collection from '@/pages/Collection';
 import Create from '@/pages/Create';
 import Detail from '@/pages/Detail';
@@ -67,19 +71,19 @@ export const router = createBrowserRouter([
 			},
 			{
 				path: 'user',
-				element: <Main />
+				element: <UserManage />
 			},
 			{
 				path: 'nft',
-				element: <Main />
+				element: <NFTManage />
 			},
 			{
 				path: 'setting',
-				element: <Main />
+				element: <SettingManage />
 			},
 			{
-				path: 'upgrade',
-				element: <Main />
+				path: 'order',
+				element: <OrderManage />
 			}
 		]
 	}

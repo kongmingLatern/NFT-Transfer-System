@@ -18,7 +18,7 @@ interface dataSourceType {
 
 interface TypeProps {
 	dataSource: Array<Record<string, any> & dataSourceType>;
-	columns: Array<columnsType>;
+	columns: any;
 }
 
 export default function AdminTable({ dataSource, columns }: TypeProps) {
@@ -56,7 +56,7 @@ export default function AdminTable({ dataSource, columns }: TypeProps) {
 																	?.render
 																	? columns[
 																			getColumnIndexByKey(columns, key)
-																	  ].render(item.key, item)
+																	  ].render(item[key], item)
 																	: item[key]}
 															</Td>
 														</>
