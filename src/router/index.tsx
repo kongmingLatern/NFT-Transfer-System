@@ -79,7 +79,20 @@ export const router = createBrowserRouter([
 			},
 			{
 				path: 'setting',
-				element: <SettingManage />
+				children: [
+					{
+						index: true,
+						element: <Navigate to="/admin/setting/swiper" />
+					},
+					{
+						path: 'swiper',
+						element: <SettingManage />
+					},
+					{
+						path: 'order',
+						element: <SettingManage />
+					}
+				]
 			},
 			{
 				path: 'order',

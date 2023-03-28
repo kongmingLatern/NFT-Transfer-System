@@ -39,10 +39,10 @@ export default function AdminNav() {
 					</Space>
 				</li>
 				<li>
-					<Link to="/admin/setting">轮播图管理</Link>
+					<Link to="/admin/setting/swiper">轮播图管理</Link>
 				</li>
 				<li>
-					<Link to="/admin/setting/swiper">分类管理</Link>
+					<Link to="/admin/setting/order">分类管理</Link>
 				</li>
 
 				{/* NOTE: 订单管理 */}
