@@ -70,12 +70,15 @@ export default function BidModal() {
 									colorScheme={'red'}
 									type="submit"
 									className="btn btn-primary"
-									onClick={() => mentionCloseMsg('竞拍成功')}
 								>
 									竞拍
 								</Button>
 							</Space>
 						)}
+						onSubmit={(data) => {
+							mentionCloseMsg('竞拍成功');
+							console.log('data', data);
+						}}
 					/>
 				);
 			}}

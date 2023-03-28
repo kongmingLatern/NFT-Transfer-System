@@ -3,20 +3,18 @@ import { Tabs, TabList, Tab, TabPanels, TabPanel } from '@chakra-ui/react';
 interface TabType {
 	tabList: string[];
 	tabPanelList: any[];
-	tabListClassName: string;
 	className?: string;
 }
 
 export default function TabComponent({
 	tabList,
 	tabPanelList,
-	tabListClassName,
 	className
 }: Partial<TabType>) {
 	return (
 		<>
 			<Tabs className={className}>
-				<TabList className={tabListClassName}>
+				<TabList justifyContent={'center'}>
 					{tabList.map((item, index) => (
 						<Tab key={index}>{item}</Tab>
 					))}

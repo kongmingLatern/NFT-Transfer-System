@@ -3,17 +3,21 @@ import Form from '../common/form/Form';
 import { Button } from '@chakra-ui/react';
 import Space from '../common/space/Space';
 import message from '../common/message/Message';
+import DatePicker from 'react-datepicker';
+import { useState } from 'react';
 
 export default function Upload() {
+	const [startDate, setStartDate] = useState(new Date());
+
 	return (
 		<Modal
 			open={(onOpen) => <span onClick={() => onOpen()}>upload</span>}
 			title="上传"
 			bodyContent={(onClose) => {
-        function mentionCloseMsg(msg) {
-          message.success(msg);
-          onClose();
-        }
+				function mentionCloseMsg(msg) {
+					message.success(msg);
+					onClose();
+				}
 				return (
 					<Form
 						formItem={[
@@ -52,25 +56,38 @@ export default function Upload() {
 								type: 'number',
 								name: 'lower_bid'
 							},
-
 							{
 								label: '上限价格',
 								type: 'number',
 								name: 'high_bid'
 							}
 						]}
-						footer={() => (
+						render={() => (
+							<div className="flex justify-around border h-[50px] items-center">
+								<div className="text-[blue]">请选择竞拍开始时间</div>
+								<div>
+									<DatePicker
+										selected={startDate}
+										onChange={(date) => setStartDate(date)}
+									/>
+								</div>
+							</div>
+						)}
+						footer={(handleSubmit) => (
 							<Space className="float-right mt-2">
 								<Button
 									type="submit"
 									colorScheme={'messenger'}
 									className="btn btn-primary"
-                  onClick={() => mentionCloseMsg('上传成功')}
 								>
 									上传
 								</Button>
 							</Space>
 						)}
+						onSubmit={(data) => {
+							mentionCloseMsg('上传成功');
+							console.log(data, startDate.getTime());
+						}}
 					/>
 				);
 			}}

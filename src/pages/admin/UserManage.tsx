@@ -3,6 +3,7 @@ import message from '@/component/common/message/Message';
 import Modal from '@/component/common/modal/Modal';
 import Space from '@/component/common/space/Space';
 import Table from '@/component/common/table/Table';
+import Main from '@/views/admin/Main';
 import { Button } from '@chakra-ui/react';
 
 export default function UserManage() {
@@ -39,15 +40,103 @@ export default function UserManage() {
 			key: 'operation',
 			render: (text, record) => (
 				<Space>
-					<button
-						className="btn btn-secondary w-[100px] font-thin text-white"
-						onClick={() => console.log(record.id)}
-					>
-						查看
-					</button>
-					<button className="btn btn-error w-[100px] font-thin text-white">
-						删除
-					</button>
+					<Modal
+						open={(onOpen) => {
+							function handleOk(id) {
+								console.log('UserManagehandleOk', id);
+								onOpen();
+							}
+							return (
+								<button
+									className="btn btn-secondary w-[100px] font-thin text-white"
+									onClick={() => handleOk(record.id)}
+								>
+									修改信息
+								</button>
+							);
+						}}
+						bodyContent={(onClose) => {
+							function handleOk(msg) {
+								message.success(msg);
+								onClose();
+							}
+							return (
+								<Form
+									formItem={[
+										{
+											label: '用户名',
+											name: 'username',
+											type: 'input',
+											rules: [{ required: true, message: '请输入用户名' }]
+										},
+										{
+											label: '密码',
+											name: 'password',
+											type: 'input',
+											rules: [{ required: true, message: '请输入密码' }]
+										},
+										{
+											label: '账号余额',
+											name: 'balance',
+											type: 'input',
+											rules: [{ required: true, message: '请输入账号余额' }]
+										}
+									]}
+									footer={() => {
+										return (
+											<Button
+												colorScheme={'green'}
+												type="submit"
+												className="float-right"
+											>
+												提交
+											</Button>
+										);
+									}}
+									onSubmit={(data) => {
+										handleOk('修改成功');
+										console.log('data', data);
+									}}
+								/>
+							);
+						}}
+					/>
+					<Modal
+						open={(onOpen) => (
+							<button
+								className="btn btn-error w-[100px] font-thin text-white"
+								onClick={() => onOpen()}
+							>
+								修改信息
+							</button>
+						)}
+						title="删除用户"
+						bodyContent={(onClose) => {
+							function handleOk(id) {
+								message.success('删除成功');
+								console.log('removeUser', id);
+								onClose();
+							}
+							return (
+								<>
+									<p className="font-bold text-center text-lg mb-3">
+										确定要删除嘛
+									</p>
+									<Space className="float-right">
+										<Button colorScheme={'blue'} onClick={() => onClose()}>
+											否
+										</Button>
+										<Button
+											colorScheme={'red'}
+											onClick={() => handleOk(record.id)}
+										>
+											是
+										</Button>
+									</Space>
+								</>
+							);
+						}}
+					/>
 				</Space>
 			)
 		}
@@ -67,7 +156,7 @@ export default function UserManage() {
 
 	return (
 		<>
-			<div className="flex justify-end pr-2 pt-3">
+			{/* <div className="flex justify-end pr-2 pt-3">
 				<Space size={10}>
 					<Modal
 						open={(onOpen) => (
@@ -117,35 +206,9 @@ export default function UserManage() {
 							);
 						}}
 					/>
-					<Modal
-						open={(onOpen) => (
-							<Button colorScheme={'red'} onClick={() => onOpen()}>
-								<span>删除用户</span>
-							</Button>
-						)}
-						title="删除用户"
-						bodyContent={(onClose) => {
-							function handleOk() {
-								message.success('删除成功');
-								onClose();
-							}
-							return (
-								<>
-									<p className='font-bold text-center text-lg mb-3'>确定要删除嘛</p>
-									<Space className="float-right">
-										<Button colorScheme={'blue'} onClick={() => onClose()}>
-											否
-										</Button>
-										<Button colorScheme={'red'} onClick={() => onClose()}>
-											是
-										</Button>
-									</Space>
-								</>
-							);
-						}}
-					/>
 				</Space>
-			</div>
+			</div> */}
+			<Main />
 			<Table dataSource={dataSource} columns={columns} />
 		</>
 	);

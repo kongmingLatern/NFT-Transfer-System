@@ -3,13 +3,20 @@ import { useForm } from 'react-hook-form';
 
 interface FormType {
 	formItem: Array<Record<string, any>>;
-	footer?: () => JSX.Element;
+	render?: () => JSX.Element | Element;
+	footer?: (fn?) => JSX.Element;
+	onSubmit?: (fn?) => any;
 }
 
-export default function Form({ formItem, footer }: Partial<FormType>) {
+export default function Form({
+	formItem,
+	footer,
+	render,
+	onSubmit
+}: Partial<FormType>) {
 	const { handleSubmit, register } = useForm();
 	return (
-		<form onSubmit={handleSubmit((data) => console.log(data))}>
+		<form onSubmit={handleSubmit((data) => onSubmit(data))}>
 			{/* NOTE: render FormItem */}
 			{formItem.map((item) =>
 				item.type === 'file' ? (
@@ -47,8 +54,10 @@ export default function Form({ formItem, footer }: Partial<FormType>) {
 				)
 			)}
 
+			{render ? render() : null}
+
 			{/* NOTE: render footer */}
-			{footer ? footer() : <Input type={'submit'} value="提交" />}
+			{footer ? footer(handleSubmit) : <Input type={'submit'} value="提交" />}
 		</form>
 	);
 }

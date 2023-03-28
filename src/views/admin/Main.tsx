@@ -76,7 +76,7 @@ export default function Main() {
 				<Echarts type="line" data={data} />
 				<Echarts type="bar" data={data} />
 			</div>
-			<Table dataSource={dataSource} columns={columns} />
+			{/* <Table dataSource={dataSource} columns={columns} /> */}
 		</>
 	);
 }

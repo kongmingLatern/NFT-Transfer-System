@@ -8,7 +8,7 @@ export default function BuyMessage() {
 	return (
 		<>
 			<Header />
-			<Tabs tabList={tabList} tabPanelList={tabPaneList}></Tabs>
+			<Tabs tabList={tabList} tabPanelList={tabPaneList} />
 		</>
 	);
 }

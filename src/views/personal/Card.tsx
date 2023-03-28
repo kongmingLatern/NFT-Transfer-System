@@ -15,6 +15,7 @@ import Modal from '@/component/common/modal/Modal';
 import Form from '@/component/common/form/Form';
 import Space from '@/component/common/space/Space';
 import { useState } from 'react';
+import message from '@/component/common/message/Message';
 
 export default function PersonalCard() {
 	const [user, setUser] = useState('凤之兮原');
@@ -43,46 +44,52 @@ export default function PersonalCard() {
 								</button>
 							)}
 							title={'编辑个人信息'}
-							bodyContent={(onClose) => (
-								<Form
-									formItem={[
-										{
-											label: '用户名',
-											name: 'username',
-											type: 'text',
-											value: user,
-											onChange: setUser
-										},
-										{
-											label: '密码',
-											name: 'password',
-											type: 'password'
-										},
-										{
-											label: '个人简介',
-											name: 'introduction',
-											type: 'textarea',
-											value: '每天进步一点点'
-										},
-										{
-											label: '头像',
-											name: 'avatar',
-											type: 'file'
-										}
-									]}
-									footer={() => (
-										<Space className="float-right">
-											<Button
-												colorScheme={'messenger'}
-												type="submit"
-												onClick={() => onClose()}
-											>
-												更新信息
-											</Button>
-										</Space>
-									)}
-								/>
-							)}
+							bodyContent={(onClose) => {
+								function mentionCloseMsg(msg) {
+									message.success(msg);
+								}
+								return (
+									<Form
+										formItem={[
+											{
+												label: '用户名',
+												name: 'username',
+												type: 'text',
+												value: user,
+												onChange: setUser
+											},
+											{
+												label: '密码',
+												name: 'password',
+												type: 'password'
+											},
+											{
+												label: '个人简介',
+												name: 'introduction',
+												type: 'textarea',
+												value: '每天进步一点点'
+											},
+											{
+												label: '头像',
+												name: 'avatar',
+												type: 'file'
+											}
+										]}
+										footer={() => (
+											<Space className="float-right">
+												<Button colorScheme={'messenger'} type="submit">
+													更新信息
+												</Button>
+											</Space>
+										)}
+										onSubmit={(data) => {
+											mentionCloseMsg('更新信息成功');
+											console.log('data', data);
+											onClose();
+										}}
+									/>
+								);
+							}}
 						></Modal>
 
 						<div className="mt-2 flex">
