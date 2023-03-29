@@ -1,6 +1,8 @@
+import { api } from '@/api';
 import Space from '@/component/common/space/Space';
 import Table from '@/component/common/table/Table';
 import SearchInput from '@/component/home/SearchInput';
+import { useState, useEffect } from 'react';
 
 export default function OrderManage() {
 	const columns = [
@@ -11,8 +13,8 @@ export default function OrderManage() {
 		},
 		{
 			title: '订单日期',
-			id: 'order_date',
-			key: 'order_date',
+			id: 'transaction_date',
+			key: 'transaction_date',
 			type: 'string'
 		},
 		{
@@ -54,7 +56,7 @@ export default function OrderManage() {
 				<Space>
 					<button
 						className="btn btn-secondary w-[100px] font-thin text-white"
-						onClick={() => console.log(record.swiper_id)}
+						onClick={() => console.log(record.order_id)}
 					>
 						查看
 					</button>
@@ -65,19 +67,17 @@ export default function OrderManage() {
 			)
 		}
 	];
-	const dataSource = [];
 
-	for (let i = 0; i < 10; i++) {
-		dataSource.push({
-			order_id: i,
-			order_date: '2021-06-01',
-			nft_name: 'NFT' + i,
-			buyer_username: 'buyer',
-			seller_username: 'seller',
-			transaction_price: 1000 + `${i}`,
-			operation: '查看'
-		});
-	}
+	const [dataSource, setDataSource] = useState([]);
+
+	useEffect(() => {
+		async function getData() {
+			const res = await api.get('/selectAll/order');
+			setDataSource(res.data);
+		}
+		getData();
+	});
+
 	function search(value) {
 		console.log('search', value);
 	}

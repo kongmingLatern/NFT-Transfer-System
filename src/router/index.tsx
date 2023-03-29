@@ -1,7 +1,7 @@
 import Admin from '@/pages/Admin';
 import NFTManage from '@/pages/admin/NFTManage';
 import OrderManage from '@/pages/admin/OrderManage';
-import SettingManage from '@/pages/admin/SettingManage';
+import SwiperManage from '@/pages/admin/SwiperManage';
 import UserManage from '@/pages/admin/UserManage';
 import Collection from '@/pages/Collection';
 import Create from '@/pages/Create';
@@ -15,6 +15,7 @@ import Transaction from '@/pages/Transaction';
 import ReviewNFTManage from '@/pages/admin/ReviewNFTManage';
 import Main from '@/views/admin/Main';
 import { createBrowserRouter, Navigate } from 'react-router-dom';
+import TypeManage from '@/pages/admin/TypeManage';
 
 export const router = createBrowserRouter([
 	{
@@ -91,11 +92,11 @@ export const router = createBrowserRouter([
 					},
 					{
 						path: 'swiper',
-						element: <SettingManage />
+						element: <SwiperManage />
 					},
 					{
-						path: 'order',
-						element: <SettingManage />
+						path: 'type',
+						element: <TypeManage />
 					}
 				]
 			},
