@@ -22,7 +22,7 @@ export default function AdminTable({
 	dataSource,
 	columns,
 	itemsPerPage = 10
-}: TypeProps) {
+}: Partial<TypeProps>) {
 	const [itemOffset, setItemOffset] = useState(0);
 
 	const endOffset = itemOffset + itemsPerPage;

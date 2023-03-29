@@ -8,7 +8,7 @@ import '@/component/paint/i18n';
 import 'react-datepicker/dist/react-datepicker.css';
 import { MessageList } from './component/common/message/Message';
 
-import { start } from '@/micro';
+// import { start } from '@/micro';
 
 // console.log(start);
 // start();
@@ -17,11 +17,11 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
 		<RouterProvider router={router} />
 	</ChakraProvider>
 );
-start({
-	sandbox: {
-		experimentalStyleIsolation: true
-	}
-});
+// start({
+// 	sandbox: {
+// 		experimentalStyleIsolation: true
+// 	}
+// });
 
 // 在加载 JS 时在页面上挂载消息 model
 const messageModelContainer = document.createElement('div');

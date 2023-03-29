@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import Tableitem from '../../component/common/table/Tableitem';
 import Tablehead from '../../component/common/table/Tablehead';
 import Tablefooter from '../../component/common/table/Tablefooter';
@@ -56,12 +56,12 @@ export default function TableComponent() {
 		setdata([...data]);
 	}
 
-  function changeChecked(id) {
-    data.map((item) => {
-      if (item.id === id) item.checked = !item.checked;
-    });
-    setdata([...data]);
-  }
+	function changeChecked(id) {
+		data.map((item) => {
+			if (item.id === id) item.checked = !item.checked;
+		});
+		setdata([...data]);
+	}
 
 	useEffect(() => {
 		let total = 0;
@@ -70,9 +70,16 @@ export default function TableComponent() {
 				total += item.count * item.price;
 			}
 		});
-
 		setTotal(total);
 	}, [data]);
+
+	function getFilterData() {
+		// 去除 checked 字段
+		return data.filter((item) => item.checked);
+	}
+
+	const filterData = useMemo(() => getFilterData(), [data]);
+
 	return (
 		<div>
 			<div className="overflow-x-auto w-[60vw] h-[50vh] mx-auto">
@@ -92,7 +99,7 @@ export default function TableComponent() {
 										addcount={addcount}
 										data={item}
 										subcount={subcount}
-                    changeChecked={changeChecked}
+										changeChecked={changeChecked}
 									/>
 								</tr>
 							);
@@ -102,7 +109,7 @@ export default function TableComponent() {
 			</div>
 
 			<footer className="w-[60vw] h-[100%] mx-auto">
-				<Tablefooter total={total} />
+				<Tablefooter total={total} data={filterData} />
 			</footer>
 		</div>
 	);

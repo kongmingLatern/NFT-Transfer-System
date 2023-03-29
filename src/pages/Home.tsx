@@ -52,17 +52,17 @@ export default function Home() {
 
 			<Divider />
 
-			{/* <Step order={2} description="这个是步骤2"> */}
-			<button className="btn" onClick={() => setData([1, 2, 3])}>
-				setNum
-			</button>
-			{/* </Step> */}
+			<Step order={3} description="这个是步骤3">
+				<button className="btn" onClick={() => setData([1, 2, 3])}>
+					setNum
+				</button>
+			</Step>
 
 			<button className="btn" onClick={() => message.error('123')}>
 				HH
 			</button>
 
-			{/* <Step order={3} description="步骤3"> */}
+			{/* <Step order={2} description="步骤2"> */}
 			<Echarts type="line" data={data} />
 			{/* </Step> */}
 			{/* </Beginner> */}

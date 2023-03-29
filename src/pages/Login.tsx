@@ -30,6 +30,8 @@ import Divider from '@/component/common/Divider';
 import styles from '@/assets/img.module.css';
 import Spin from '@/component/common/spin/Spin';
 import { useForm } from 'react-hook-form';
+import { api } from '@/api';
+import message from '@/component/common/message/Message';
 interface LoginType {
 	name?: string;
 }
@@ -49,6 +51,8 @@ export default function Login({ name = '登录' }: LoginType) {
 
 	const { register, handleSubmit } = useForm();
 
+	const faceResult = useRef(null);
+
 	async function onPlay() {
 		if (!isFaceDetectionModelLoaded()) {
 			setLoading(false);
@@ -67,7 +71,13 @@ export default function Login({ name = '登录' }: LoginType) {
 			webcamRef.current.video,
 			options
 		);
-		console.log(result);
+		faceResult.current = result;
+		if (faceResult.current?.score >= 0.85) {
+			capture();
+			return;
+		}
+		console.log('result', faceResult.current);
+
 		if (result) {
 			const dims = faceapi.matchDimensions(
 				canvas.current,
@@ -83,15 +93,45 @@ export default function Login({ name = '登录' }: LoginType) {
 		setTimeout(() => onPlay());
 	}
 
+	function closeCamera(video) {
+		video.srcObject.getTracks().forEach((track) => {
+			track.stop();
+		});
+	}
+
 	const capture = useCallback(async () => {
 		const imageSrc = webcamRef.current.getScreenshot();
 		setImgSrc(imageSrc);
 		webcamRef.current.stream = false;
 		const { username, password } = formRef.current;
-		// TODO: API 【登录 / 注册】 接口
-		console.log('formData', username.value, password.value);
-		console.log('imageSrc', imageSrc);
-		// navigate('/home');
+
+		if (name === '登录') {
+			const res: any = await api.post('/login', {
+				username: username.value,
+				password: password.value,
+				faceImg: imageSrc
+			});
+			if (res.code === 200) {
+				closeCamera(webcamRef.current.video);
+				setTimeout(() => {
+					message.success('登录成功');
+					navigate('/home');
+				}, 2000);
+			}
+		} else {
+			const res: any = await api.post('/register', {
+				username: username.value,
+				password: password.value,
+				faceImg: imageSrc
+			});
+			if (res.code === 200) {
+				message.success('注册成功');
+				closeCamera(webcamRef.current.video);
+				setTimeout(() => {
+					navigate('/login');
+				}, 2000);
+			}
+		}
 	}, [webcamRef]);
 
 	return (
@@ -218,9 +258,6 @@ export default function Login({ name = '登录' }: LoginType) {
 
 							<ModalFooter>
 								<Space>
-									<Button colorScheme="purple" onClick={() => capture()}>
-										登录
-									</Button>
 									<Button colorScheme="blue" mr={3} onClick={onClose}>
 										关闭
 									</Button>
