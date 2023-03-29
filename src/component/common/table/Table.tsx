@@ -35,7 +35,7 @@ export default function AdminTable({
 	};
 	return (
 		<>
-			<TableContainer className="border">
+			<TableContainer className="border w-[80vw] overflow-x-scroll">
 				<Table size={'md'} variant="striped" colorScheme="blackAlpha">
 					<TableCaption>
 						<ReactPaginate
@@ -83,24 +83,27 @@ function ShowTableTitle({ columns }: any) {
 }
 
 function ShowData({ dataSource, columns }) {
-	return dataSource.map((item) => {
+	return dataSource.map((item, index) => {
 		return (
-			<Tr key={item.key}>
-				{Object.keys(item).map((key, index) => {
-					return (
-						<Fragment key={key + index}>
-							{key !== 'key' && (
-								<Td>
-									{columns[getColumnIndexByKey(columns, key)]?.render
-										? columns[getColumnIndexByKey(columns, key)].render(
-												item[key],
-												item
-										  )
-										: item[key]}
-								</Td>
-							)}
-						</Fragment>
-					);
+			<Tr key={index}>
+				{columns.map((column) => {
+					if (column.type === 'number') {
+						return (
+							<Td isNumeric key={column.key}>
+								{column.render
+									? column.render(item[column.key], item)
+									: item[column.key]}
+							</Td>
+						);
+					} else {
+						return (
+							<Td key={column.key}>
+								{column.render
+									? column.render(item[column.key], item)
+									: item[column.key]}
+							</Td>
+						);
+					}
 				})}
 			</Tr>
 		);

@@ -28,7 +28,7 @@ export default function AdminNav() {
 					<Link to="/admin/nft">NFT 信息</Link>
 				</li>
 				<li>
-					<Link to="/admin/nft">NFT 审核</Link>
+					<Link to="/admin/review">NFT 审核</Link>
 				</li>
 
 				{/* NOTE: 管理设置 */}

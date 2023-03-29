@@ -1,5 +1,7 @@
+import { api } from '@/api';
 import Space from '@/component/common/space/Space';
 import Table from '@/component/common/table/Table';
+import { useEffect, useState } from 'react';
 export default function SettingManage() {
 	const columns = [
 		{
@@ -8,7 +10,7 @@ export default function SettingManage() {
 			key: 'swiper_id'
 		},
 		{
-			title: '轮播图路径',
+			title: '轮播图图片',
 			id: 'swiper_src',
 			key: 'swiper_src',
 			type: 'string',
@@ -47,16 +49,15 @@ export default function SettingManage() {
 			)
 		}
 	];
-	const dataSource = [];
+	const [dataSource, setDataSource] = useState([]);
 
-	for (let i = 0; i < 10; i++) {
-		dataSource.push({
-			swiper_id: i,
-			swiper_src: 'https://www.baidu.com/img/flexible/logo/pc/result.png',
-			swiper_type: '首页轮播图',
-			swiper_desc: '描述信息' + i,
-			operation: '查看'
-		});
-	}
+	useEffect(() => {
+		async function getData() {
+			const res = await api.get('/swiper');
+			setDataSource(res.data);
+		}
+		getData();
+	});
+
 	return <Table dataSource={dataSource} columns={columns} />;
 }

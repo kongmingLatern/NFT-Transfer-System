@@ -1,3 +1,4 @@
+import { api } from '@/api';
 import Form from '@/component/common/form/Form';
 import message from '@/component/common/message/Message';
 import Modal from '@/component/common/modal/Modal';
@@ -5,6 +6,7 @@ import Space from '@/component/common/space/Space';
 import Table from '@/component/common/table/Table';
 import Main from '@/views/admin/Main';
 import { Button } from '@chakra-ui/react';
+import { useEffect, useState } from 'react';
 
 export default function UserManage() {
 	const columns = [
@@ -141,18 +143,15 @@ export default function UserManage() {
 			)
 		}
 	];
-	const dataSource = [];
+	const [dataSource, setDataSource] = useState([]);
 
-	for (let i = 0; i < 50; i++) {
-		dataSource.push({
-			id: `${i}`,
-			key: `${i}`,
-			username: `${i}`,
-			password: `${i}`,
-			balance: `${i + 10}`,
-			operation: `${i}`
-		});
-	}
+	useEffect(() => {
+		async function getData() {
+			const res = await api.get('/selectAll/user');
+			setDataSource(res.data);
+		}
+		getData();
+	});
 
 	return (
 		<>

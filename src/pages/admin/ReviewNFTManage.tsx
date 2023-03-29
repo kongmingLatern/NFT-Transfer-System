@@ -2,9 +2,8 @@ import { api } from '@/api';
 import Space from '@/component/common/space/Space';
 import Table from '@/component/common/table/Table';
 import { useEffect, useState } from 'react';
-import { showText } from './ReviewNFTManage';
 
-export default function NFTManage() {
+export default function ReviewNFTManage() {
 	const columns = [
 		{
 			title: 'NFT 编号',
@@ -91,7 +90,7 @@ export default function NFTManage() {
 						className="btn btn-secondary w-[100px] font-thin text-white"
 						onClick={() => console.log(record.id)}
 					>
-						查看
+						通过审核
 					</button>
 					<button className="btn btn-error w-[100px] font-thin text-white">
 						删除
@@ -112,7 +111,21 @@ export default function NFTManage() {
 
 	return (
 		<>
-			<Table dataSource={dataSource} columns={columns} />
+			<Table
+				dataSource={dataSource.filter((item) => item.status === 0)}
+				columns={columns}
+			/>
 		</>
+	);
+}
+export function showText(text: any) {
+	return text === 0 ? (
+		<div className="text-red-500 font-bold text-lg">待审核 </div>
+	) : text === 1 ? (
+		<div className="text-green-500 font-bold text-lg">直售</div>
+	) : text === 2 ? (
+		<div className="text-blue-500 font-bold text-lg">竞标中</div>
+	) : (
+		<div className="text-gray-500 font-bold text-lg">下架</div>
 	);
 }

@@ -12,6 +12,7 @@ import BuyMessage from '@/pages/Message';
 import Personal from '@/pages/Personal';
 import Register from '@/pages/Register';
 import Transaction from '@/pages/Transaction';
+import ReviewNFTManage from '@/pages/admin/ReviewNFTManage';
 import Main from '@/views/admin/Main';
 import { createBrowserRouter, Navigate } from 'react-router-dom';
 
@@ -76,6 +77,10 @@ export const router = createBrowserRouter([
 			{
 				path: 'nft',
 				element: <NFTManage />
+			},
+			{
+				path: 'review',
+				element: <ReviewNFTManage />
 			},
 			{
 				path: 'setting',
