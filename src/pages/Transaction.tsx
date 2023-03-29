@@ -5,7 +5,7 @@ export default function Transaction() {
 	return (
 		<>
 			<Header />
-			<div className="px-4 mt-[80px]">
+			<div className="px-4">
 				<Divider />
 				<Table />
 			</div>
