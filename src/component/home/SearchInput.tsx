@@ -1,12 +1,17 @@
 import { Icon } from '@iconify-icon/react';
 import classNames from 'classnames';
 
-export default function SearchInput({ search, className }) {
+export default function SearchInput({
+	placeholder,
+	search,
+	onOpen,
+	className
+}: any) {
 	return (
 		<div className={classNames('relative', className)}>
 			<input
 				type="text"
-				placeholder="请输入要查找的物品"
+				placeholder={placeholder || '请输入要查找的物品'}
 				className={classNames(
 					'input',
 					'input-bordered',
@@ -14,7 +19,14 @@ export default function SearchInput({ search, className }) {
 					className
 				)}
 				onKeyDown={(e) => {
-					return e.code === 'Enter' ? search(e.target.value) : null;
+					if (e.code === 'Enter') {
+						if (onOpen) {
+							return search(e.target.value, onOpen);
+						}
+						return search(e.target.value);
+					} else {
+						return null;
+					}
 				}}
 			/>
 			<Icon

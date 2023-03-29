@@ -11,9 +11,9 @@ import { useEffect, useState } from 'react';
 export default function UserManage() {
 	const columns = [
 		{
-			title: 'ID',
-			id: 'ID',
-			key: 'ID'
+			title: 'uid',
+			id: 'uid',
+			key: 'uid'
 		},
 		{
 			title: '用户名',

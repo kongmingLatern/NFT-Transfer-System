@@ -1,8 +1,20 @@
 import { api } from '@/api';
+import Modal from '@/component/common/modal/Modal';
 import Space from '@/component/common/space/Space';
 import Table from '@/component/common/table/Table';
 import SearchInput from '@/component/home/SearchInput';
-import { useState, useEffect } from 'react';
+import {
+	TableContainer,
+	TableCaption,
+	Button,
+	Thead,
+	Table as TableUI,
+	Tr,
+	Th,
+	Tbody,
+	Td
+} from '@chakra-ui/react';
+import { useState, useEffect, useRef } from 'react';
 
 export default function OrderManage() {
 	const columns = [
@@ -69,6 +81,7 @@ export default function OrderManage() {
 	];
 
 	const [dataSource, setDataSource] = useState([]);
+	const result = useRef(null);
 
 	useEffect(() => {
 		async function getData() {
@@ -78,14 +91,63 @@ export default function OrderManage() {
 		getData();
 	});
 
-	function search(value) {
-		console.log('search', value);
+	async function search(value, onOpen) {
+		const res = await api.get('/search/order', {
+			params: {
+				order_id: value
+			}
+		});
+		onOpen();
+		result.current = res.data;
 	}
 	return (
 		<>
-			<div className="flex justify-end mb-2 pr-4 mt-2">
-				<SearchInput className={'w-[300px]'} search={search} />
-			</div>
+			<Modal
+				open={(onOpen) => {
+					return (
+						<div className="flex justify-end mb-2 pr-4 mt-2">
+							<SearchInput
+								className={'w-[300px]'}
+								placeholder={'请输入要查询的订单编号'}
+								search={search}
+								onOpen={onOpen}
+							/>
+						</div>
+					);
+				}}
+				title="查询结果"
+				bodyContent={(onClose) => {
+					return (
+						<TableContainer>
+							<TableUI variant="simple">
+								<TableCaption>
+									<Button onClick={() => onClose()}>关闭</Button>
+								</TableCaption>
+								<Thead>
+									<Tr>
+										<Th>订单编号</Th>
+										<Th>订单时间</Th>
+										<Th>商品名称</Th>
+										<Th>卖家用户名</Th>
+										<Th>买家用户名</Th>
+										<Th isNumeric>交易金额</Th>
+									</Tr>
+								</Thead>
+								<Tbody>
+									<Tr>
+										<Td>{result.current?.order_id}</Td>
+										<Td>{result.current?.transaction_date}</Td>
+										<Td>{result.current?.nft_name}</Td>
+										<Td>{result.current?.seller_username}</Td>
+										<Td>{result.current?.buyer_username}</Td>
+										<Td isNumeric>{result.current?.transaction_price}</Td>
+									</Tr>
+								</Tbody>
+							</TableUI>
+						</TableContainer>
+					);
+				}}
+			/>
 			<Table dataSource={dataSource} columns={columns} />
 		</>
 	);

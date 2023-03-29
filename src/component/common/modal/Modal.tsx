@@ -15,9 +15,11 @@ interface ModalType {
 	title: string;
 	bodyContent: (fn?) => JSX.Element;
 	footerContent?: (fn?) => JSX.Element;
+	isOpenStatus?: boolean;
 }
 
 export default function modal({
+	isOpenStatus = false,
 	open,
 	title = 'Modal Title',
 	bodyContent,
@@ -28,7 +30,7 @@ export default function modal({
 		<>
 			{open(onOpen)}
 
-			<Modal isOpen={isOpen} onClose={onClose}>
+			<Modal isOpen={isOpenStatus || isOpen} onClose={onClose}>
 				<ModalOverlay />
 				<ModalContent>
 					<ModalHeader>{title}</ModalHeader>
