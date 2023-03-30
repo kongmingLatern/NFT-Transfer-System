@@ -1,27 +1,29 @@
+import { api } from '@/api';
+import { useEffect, useState } from 'react';
 import Space from '../common/space/Space';
 import AdminTable from '../common/table/Table';
 
 export default function BuyTableList() {
 	const columns = [
 		{
-			title: 'ID',
-			id: 'id',
-			key: 'id'
+			title: '序号',
+			id: 'buy_id',
+			key: 'buy_id'
 		},
 		{
 			title: '求购者姓名',
-			id: 'username',
-			key: 'username'
+			id: 'buy_username',
+			key: 'buy_username'
 		},
 		{
-			title: 'NFT 名称',
-			id: 'nft_name',
-			key: 'nft_name'
+			title: '求购信息',
+			id: 'buy_desc',
+			key: 'buy_desc'
 		},
 		{
 			title: '求购金额',
-			id: 'price',
-			key: 'price'
+			id: 'buy_price',
+			key: 'buy_price'
 		},
 		{
 			title: '操作',
@@ -31,7 +33,7 @@ export default function BuyTableList() {
 				<Space>
 					<button
 						className="btn btn-secondary w-[100px] font-thin text-white"
-						onClick={() => console.log(record.id)}
+						onClick={() => console.log(record.buy_id)}
 					>
 						响应
 					</button>
@@ -42,16 +44,14 @@ export default function BuyTableList() {
 			)
 		}
 	];
-	const dataSource = [];
-	for (let i = 0; i < 50; i++) {
-		dataSource.push({
-			id: i.toString(),
-			key: i.toString(),
-			username: 'John Doe',
-			nft_name: `NFT ${i}`,
-			price: '1000',
-			operation: '操作'
-		});
-	}
-	return <AdminTable columns={columns} dataSource={dataSource} />;
+	const [data, setData] = useState([]);
+	useEffect(() => {
+		async function getData() {
+			const res = await api.get('/selectAll/buy_message');
+			setData(res.data);
+		}
+		getData();
+	}, []);
+
+	return <AdminTable columns={columns} dataSource={data} />;
 }

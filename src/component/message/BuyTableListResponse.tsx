@@ -1,31 +1,40 @@
+import { api } from '@/api';
+import { useState, useEffect } from 'react';
 import Space from '../common/space/Space';
 import AdminTable from '../common/table/Table';
 
 export default function BuyTableListResponse() {
 	const columns = [
 		{
-			title: 'ID',
-			id: 'id',
-			key: 'id'
+			title: '序号',
+			id: 'response_id',
+			key: 'response_id'
+		},
+		{
+			title: '对应的求购信息',
+			id: 'buy_desc',
+			key: 'buy_desc'
 		},
 		{
 			title: '响应者姓名',
-			id: 'username',
-			key: 'username'
+			id: 'response_username',
+			key: 'response_username'
 		},
 		{
-			title: 'NFT 名称',
-			id: 'nft_name',
-			key: 'nft_name'
+			title: 'NFT 图片',
+			id: 'response_nft_img',
+			key: 'response_nft_img',
+			render: (text, record) => <img src={text} />
+		},
+		{
+			title: '响应描述信息',
+			id: 'response_desc',
+			key: 'response_desc'
 		},
 		{
 			title: '响应金额',
-			id: 'price',
-			key: 'price',
-			render: (text, record) => {
-				console.log(text, record);
-				return <div>{text}</div>;
-			}
+			id: 'response_price',
+			key: 'response_price'
 		},
 		{
 			title: '操作',
@@ -46,16 +55,19 @@ export default function BuyTableListResponse() {
 			)
 		}
 	];
-	const dataSource = [];
-	for (let i = 0; i < 50; i++) {
-		dataSource.push({
-			id: i.toString(),
-			key: i.toString(),
-			username: 'John Doe',
-			nft_name: `NFT ${i}`,
-			price: '1000',
-			operation: '操作'
-		});
-	}
-	return <AdminTable columns={columns} dataSource={dataSource} />;
+
+	const [data, setData] = useState([]);
+	useEffect(() => {
+		async function getData() {
+			const res = await api.get('/selectAll/response', {
+				params: {
+					uid: localStorage.getItem('uid') || ''
+				}
+			});
+			console.log(res.data);
+			setData(res.data);
+		}
+		getData();
+	}, []);
+	return <AdminTable columns={columns} dataSource={data} />;
 }

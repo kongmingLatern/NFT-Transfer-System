@@ -145,7 +145,7 @@ export default function NFTManage() {
 			setDataSource(res.data);
 		}
 		getData();
-	});
+	},[]);
 
 	async function search(value, onOpen) {
 		const res = await api.get('/search/nft', {
