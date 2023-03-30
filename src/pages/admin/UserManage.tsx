@@ -2,11 +2,12 @@ import { api } from '@/api';
 import Form from '@/component/common/form/Form';
 import message from '@/component/common/message/Message';
 import Modal from '@/component/common/modal/Modal';
+import { SearchModalForm } from '@/component/common/modal/SearchModalForm';
 import Space from '@/component/common/space/Space';
 import Table from '@/component/common/table/Table';
 import Main from '@/views/admin/Main';
 import { Button } from '@chakra-ui/react';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 export default function UserManage() {
 	const columns = [
@@ -81,6 +82,21 @@ export default function UserManage() {
 		}
 	];
 	const [dataSource, setDataSource] = useState([]);
+	const result = useRef(null);
+	const tableTitle = [
+		{
+			title: 'UID'
+		},
+		{
+			title: '用户名'
+		},
+		{
+			title: '密码'
+		},
+		{
+			title: '账户余额'
+		}
+	];
 
 	useEffect(() => {
 		async function getData() {
@@ -90,8 +106,24 @@ export default function UserManage() {
 		getData();
 	});
 
+	async function search(value, onOpen) {
+		const res = await api.get('/search/user', {
+			params: {
+				uid: value
+			}
+		});
+		onOpen();
+		result.current = res.data;
+	}
+
 	return (
 		<>
+			<SearchModalForm
+				placeholder={'请输入要查询的 UID 编号'}
+				search={search}
+				result={result.current}
+				tableTitle={tableTitle}
+			/>
 			{/* <div className="flex justify-end pr-2 pt-3">
 				<Space size={10}>
 					<Modal

@@ -4,7 +4,6 @@ import {
 	TabList,
 	TabPanel,
 	TabPanels,
-	Input,
 	Button
 } from '@chakra-ui/react';
 import Image from '@/assets/gd1.png';
