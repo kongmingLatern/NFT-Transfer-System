@@ -41,105 +41,42 @@ export default function UserManage() {
 			id: 'operation',
 			key: 'operation',
 			render: (text, record) => (
-				<Space>
-					<Modal
-						open={(onOpen) => {
-							function handleOk(id) {
-								console.log('UserManagehandleOk', id);
-								onOpen();
-							}
-							return (
-								<button
-									className="btn btn-secondary w-[100px] font-thin text-white"
-									onClick={() => handleOk(record.id)}
-								>
-									修改信息
-								</button>
-							);
-						}}
-						bodyContent={(onClose) => {
-							function handleOk(msg) {
-								message.success(msg);
-								onClose();
-							}
-							return (
-								<Form
-									formItem={[
-										{
-											label: '用户名',
-											name: 'username',
-											type: 'input',
-											rules: [{ required: true, message: '请输入用户名' }]
-										},
-										{
-											label: '密码',
-											name: 'password',
-											type: 'input',
-											rules: [{ required: true, message: '请输入密码' }]
-										},
-										{
-											label: '账号余额',
-											name: 'balance',
-											type: 'input',
-											rules: [{ required: true, message: '请输入账号余额' }]
-										}
-									]}
-									footer={() => {
-										return (
-											<Button
-												colorScheme={'green'}
-												type="submit"
-												className="float-right"
-											>
-												提交
-											</Button>
-										);
-									}}
-									onSubmit={(data) => {
-										handleOk('修改成功');
-										console.log('data', data);
-									}}
-								/>
-							);
-						}}
-					/>
-					<Modal
-						open={(onOpen) => (
-							<button
-								className="btn btn-error w-[100px] font-thin text-white"
-								onClick={() => onOpen()}
-							>
-								修改信息
-							</button>
-						)}
-						title="删除用户"
-						bodyContent={(onClose) => {
-							function handleOk(id) {
-								message.success('删除成功');
-								console.log('removeUser', id);
-								onClose();
-							}
-							return (
-								<>
-									<p className="font-bold text-center text-lg mb-3">
-										确定要删除嘛
-									</p>
-									<Space className="float-right">
-										<Button colorScheme={'blue'} onClick={() => onClose()}>
-											否
-										</Button>
-										<Button
-											colorScheme={'red'}
-											onClick={() => handleOk(record.id)}
-										>
-											是
-										</Button>
-									</Space>
-								</>
-							);
-						}}
-					/>
-				</Space>
+				<Modal
+					open={(onOpen) => (
+						<button
+							className="btn btn-error w-[100px] font-thin text-white"
+							onClick={() => onOpen()}
+						>
+							删除用户
+						</button>
+					)}
+					title="删除用户"
+					bodyContent={(onClose) => {
+						function handleOk(id) {
+							message.success('删除成功');
+							console.log('removeUser', id);
+							onClose();
+						}
+						return (
+							<>
+								<p className="font-bold text-center text-lg mb-3">
+									确定要删除嘛
+								</p>
+								<Space className="float-right">
+									<Button colorScheme={'blue'} onClick={() => onClose()}>
+										否
+									</Button>
+									<Button
+										colorScheme={'red'}
+										onClick={() => handleOk(record.id)}
+									>
+										是
+									</Button>
+								</Space>
+							</>
+						);
+					}}
+				/>
 			)
 		}
 	];
