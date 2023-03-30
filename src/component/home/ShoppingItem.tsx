@@ -1,8 +1,8 @@
 import { api } from '@/api';
 import { Icon } from '@iconify-icon/react';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 
-export default function ShoppingItem() {
+export default function ShoppingItem({ setNum }) {
 	const [changingvalue, setChangevalue] = useState(true);
 	const [data, setData] = useState([]);
 
@@ -14,10 +14,13 @@ export default function ShoppingItem() {
 				}
 			});
 			console.log(res.data);
+			setNum(res.data.length);
 			setData(res.data);
 		}
 		getData();
 	}, []);
+
+	useMemo(() => setNum(data.length), [data]);
 
 	function onMouseEnter() {
 		setChangevalue(false);
@@ -29,6 +32,7 @@ export default function ShoppingItem() {
 	// NOTE: 删除商品
 	function removeItem(nft_id) {
 		console.log(nft_id);
+		setNum(data.length);
 		return setData(data.filter((item) => item.nft_id !== nft_id));
 	}
 

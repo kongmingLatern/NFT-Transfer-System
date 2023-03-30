@@ -9,13 +9,14 @@ export default function TableComponent() {
 	const [checkItems, setCheckItems] = useState([]);
 	function addcount(id) {
 		data.map((item) => {
-			if (item.id === id) ++item.count;
+			if (item.shopping_id === id && item.num < item.count) ++item.num;
 		});
+		console.log(data);
 		setData([...data]);
 	}
 	function subcount(id) {
 		data.map((item) => {
-			if (item.id === id && item.count > 1) --item.count;
+			if (item.shopping_id === id && item.num > 1) --item.num;
 		});
 		setData([...data]);
 	}
@@ -28,28 +29,44 @@ export default function TableComponent() {
 		setCheckItems(newCheckedItems);
 	}
 
+	// function changeAllChecked() {
+	// 	if (checkItems.length === 0) {
+	// 		// NOTE: 清空了数组，需要全选
+	// 		setCheckItems(data.map((item) => item.shopping_id));
+	// 	} else {
+	// 		// NOTE: 当前全选状态，清空数组
+	// 		setCheckItems([]);
+	// 	}
+	// }
+
 	useEffect(() => {
 		async function getData() {
+			const check = [];
 			const res = await api.get('/selectAll/shoppcart', {
 				params: {
 					uid: localStorage.getItem('uid') || ''
 				}
 			});
+			res.data.forEach((item) => {
+				check.push(item.shopping_id);
+				item['num'] = 1;
+			});
+			setCheckItems(check);
+			console.log(res.data);
 			setData(res.data);
 		}
 		getData();
 	}, []);
 
 	const totalAmount = useMemo(() => {
-		console.log(checkItems);
 		let total = 0;
 		data.map((item) => {
 			if (checkItems.includes(item.shopping_id)) {
-				total += item.count * item.price;
+				total += item.num * item.price;
 			}
 		});
 		return total;
-	}, [checkItems]);
+	}, [checkItems, data]);
 
 	function getFilterData() {
 		// 去除 checked 字段
@@ -65,7 +82,11 @@ export default function TableComponent() {
 					{/* head */}
 					<thead>
 						<tr className="text-center">
-							<Tablehead />
+							<Tablehead
+								// len={data.length}
+								// checkItems={checkItems}
+								// changeAllChecked={changeAllChecked}
+							/>
 						</tr>
 					</thead>
 					<tbody>

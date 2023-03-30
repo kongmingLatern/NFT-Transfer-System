@@ -10,7 +10,7 @@ import {
 } from '@chakra-ui/react';
 
 import { Icon } from '@iconify-icon/react';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 
 import Item from './Item';
 import Attention from '../common/Attention';
@@ -21,24 +21,12 @@ import ShoppingItem from './ShoppingItem';
 export default function Shoppingcart() {
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const navigate = useNavigate();
+	const [num, setNum] = useState(0);
 
 	function handleNavigate() {
 		onClose();
 		navigate('/transaction');
 	}
-	const [data, setData] = useState([]);
-	useEffect(() => {
-		async function getData() {
-			const res = await api.get('/selectAll/shoppcart', {
-				params: {
-					uid: localStorage.getItem('uid') || ''
-				}
-			});
-			console.log(res.data);
-			setData(res.data);
-		}
-		getData();
-	}, []);
 
 	const btnRef = useRef();
 	return (
@@ -66,7 +54,7 @@ export default function Shoppingcart() {
 						<Attention />{' '}
 					</DrawerHeader>
 					<div className="text-sm mx-4">
-						<div className="float-left">总数:1</div>
+						<div className="float-left">总数:{num}</div>
 						<button className="float-right hover:text-gray-500">
 							全部清除
 						</button>
@@ -74,16 +62,16 @@ export default function Shoppingcart() {
 					<DrawerBody w="full">
 						{/* 购物车内的商品 */}
 						{/* <Item></Item> */}
-						<ShoppingItem />
+						<ShoppingItem setNum={setNum} />
 					</DrawerBody>
 
 					<DrawerFooter display="block">
-						<div className="w-full font-bold">
+						{/* <div className="w-full font-bold">
 							<div className="float-left">总价</div>
 							<button className="float-right hover:text-gray-500">
 								￥100.00
 							</button>
-						</div>
+						</div> */}
 						<button
 							className="w-full mt-2 btn btn-secondary"
 							onClick={handleNavigate}

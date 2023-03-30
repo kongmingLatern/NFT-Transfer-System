@@ -5,7 +5,7 @@ const Tablefooter: React.FC<any> = ({ total, data }: any) => {
 		const result = data.map((item) => {
 			return {
 				id: item.shopping_id,
-				count: item.count
+				count: item.num
 			};
 		});
 		console.log(result);
