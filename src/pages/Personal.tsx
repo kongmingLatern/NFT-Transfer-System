@@ -5,7 +5,7 @@ export default function Personal() {
   return (
     <>
       <Header />
-      <div className="w-[60%] mx-auto my-2 mt-[80px]">
+      <div className="my-2">
         <PersonalCard />
       </div>
     </>
