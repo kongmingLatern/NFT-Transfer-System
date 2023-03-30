@@ -4,12 +4,14 @@ interface TabType {
 	tabList: string[];
 	tabPanelList: any[];
 	className?: string;
+	tabPaneListJustify?: 'center' | 'end' | 'start';
 }
 
 export default function TabComponent({
 	tabList,
 	tabPanelList,
-	className
+	className,
+	tabPaneListJustify = 'start'
 }: Partial<TabType>) {
 	return (
 		<>
@@ -20,7 +22,7 @@ export default function TabComponent({
 					))}
 				</TabList>
 
-				<TabPanels>
+				<TabPanels className="flex" justifyContent={tabPaneListJustify}>
 					{tabPanelList.map((item, index) => (
 						<TabPanel key={index}>{item}</TabPanel>
 					))}

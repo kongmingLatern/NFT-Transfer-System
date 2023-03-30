@@ -56,7 +56,11 @@ export default function BuyMessage() {
 					}}
 				/>
 			</Space>
-			<Tabs tabList={tabList} tabPanelList={tabPaneList} />
+			<Tabs
+				tabList={tabList}
+				tabPanelList={tabPaneList}
+				tabPaneListJustify="center"
+			/>
 		</>
 	);
 }

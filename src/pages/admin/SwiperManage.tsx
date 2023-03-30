@@ -53,7 +53,7 @@ export default function SettingManage() {
 
 	useEffect(() => {
 		async function getData() {
-			const res = await api.get('/swiper');
+			const res = await api.get('/selectAll/swiper');
 			setDataSource(res.data);
 		}
 		getData();

@@ -48,7 +48,6 @@ export default function BuyTableList() {
 	useEffect(() => {
 		async function getData() {
 			const res = await api.get('/selectAll/buy_message');
-			console.log(res.data);
 			setData(res.data);
 		}
 		getData();
