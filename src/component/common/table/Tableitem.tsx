@@ -2,15 +2,14 @@ import React from 'react';
 import { Button, Checkbox } from '@chakra-ui/react';
 import Image from '@/assets/gd1.png';
 const Tableitem: React.FC<any> = (props: any) => {
-	const { count, id, price, checked } = props.data;
+	const { count, shopping_id, price, checkItems } = props.data;
 
 	return (
 		<>
 			<td>
 				<Checkbox
-					defaultChecked
-					isChecked={checked ? checked : false}
-					onChange={(e) => props.changeChecked(id)}
+					isChecked={checkItems && !checkItems?.includes(shopping_id)}
+					onChange={(e) => props.changeChecked(shopping_id)}
 				/>
 			</td>
 			<td className="text-center">hhhh</td>
@@ -40,11 +39,11 @@ const Tableitem: React.FC<any> = (props: any) => {
 				<label>￥{price}</label>
 			</td>
 			<td className="w-10">
-				<Button onClick={() => props.subcount(id)}>-</Button>
+				<Button onClick={() => props.subcount(shopping_id)}>-</Button>
 				<label className="mx-3" htmlFor="">
 					{count}
 				</label>
-				<Button onClick={() => props.addcount(id)}>+</Button>
+				<Button onClick={() => props.addcount(shopping_id)}>+</Button>
 			</td>
 		</>
 	);

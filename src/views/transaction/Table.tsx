@@ -2,83 +2,61 @@ import React, { useEffect, useMemo, useState } from 'react';
 import Tableitem from '../../component/common/table/Tableitem';
 import Tablehead from '../../component/common/table/Tablehead';
 import Tablefooter from '../../component/common/table/Tablefooter';
+import { api } from '../../api';
 import { Table, Tfoot } from '@chakra-ui/react';
 export default function TableComponent() {
-	const [total, setTotal] = useState(0);
-	const [data, setdata] = useState([
-		{
-			id: '1',
-			count: 1,
-			price: 1,
-			checked: true
-		},
-		{
-			id: '2',
-			count: 1,
-			price: 2,
-			checked: true
-		},
-		{
-			id: '3',
-			count: 1,
-			price: 1,
-			checked: true
-		},
-		{
-			id: '4',
-			count: 1,
-			price: 2,
-			checked: false
-		},
-		{
-			id: '5',
-			count: 1,
-			price: 1,
-			checked: false
-		},
-		{
-			id: '6',
-			count: 1,
-			price: 2,
-			checked: false
-		}
-	]);
+	const [data, setData] = useState([]);
+	const [checkItems, setCheckItems] = useState([]);
 	function addcount(id) {
 		data.map((item) => {
 			if (item.id === id) ++item.count;
 		});
-		setdata([...data]);
+		setData([...data]);
 	}
 	function subcount(id) {
 		data.map((item) => {
 			if (item.id === id && item.count > 1) --item.count;
 		});
-		setdata([...data]);
+		setData([...data]);
 	}
 
 	function changeChecked(id) {
-		data.map((item) => {
-			if (item.id === id) item.checked = !item.checked;
-		});
-		setdata([...data]);
+		const isChecked = checkItems.includes(id);
+		const newCheckedItems = isChecked
+			? checkItems.filter((i) => i !== id)
+			: [...checkItems, id];
+		setCheckItems(newCheckedItems);
 	}
 
 	useEffect(() => {
+		async function getData() {
+			const res = await api.get('/selectAll/shoppcart', {
+				params: {
+					uid: localStorage.getItem('uid') || ''
+				}
+			});
+			setData(res.data);
+		}
+		getData();
+	}, []);
+
+	const totalAmount = useMemo(() => {
+		console.log(checkItems);
 		let total = 0;
 		data.map((item) => {
-			if (item.checked) {
+			if (checkItems.includes(item.shopping_id)) {
 				total += item.count * item.price;
 			}
 		});
-		setTotal(total);
-	}, [data]);
+		return total;
+	}, [checkItems]);
 
 	function getFilterData() {
 		// 去除 checked 字段
-		return data.filter((item) => item.checked);
+		return data.filter((item) => checkItems.includes(item.shopping_id));
 	}
 
-	const filterData = useMemo(() => getFilterData(), [data]);
+	const filterData = useMemo(() => getFilterData(), [checkItems]);
 
 	return (
 		<div>
@@ -94,12 +72,13 @@ export default function TableComponent() {
 						{/* row 1 */}
 						{data.map((item) => {
 							return (
-								<tr key={item.id}>
+								<tr key={item.shopping_id}>
 									<Tableitem
 										addcount={addcount}
 										data={item}
 										subcount={subcount}
 										changeChecked={changeChecked}
+										checkItems={checkItems}
 									/>
 								</tr>
 							);
@@ -109,7 +88,7 @@ export default function TableComponent() {
 			</div>
 
 			<footer className="w-[60vw] h-[100%] mx-auto">
-				<Tablefooter total={total} data={filterData} />
+				<Tablefooter total={totalAmount} data={filterData} />
 			</footer>
 		</div>
 	);
