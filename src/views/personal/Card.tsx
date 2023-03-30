@@ -20,28 +20,45 @@ import message from '@/component/common/message/Message';
 export default function PersonalCard() {
 	const [user, setUser] = useState('凤之兮原');
 	return (
-		<div className="card flex-row">
+		<><div className="card flex-row h-[20vh] relative">
 			{/* 左侧 */}
-			<div className="w-1/4 flex flex-col">
+			<div className="mx-auto">
 				<div>
-					<figure className="rounded-full overflow-hidden">
-						<img src={Image} alt="Image" />
+					<figure>
+						<img className='rounded-full overflow-hidden' src={Image} alt="Image" width={'100px'} height={'100px'} />
 					</figure>
 				</div>
 
-				<aside>
+				<aside className='text-center'>
 					<p className="font-bold text-2xl">凤之兮原</p>
 					<p className="font-thin text-lg font-sans">KongmingLatern</p>
-					<br />
+					<div className="mt-2 flex">
+						<div className="flex items-center">
+							<Icon icon="ri:user-follow-line" color="#ccc" />
+							<div className="ml-2 whitespace-nowrap">
+								3{' '}
+								<Link to={''} className="text-blue-400">
+									followers
+								</Link>
+							</div>
+							<div className="divider lg:divider-horizontal lg:mx-0"></div>
+							<div className="ml-2 whitespace-nowrap">
+								3{' '}
+								<Link to={''} className="text-red-400">
+									followings
+								</Link>
+							</div>
+						</div>
+					</div>
 					<p className="text-lg font-sans">每天进步一点点~~</p>
 
 					{/* 个人信息编辑 */}
-					<div className="mt-8">
+					<div className="absolute right-0 top-[50%]">
 						<Modal
 							open={(onOpen) => (
-								<button className="btn w-[100%]" onClick={() => onOpen()}>
+								<Button onClick={() => onOpen()}>
 									Edit profile
-								</button>
+								</Button>
 							)}
 							title={'编辑个人信息'}
 							bodyContent={(onClose) => {
@@ -86,35 +103,17 @@ export default function PersonalCard() {
 											mentionCloseMsg('更新信息成功');
 											console.log('data', data);
 											onClose();
-										}}
-									/>
+										} } />
 								);
-							}}
+							} }
 						></Modal>
-
 						<div className="mt-2 flex">
-							<div className="flex items-center">
-								<Icon icon="ri:user-follow-line" color="#ccc" />
-								<div className="ml-2 whitespace-nowrap">
-									3{' '}
-									<Link to={''} className="text-blue-400">
-										followers
-									</Link>
-								</div>
-								<div className="divider lg:divider-horizontal lg:mx-0"></div>
-								<div className="ml-2 whitespace-nowrap">
-									3{' '}
-									<Link to={''} className="text-red-400">
-										followings
-									</Link>
-								</div>
-							</div>
 						</div>
 					</div>
 				</aside>
 			</div>
-			{/* 右侧 */}
-			<aside className="card-body ml-5 w-auto border overflow-y-scroll h-[100vh]">
+		</div><div className="card flex-row h-[60vh] relative" style={{top:"75px"}}>
+		<aside className="card-body ml-5 w-auto border overflow-y-scroll h-[100vh]">
 				<h2 className="card-title font-sans">My Personal Property</h2>
 				<Tabs variant="soft-rounded" colorScheme="green">
 					<TabList className="font-mono">
@@ -135,5 +134,6 @@ export default function PersonalCard() {
 				</div>
 			</aside>
 		</div>
+		</>
 	);
 }
