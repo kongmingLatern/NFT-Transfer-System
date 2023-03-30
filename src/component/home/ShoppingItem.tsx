@@ -26,6 +26,12 @@ export default function ShoppingItem() {
 		setChangevalue(true);
 	}
 
+	// NOTE: 删除商品
+	function removeItem(nft_id) {
+		console.log(nft_id);
+		return setData(data.filter((item) => item.nft_id !== nft_id));
+	}
+
 	return (
 		<>
 			{data.map((item) => {
@@ -56,6 +62,9 @@ export default function ShoppingItem() {
 										className="w-full h-full"
 										style={{
 											display: changingvalue ? 'none' : 'block'
+										}}
+										onClick={() => {
+											removeItem(item.nft_id);
 										}}
 									>
 										<Icon
