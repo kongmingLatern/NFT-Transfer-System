@@ -17,7 +17,21 @@ export default function Home() {
 	const [loading, setLoading] = useState(true);
 
 	const tabList = ['All', 'Art', 'Music', 'Video'];
-	const tabPanelList = ['All', 'Art', 'Music', 'Video'];
+	const tabPanelList = [
+		<>
+			<Title title={'Trending'} />
+			<Trending />
+			<Divider />
+
+			<Title title={'Trending In Art'} />
+			<CardList type="All" />
+
+			<Divider />
+		</>,
+		'Art',
+		'Music',
+		'Video'
+	];
 
 	function removeCover(
 		step: number,
@@ -48,22 +62,11 @@ export default function Home() {
 			<Divider />
 
 			<Title title={'Trending In Art'} />
-			<CardList />
+			{/* <CardList /> */}
 
 			<Divider />
-
-			<Step order={3} description="这个是步骤3">
-				<button className="btn" onClick={() => setData([1, 2, 3])}>
-					setNum
-				</button>
-			</Step>
-
-			<button className="btn" onClick={() => message.error('123')}>
-				HH
-			</button>
-
-			{/* <Step order={2} description="步骤2"> */}
 			<Echarts type="line" data={data} />
+			{/* <Step order={2} description="步骤2"> */}
 			{/* </Step> */}
 			{/* </Beginner> */}
 		</>
