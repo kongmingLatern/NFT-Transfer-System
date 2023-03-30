@@ -1,7 +1,8 @@
 import { api } from '@/api';
+import { SearchModalForm } from '@/component/common/modal/SearchModalForm';
 import Space from '@/component/common/space/Space';
 import Table from '@/component/common/table/Table';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 export default function ReviewNFTManage() {
 	const columns = [
@@ -100,6 +101,42 @@ export default function ReviewNFTManage() {
 		}
 	];
 	const [dataSource, setDataSource] = useState([]);
+	const result = useRef(null);
+	const tableTitle = [
+		{
+			title: 'NFT 编号'
+		},
+		{
+			title: '当前持有者'
+		},
+		{
+			title: 'NFT 名称'
+		},
+		{
+			title: 'NFT 分类'
+		},
+		{
+			title: 'NFT 图片'
+		},
+		{
+			title: 'NFT 描述'
+		},
+		{
+			title: '出售金额'
+		},
+		{
+			title: '标价'
+		},
+		{
+			title: '最低加价'
+		},
+		{
+			title: '最高价'
+		},
+		{
+			title: 'NFT 状态'
+		}
+	];
 
 	useEffect(() => {
 		async function getData() {
@@ -109,8 +146,24 @@ export default function ReviewNFTManage() {
 		getData();
 	});
 
+	async function search(value, onOpen) {
+		const res = await api.get('/search/nft_id', {
+			params: {
+				nft_id: value
+			}
+		});
+		onOpen();
+		result.current = res.data;
+	}
+
 	return (
 		<>
+			<SearchModalForm
+				placeholder={'请输入要查询的 NFT 编号'}
+				search={search}
+				result={result.current}
+				tableTitle={tableTitle}
+			/>
 			<Table
 				dataSource={dataSource.filter((item) => item.status === 0)}
 				columns={columns}
