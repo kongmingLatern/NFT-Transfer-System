@@ -70,7 +70,8 @@ export default function OrderManage() {
 	];
 
 	const [dataSource, setDataSource] = useState([]);
-	const result = useRef(null);
+	// const result = useRef(null);
+	const [result, setResult] = useState([]);
 
 	useEffect(() => {
 		async function getData() {
@@ -87,14 +88,13 @@ export default function OrderManage() {
 			}
 		});
 		onOpen();
-		result.current = res.data;
-		console.log(result.current);
+		setResult(res.data);
 	}
 	return (
 		<>
 			<SearchModalForm
 				search={search}
-				result={result && result.current}
+				result={result}
 				tableTitle={[
 					{
 						title: '订单编号'

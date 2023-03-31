@@ -7,7 +7,7 @@ import Space from '@/component/common/space/Space';
 import Table from '@/component/common/table/Table';
 import Main from '@/views/admin/Main';
 import { Button } from '@chakra-ui/react';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export default function UserManage() {
 	const columns = [
@@ -42,47 +42,101 @@ export default function UserManage() {
 			id: 'operation',
 			key: 'operation',
 			render: (text, record) => (
-				<Modal
-					open={(onOpen) => (
-						<button
-							className="btn btn-error w-[100px] font-thin text-white"
-							onClick={() => onOpen()}
-						>
-							删除用户
-						</button>
-					)}
-					title="删除用户"
-					bodyContent={(onClose) => {
-						function handleOk(id) {
-							message.success('删除成功');
-							console.log('removeUser', id);
-							onClose();
-						}
-						return (
-							<>
-								<p className="font-bold text-center text-lg mb-3">
-									确定要删除嘛
-								</p>
-								<Space className="float-right">
-									<Button colorScheme={'blue'} onClick={() => onClose()}>
-										否
-									</Button>
-									<Button
-										colorScheme={'red'}
-										onClick={() => handleOk(record.id)}
-									>
-										是
-									</Button>
-								</Space>
-							</>
-						);
-					}}
-				/>
+				<Space>
+					<Modal
+						open={(onOpen) => (
+							<button
+								className="btn btn-secondary w-[100px] font-thin text-white"
+								onClick={() => onOpen()}
+							>
+								修改用户
+							</button>
+						)}
+						title="修改用户"
+						bodyContent={(onClose) => {
+							function handleOk(id) {
+								message.success('修改成功');
+								console.log('removeUser', id);
+								onClose();
+							}
+							return (
+								<Form
+									formItem={[
+										{
+											label: '用户名',
+											name: 'username',
+											type: 'text'
+										},
+										{
+											label: '账号余额',
+											name: 'balance',
+											type: 'number'
+										},
+										{
+											label: '权限',
+											name: 'isAuth',
+											type: 'number'
+										}
+									]}
+									footer={() => {
+										return (
+											<Button
+												colorScheme="blue"
+												type="submit"
+												className="float-right mt-2"
+											>
+												修改
+											</Button>
+										);
+									}}
+									onSubmit={(data) => {
+										console.log('Userdata', data, record.uid);
+									}}
+								/>
+							);
+						}}
+					/>
+					<Modal
+						open={(onOpen) => (
+							<button
+								className="btn btn-error w-[100px] font-thin text-white"
+								onClick={() => onOpen()}
+							>
+								删除用户
+							</button>
+						)}
+						title="删除用户"
+						bodyContent={(onClose) => {
+							function handleOk(id) {
+								message.success('删除成功');
+								console.log('removeUser', id);
+								onClose();
+							}
+							return (
+								<>
+									<p className="font-bold text-center text-lg mb-3">
+										确定要删除嘛
+									</p>
+									<Space className="float-right">
+										<Button colorScheme={'blue'} onClick={() => onClose()}>
+											否
+										</Button>
+										<Button
+											colorScheme={'red'}
+											onClick={() => handleOk(record.id)}
+										>
+											是
+										</Button>
+									</Space>
+								</>
+							);
+						}}
+					/>
+				</Space>
 			)
 		}
 	];
 	const [dataSource, setDataSource] = useState([]);
-	const result = useRef(null);
 	const tableTitle = [
 		{
 			title: 'UID'
@@ -98,6 +152,7 @@ export default function UserManage() {
 		}
 	];
 
+	const [result, setResult] = useState([]);
 	useEffect(() => {
 		async function getData() {
 			const res = await api.get('/selectAll/user');
@@ -113,8 +168,7 @@ export default function UserManage() {
 			}
 		});
 		onOpen();
-		result.current = res.data;
-		console.log(result.current);
+		setResult(res.data);
 	}
 
 	return (
@@ -122,7 +176,7 @@ export default function UserManage() {
 			<SearchModalForm
 				placeholder={'请输入要查询的 UID 编号'}
 				search={search}
-				result={result.current}
+				result={result}
 				tableTitle={tableTitle}
 			/>
 			{/* <div className="flex justify-end pr-2 pt-3">

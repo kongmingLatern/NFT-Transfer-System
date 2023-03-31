@@ -101,7 +101,7 @@ export default function ReviewNFTManage() {
 		}
 	];
 	const [dataSource, setDataSource] = useState([]);
-	const result = useRef(null);
+	const [result, setResult] = useState([]);
 	const tableTitle = [
 		{
 			title: 'NFT 编号'
@@ -144,7 +144,7 @@ export default function ReviewNFTManage() {
 			setDataSource(res.data);
 		}
 		getData();
-	},[]);
+	}, []);
 
 	async function search(value, onOpen) {
 		const res = await api.get('/search/nft_id', {
@@ -153,7 +153,7 @@ export default function ReviewNFTManage() {
 			}
 		});
 		onOpen();
-		result.current = res.data;
+		setResult(res.data);
 	}
 
 	return (
@@ -161,7 +161,7 @@ export default function ReviewNFTManage() {
 			<SearchModalForm
 				placeholder={'请输入要查询的 NFT 编号'}
 				search={search}
-				result={result.current}
+				result={result}
 				tableTitle={tableTitle}
 			/>
 			<Table
