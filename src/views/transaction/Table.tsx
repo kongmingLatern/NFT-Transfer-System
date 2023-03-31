@@ -3,7 +3,7 @@ import Tableitem from '../../component/common/table/Tableitem';
 import Tablehead from '../../component/common/table/Tablehead';
 import Tablefooter from '../../component/common/table/Tablefooter';
 import { api } from '../../api';
-import { Button, Table, Tfoot } from '@chakra-ui/react';
+import { Button, Table } from '@chakra-ui/react';
 export default function TableComponent() {
 	const [data, setData] = useState([]);
 	const [checkItems, setCheckItems] = useState([]);

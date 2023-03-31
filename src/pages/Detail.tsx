@@ -7,9 +7,6 @@ import { createContext } from 'react';
 export const DetailProvider = createContext({});
 
 export default function Detail() {
-
-  
-
 	return (
 		<DetailProvider.Provider
 			value={{

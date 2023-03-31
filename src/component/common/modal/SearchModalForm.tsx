@@ -11,12 +11,15 @@ import {
 	Td
 } from '@chakra-ui/react';
 import Modal from './Modal';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import Empty from '@/component/empty/Empty';
+import { EmptyComponent } from '../table/Table';
 
 interface SearchModalFormType {
 	placeholder: string;
 	search: (...args: any) => any;
 	result: any;
+	columns: any;
 	tableTitle: Array<Record<string, any>>;
 }
 
@@ -27,7 +30,7 @@ export function SearchModalForm({
 	tableTitle
 }: Partial<SearchModalFormType>) {
 	useEffect(() => {
-		console.log(result);
+		console.log('result', result);
 	}, [result]);
 
 	return (
@@ -57,23 +60,27 @@ export function SearchModalForm({
 									{tableTitle.map((item, index) => {
 										if (item?.type === 'number') {
 											return (
-												<Th key={item} isNumeric>
+												<Th key={index} isNumeric>
 													{item.title}
 												</Th>
 											);
 										} else {
-											return <Th key={item + index}>{item.title}</Th>;
+											return <Th key={index}>{item.title}</Th>;
 										}
 									})}
 								</Tr>
 							</Thead>
 							<Tbody>
-								<Tr>
-									{result &&
-										Object.keys(result).map((item, index) => (
-											<Td key={index}>{result[item]}</Td>
-										))}
-								</Tr>
+								{result?.length === 0 ? (
+									<EmptyComponent columns={tableTitle} />
+								) : (
+									<Tr>
+										{result &&
+											Object.keys(result).map((item, index) => (
+												<Td key={index}>{result[item]}</Td>
+											))}
+									</Tr>
+								)}
 							</Tbody>
 						</TableUI>
 					</TableContainer>

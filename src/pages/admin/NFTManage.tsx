@@ -4,6 +4,9 @@ import Space from '@/component/common/space/Space';
 import Table from '@/component/common/table/Table';
 import { useEffect, useRef, useState } from 'react';
 import { showText } from './ReviewNFTManage';
+import Modal from '@/component/common/modal/Modal';
+import Card from '@/component/home/Card';
+import { Button } from '@chakra-ui/react';
 
 export default function NFTManage() {
 	const columns = [
@@ -88,12 +91,22 @@ export default function NFTManage() {
 			key: 'operation',
 			render: (text, record) => (
 				<Space>
-					<button
-						className="btn btn-secondary w-[100px] font-thin text-white"
-						onClick={() => console.log(record.id)}
-					>
-						查看
-					</button>
+					<Modal
+						open={(onOpen) => (
+							<button
+								className="btn btn-secondary w-[100px] font-thin text-white"
+								onClick={() => onOpen()}
+							>
+								查看
+							</button>
+						)}
+						bodyContent={(onClose) => {
+							return <Card item={record} />;
+						}}
+						footerContent={(onClose) => {
+							return <Button onClick={onClose}>关闭</Button>;
+						}}
+					/>
 					<button className="btn btn-error w-[100px] font-thin text-white">
 						删除
 					</button>
@@ -102,7 +115,6 @@ export default function NFTManage() {
 		}
 	];
 	const [dataSource, setDataSource] = useState([]);
-	const result = useRef(null);
 	const tableTitle = [
 		{
 			title: 'NFT 编号'
@@ -139,13 +151,14 @@ export default function NFTManage() {
 		}
 	];
 
+	const [result, setResult] = useState([]);
 	useEffect(() => {
 		async function getData() {
 			const res = await api.get('/selectAll/nft');
 			setDataSource(res.data);
 		}
 		getData();
-	},[]);
+	}, []);
 
 	async function search(value, onOpen) {
 		const res = await api.get('/search/nft', {
@@ -154,14 +167,14 @@ export default function NFTManage() {
 			}
 		});
 		onOpen();
-		result.current = res.data;
+		setResult(res.data);
 	}
 	return (
 		<>
 			<SearchModalForm
 				placeholder={'请输入要查询的 NFT 编号'}
 				search={search}
-				result={result.current}
+				result={result}
 				tableTitle={tableTitle}
 			/>
 			<Table dataSource={dataSource} columns={columns} />

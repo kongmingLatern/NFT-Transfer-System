@@ -123,7 +123,7 @@ function ShowData({ dataSource, columns }) {
 		})
 	);
 }
-function EmptyComponent({ columns }: any) {
+export function EmptyComponent({ columns }: any) {
 	return (
 		<Tr key={'Empty'}>
 			<Td colSpan={columns.length} style={{ textAlign: 'center' }}>

@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 export default function Card({ item }) {
 	return (
 		<Link to={'/detail'}>
-			<div className="card card-compact w-60 bg-base-100 shadow-xl transform hover:-translate-y-1 hover:scale-100 h-[100%]">
+			<div className="card card-compact w-60 bg-base-100 shadow-xl transform hover:-translate-y-1 hover:scale-100 h-[100%] mx-auto">
 				<figure className="h-[60%]">
 					<img className="w-full h-[100%]" src={item.nft_img} />
 				</figure>

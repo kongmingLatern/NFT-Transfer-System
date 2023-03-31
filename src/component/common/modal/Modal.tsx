@@ -16,6 +16,17 @@ interface ModalType {
 	bodyContent: (fn?) => JSX.Element;
 	footerContent?: (fn?) => JSX.Element;
 	isOpenStatus?: boolean;
+	justifyBody?:
+		| 'start'
+		| 'center'
+		| 'end'
+		| 'space-between'
+		| 'space-around'
+		| 'space-evenly'
+		| 'stretch'
+		| 'initial'
+		| 'inherit'
+		| undefined;
 }
 
 export default function modal({
@@ -23,7 +34,8 @@ export default function modal({
 	open,
 	title = 'Modal Title',
 	bodyContent,
-	footerContent
+	footerContent,
+	justifyBody = 'start'
 }: Partial<ModalType>) {
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	return (
@@ -32,7 +44,7 @@ export default function modal({
 
 			<Modal isOpen={isOpenStatus || isOpen} onClose={onClose}>
 				<ModalOverlay />
-				<ModalContent>
+				<ModalContent justifyContent={'center'}>
 					<ModalHeader>{title}</ModalHeader>
 					<ModalCloseButton />
 					<ModalBody>{bodyContent && bodyContent(onClose)}</ModalBody>
