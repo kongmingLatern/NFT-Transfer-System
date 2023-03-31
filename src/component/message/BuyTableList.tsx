@@ -2,6 +2,9 @@ import { api } from '@/api';
 import { useEffect, useState } from 'react';
 import Space from '../common/space/Space';
 import AdminTable from '../common/table/Table';
+import Modal from '../common/modal/Modal';
+import Form from '../common/form/Form';
+import { Button } from '@chakra-ui/react';
 
 export default function BuyTableList() {
 	const columns = [
@@ -31,13 +34,52 @@ export default function BuyTableList() {
 			key: 'operation',
 			render: (text, record) => (
 				<Space>
+					<Modal
+						open={(onOpen) => (
+							<button
+								className="btn btn-secondary w-[100px] font-thin text-white"
+								onClick={() => onOpen()}
+							>
+								响应
+							</button>
+						)}
+						bodyContent={(onClose) => (
+							<Form
+								onSubmit={(data) => {
+									console.log(data);
+								}}
+								formItem={[
+									{
+										label: '请上传响应图片',
+										type: 'file',
+										name: 'response_nft_src'
+									},
+									{
+										label: '描述信息',
+										name: 'response_desc',
+										type: 'textarea',
+										key: 'response_desc'
+									}
+								]}
+								footer={() => (
+									<Button
+										colorScheme="blue"
+										type="submit"
+										onClick={() => onClose()}
+										className="float-right mt-2"
+									>
+										提交
+									</Button>
+								)}
+							/>
+						)}
+					/>
 					<button
-						className="btn btn-secondary w-[100px] font-thin text-white"
-						onClick={() => console.log(record.buy_id)}
+						className="btn btn-error w-[100px] font-thin text-white"
+						onClick={() =>
+							setData(data.filter((item) => item.buy_id !== record.buy_id))
+						}
 					>
-						响应
-					</button>
-					<button className="btn btn-error w-[100px] font-thin text-white">
 						忽略
 					</button>
 				</Space>
@@ -45,13 +87,15 @@ export default function BuyTableList() {
 		}
 	];
 	const [data, setData] = useState([]);
+	const [loading, setLoading] = useState(true);
 	useEffect(() => {
 		async function getData() {
 			const res = await api.get('/selectAll/buy_message');
 			setData(res.data);
+			setLoading(false);
 		}
 		getData();
 	}, []);
 
-	return <AdminTable columns={columns} dataSource={data} />;
+	return <AdminTable columns={columns} dataSource={data} loading={loading} />;
 }

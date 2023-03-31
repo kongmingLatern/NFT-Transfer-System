@@ -78,7 +78,7 @@ export default function OrderManage() {
 			setDataSource(res.data);
 		}
 		getData();
-	});
+	}, []);
 
 	async function search(value, onOpen) {
 		const res = await api.get('/search/order', {

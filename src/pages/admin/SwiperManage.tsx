@@ -57,7 +57,7 @@ export default function SettingManage() {
 			setDataSource(res.data);
 		}
 		getData();
-	});
+	},[]);
 
 	return <Table dataSource={dataSource} columns={columns} />;
 }

@@ -2,6 +2,9 @@ import { api } from '@/api';
 import { useState, useEffect } from 'react';
 import Space from '../common/space/Space';
 import AdminTable from '../common/table/Table';
+import Modal from '../common/modal/Modal';
+import message from '../common/message/Message';
+import { Button } from '@chakra-ui/react';
 
 export default function BuyTableListResponse() {
 	const columns = [
@@ -11,7 +14,7 @@ export default function BuyTableListResponse() {
 			key: 'response_id'
 		},
 		{
-			title: '对应的求购信息',
+			title: '我的求购信息',
 			id: 'buy_desc',
 			key: 'buy_desc'
 		},
@@ -42,13 +45,54 @@ export default function BuyTableListResponse() {
 			key: 'operation',
 			render: (text, record) => (
 				<Space>
+					<Modal
+						open={(onOpen) => (
+							<button
+								className="btn btn-secondary w-[100px]"
+								onClick={() => onOpen()}
+							>
+								确认交易
+							</button>
+						)}
+						title="确认交易"
+						bodyContent={(onClose) => {
+							function handleOk(id) {
+								message.success('交易成功');
+								console.log('removeUser', id);
+								onClose();
+							}
+							return (
+								<>
+									<p className="text-center text-lg mb-3">
+										确定要接收该交易吗？
+										<br />
+										<span className="font-bold text-red-700">
+											一旦接受，其他关于这条求购信息的响应信息都会删除哦~
+										</span>
+									</p>
+									<Space className="float-right">
+										<Button colorScheme={'blue'} onClick={() => onClose()}>
+											否
+										</Button>
+										<Button
+											colorScheme={'red'}
+											onClick={() => handleOk(record.response_id)}
+										>
+											是
+										</Button>
+									</Space>
+								</>
+							);
+						}}
+					/>
 					<button
-						className="btn btn-secondary w-[100px] font-thin text-white"
-						onClick={() => console.log(record.id)}
+						className="btn btn-error w-[100px] font-thin text-white"
+						onClick={() =>
+							setData(
+								data.filter((item) => item.response_id !== record.response_id)
+							)
+						}
 					>
-						确认
-					</button>
-					<button className="btn btn-error w-[100px] font-thin text-white">
 						忽略
 					</button>
 				</Space>

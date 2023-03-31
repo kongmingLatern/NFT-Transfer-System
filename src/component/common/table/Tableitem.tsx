@@ -16,7 +16,7 @@ const Tableitem: React.FC<any> = (props: any) => {
 	} = props.data;
 
 	let [total, setTotal] = useState(price);
-	let [count, setCount] = useState(num);
+	const [count, setCount] = useState(num);
 
 	useEffect(() => {
 		if (count === num) {

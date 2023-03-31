@@ -104,7 +104,7 @@ export default function UserManage() {
 			setDataSource(res.data);
 		}
 		getData();
-	});
+	}, []);
 
 	async function search(value, onOpen) {
 		const res = await api.get('/search/user', {

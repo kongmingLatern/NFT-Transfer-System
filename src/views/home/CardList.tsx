@@ -11,15 +11,15 @@ export default function CardList({ type }: Partial<CardListType>) {
 
 	useEffect(() => {
 		async function getData() {
-      const res = await api.get('/selectAll/nft', {
-        params: {
-          type
-        }
-      });
+			const res = await api.get('/selectAll/nft', {
+				params: {
+					type
+				}
+			});
 			setDataSource(res.data);
 		}
 		getData();
-	}, );
+	}, []);
 
 	return (
 		<SimpleGrid className="grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 px-3 justify-items-center gap-5">

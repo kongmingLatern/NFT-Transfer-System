@@ -7,7 +7,7 @@ import Modal from '@/component/common/modal/Modal';
 import Form from '@/component/common/form/Form';
 import { Button } from '@chakra-ui/react';
 export default function BuyMessage() {
-	const tabList = ['求购', '响应'];
+	const tabList = ['所有求购信息', '响应我的'];
 	const tabPaneList = [<BuyTableList />, <BuyTableListResponse />];
 	return (
 		<>

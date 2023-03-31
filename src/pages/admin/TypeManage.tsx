@@ -41,7 +41,7 @@ export default function TypeManage() {
 			setDataSource(res.data);
 		}
 		getData();
-	});
+	}, []);
 
 	return <Table dataSource={dataSource} columns={columns} />;
 }
