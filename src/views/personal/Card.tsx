@@ -15,7 +15,7 @@ import Tabs from '@/component/common/Tabs';
 export default function PersonalCard() {
 	const [user, setUser] = useState('凤之兮原');
 	const [data, setData] = useState([]);
-	const tabList = ['我的资产', '我的订单'];
+	const tabList = ['我的数字藏品', '我的订单'];
 	const tabPaneList = [<NftCard data={data} />, <OrderCard />];
 
 	useEffect(() => {
@@ -131,30 +131,14 @@ export default function PersonalCard() {
 			</div>
 			{/* 下侧 */}
 			<div className="card flex-col  relative" style={{ top: '75px' }}>
-				{/* <aside className="card-body ml-5 w-auto border overflow-y-scroll h-[100vh]"> */}
 				<h2 className="card-title justify-center font-sans mb-2">
-					My Personal Property
+					我的个人资产
 				</h2>
 				<Tabs
 					tabList={tabList}
 					tabPanelList={tabPaneList}
 					tabPaneListJustify="center"
 				/>
-				{/* <Tabs variant="soft-rounded" colorScheme="green">
-						<TabList className="font-mono">
-							<Tab>我的资产</Tab>
-							<Tab>我的交易</Tab>
-						</TabList>
-						<TabPanels>
-							<TabPanel>
-								<NftCard data={data} />
-							</TabPanel>
-							<TabPanel>
-								<OrderCard />
-							</TabPanel>
-						</TabPanels>
-					</Tabs> */}
-				{/* </aside> */}
 			</div>
 		</>
 	);
