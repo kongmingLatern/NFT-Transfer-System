@@ -1,16 +1,17 @@
 {
-  "compilerOptions": {
-    "baseUrl": ".",
-    "types": ["node", "vitest/globals"],
-    "composite": true,
-    "module": "ESNext",
-    "moduleResolution": "Node",
-    "allowSyntheticDefaultImports": true,
-    "isolatedModules": false,
-    "paths": {
-      "@/*": ["src/*"]
-    }
-  },
-  "include": ["vite.config.ts"],
-  "exclude": ["vite.config.ts.*"]
+	"compilerOptions": {
+		"baseUrl": ".",
+		"types": ["node", "vitest/globals"],
+		"lib": ["DOM", "DOM.Iterable", "ESNext"],
+		"composite": true,
+		"module": "ESNext",
+		"moduleResolution": "Node",
+		"allowSyntheticDefaultImports": true,
+		"isolatedModules": false,
+		"paths": {
+			"@/*": ["src/*"]
+		}
+	},
+	"include": ["vite.config.ts"],
+	"exclude": ["vite.config.ts.*"]
 }

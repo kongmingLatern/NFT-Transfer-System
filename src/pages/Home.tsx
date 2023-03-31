@@ -55,17 +55,22 @@ export default function Home() {
 			{/* <TestBeginer /> */}
 			<Divider />
 			{/* <Step order={3}>1123123</Step> */}
-			<Tabs className={'px-4'} tabList={tabList} tabPanelList={tabPanelList} />
+			<Tabs
+				className={'px-4'}
+				tabList={tabList}
+				tabPanelList={tabPanelList}
+				tabPaneListJustify="center"
+			/>
 
-			<Title title={'Trending'} />
+			{/* <Title title={'Trending'} />
 			<Trending />
-			<Divider />
+			<Divider /> */}
 
-			<Title title={'Trending In Art'} />
+			{/* <Title title={'Trending In Art'} /> */}
 			{/* <CardList /> */}
 
-			<Divider />
-			<Echarts type="line" data={data} />
+			{/* <Divider /> */}
+			{/* <Echarts type="line" data={data} /> */}
 			{/* <Step order={2} description="步骤2"> */}
 			{/* </Step> */}
 			{/* </Beginner> */}
