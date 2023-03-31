@@ -88,12 +88,13 @@ export default function OrderManage() {
 		});
 		onOpen();
 		result.current = res.data;
+		console.log(result.current);
 	}
 	return (
 		<>
 			<SearchModalForm
 				search={search}
-				result={result.current}
+				result={result && result.current}
 				tableTitle={[
 					{
 						title: '订单编号'

@@ -114,6 +114,7 @@ export default function UserManage() {
 		});
 		onOpen();
 		result.current = res.data;
+		console.log(result.current);
 	}
 
 	return (

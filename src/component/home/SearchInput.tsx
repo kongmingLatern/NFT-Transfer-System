@@ -21,6 +21,7 @@ export default function SearchInput({
 				onKeyDown={(e) => {
 					if (e.code === 'Enter') {
 						if (onOpen) {
+							console.log('1');
 							return search(e.target.value, onOpen);
 						}
 						return search(e.target.value);

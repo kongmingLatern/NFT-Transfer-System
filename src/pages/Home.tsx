@@ -11,6 +11,7 @@ import message from '@/component/common/message/Message';
 import Beginner from '@/component/common/beginner/Beginner';
 import { Step } from '@/component/common/beginner/Step';
 import { TestBeginer } from '@/component/common/beginner/TestBeginner';
+import Footer from '@/component/common/footer/Footer';
 
 export default function Home() {
 	const [data, setData] = useState([820, 932, 901, 934, 1290, 1330, 1320]);
@@ -27,6 +28,16 @@ export default function Home() {
 			<CardList type="All" />
 
 			<Divider />
+			<Title title={'Trending In Art'} />
+			<CardList type="All" />
+
+			<Divider />
+			<Title title={'Trending In Music'} />
+			<CardList type="All" />
+
+			<Divider />
+			<Title title={'Trending In Video'} />
+			<CardList type="All" />
 		</>,
 		'Art',
 		'Music',
@@ -61,6 +72,8 @@ export default function Home() {
 				tabPanelList={tabPanelList}
 				tabPaneListJustify="center"
 			/>
+
+			<Footer />
 
 			{/* <Title title={'Trending'} />
 			<Trending />

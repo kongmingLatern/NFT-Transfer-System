@@ -11,6 +11,7 @@ import {
 	Td
 } from '@chakra-ui/react';
 import Modal from './Modal';
+import { useEffect } from 'react';
 
 interface SearchModalFormType {
 	placeholder: string;
@@ -25,6 +26,10 @@ export function SearchModalForm({
 	result,
 	tableTitle
 }: Partial<SearchModalFormType>) {
+	useEffect(() => {
+		console.log(result);
+	}, [result]);
+
 	return (
 		<Modal
 			open={(onOpen) => {

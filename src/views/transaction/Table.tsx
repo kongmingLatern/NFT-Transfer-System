@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import Tableitem from '../../component/common/table/Tableitem';
 import Tablehead from '../../component/common/table/Tablehead';
 import Tablefooter from '../../component/common/table/Tablefooter';
@@ -8,6 +8,7 @@ export default function TableComponent() {
 	const [data, setData] = useState([]);
 	const [checkItems, setCheckItems] = useState([]);
 	const [sellOut, setSellOut] = useState([]);
+	let [total, setTotal] = useState(0);
 	function addcount(id) {
 		if (sellOut.includes(id)) return;
 		data.map((item) => {
@@ -69,18 +70,18 @@ export default function TableComponent() {
 		getData();
 	}, []);
 
-	const totalAmount = useMemo(() => {
-		let total = 0;
+	useEffect(() => {
+		let sum = 0;
 		data.map((item) => {
 			if (checkItems.includes(item.shopping_id)) {
-				if (item.num * item.price >= item.high_bid) {
-					total += item.high_bid;
+				if (item.status === 2) {
+					sum += item.lower_bid * item.num;
 				} else {
-					total += item.num * item.price;
+					sum += item.num * item.price;
 				}
 			}
 		});
-		return total;
+		setTotal(sum);
 	}, [checkItems, data]);
 
 	function getFilterData() {
@@ -142,7 +143,7 @@ export default function TableComponent() {
 			</div>
 
 			<footer className="w-[60vw] h-[100%] mx-auto">
-				<Tablefooter total={totalAmount} data={filterData} />
+				<Tablefooter total={total} data={filterData} />
 			</footer>
 		</div>
 	);
