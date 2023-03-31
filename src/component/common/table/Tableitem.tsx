@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, Checkbox } from '@chakra-ui/react';
-import Image from '@/assets/gd1.png';
 const Tableitem: React.FC<any> = (props: any) => {
 	const {
 		num,
@@ -11,8 +10,27 @@ const Tableitem: React.FC<any> = (props: any) => {
 		nft_img,
 		nft_desc,
 		nft_name,
-		owner_username
+		owner_username,
+		lower_bid,
+		high_bid
 	} = props.data;
+
+	let [total, setTotal] = useState(price);
+	let [count, setCount] = useState(num);
+
+	useEffect(() => {
+		if (count === num) {
+			return;
+		} else {
+			if (count > num) {
+				total -= lower_bid;
+			} else {
+				total += lower_bid;
+			}
+			setTotal(total);
+			setCount(num);
+		}
+	}, [num]);
 
 	return (
 		<>
@@ -45,6 +63,32 @@ const Tableitem: React.FC<any> = (props: any) => {
 							<div className="badge badge-danger">已售</div>
 						) : null}
 					</div>
+
+					<div>
+						{total >= high_bid ? (
+							<div className="badge badge-warning ">
+								<span className="font-bold">￥{high_bid}</span>
+								<span>&nbsp;已达一口价</span>
+							</div>
+						) : // 显示竞拍价格
+
+						status === 2 ? (
+							<div className="badge badge-success ">
+								<span>当前竞拍价&nbsp;</span>
+								<span className="font-bold">￥{total}</span>
+							</div>
+						) : null}
+					</div>
+
+					<div>
+						{/* 如果是竞拍，就显示一口价 */}
+						{status === 2 ? (
+							<div className="badge badge-error text-white">
+								<span>&nbsp;一口价</span>
+								<span className="font-bold">￥{high_bid}</span>
+							</div>
+						) : null}
+					</div>
 				</div>
 			</td>
 			<td className="h-[80px] leading-[45px] inline-block w-[100%] overflow-hidden text-ellipsis ">
@@ -53,7 +97,9 @@ const Tableitem: React.FC<any> = (props: any) => {
 				{/* </span> */}
 			</td>
 			<td className="w-10">
-				<label>￥{price}</label>
+				<label>
+					￥{status === 2 ? <span>{`${lower_bid}(最低加价)`}</span> : price}
+				</label>
 			</td>
 			<td className="w-10">
 				<Button onClick={() => props.subcount(shopping_id)}>-</Button>

@@ -73,7 +73,11 @@ export default function TableComponent() {
 		let total = 0;
 		data.map((item) => {
 			if (checkItems.includes(item.shopping_id)) {
-				total += item.num * item.price;
+				if (item.num * item.price >= item.high_bid) {
+					total += item.high_bid;
+				} else {
+					total += item.num * item.price;
+				}
 			}
 		});
 		return total;
