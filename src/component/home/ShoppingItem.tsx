@@ -13,8 +13,6 @@ export default function ShoppingItem({ setNum }) {
 					uid: localStorage.getItem('uid') || ''
 				}
 			});
-			console.log(res.data);
-			setNum(res.data.length);
 			setData(res.data);
 		}
 		getData();
@@ -31,8 +29,6 @@ export default function ShoppingItem({ setNum }) {
 
 	// NOTE: 删除商品
 	function removeItem(nft_id) {
-		console.log(nft_id);
-		setNum(data.length);
 		return setData(data.filter((item) => item.nft_id !== nft_id));
 	}
 

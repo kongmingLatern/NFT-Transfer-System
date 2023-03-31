@@ -8,27 +8,23 @@ import {
 	DrawerCloseButton,
 	useDisclosure
 } from '@chakra-ui/react';
-
 import { Icon } from '@iconify-icon/react';
-import { useEffect, useMemo, useRef, useState } from 'react';
-
-import Item from './Item';
-import Attention from '../common/Attention';
+import { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { api } from '../../api';
 import ShoppingItem from './ShoppingItem';
+import Attention from '../common/Attention';
 
 export default function Shoppingcart() {
 	const { isOpen, onOpen, onClose } = useDisclosure();
-	const navigate = useNavigate();
 	const [num, setNum] = useState(0);
+	const navigate = useNavigate();
+	const btnRef = useRef();
 
 	function handleNavigate() {
 		onClose();
 		navigate('/transaction');
 	}
 
-	const btnRef = useRef();
 	return (
 		<span onClick={onOpen}>
 			<span className="flex" ref={btnRef}>
@@ -51,7 +47,7 @@ export default function Shoppingcart() {
 					<DrawerCloseButton />
 					<DrawerHeader>
 						您的购物车
-						<Attention />{' '}
+						<Attention />
 					</DrawerHeader>
 					<div className="text-sm mx-4">
 						<div className="float-left">总数:{num}</div>
@@ -61,7 +57,6 @@ export default function Shoppingcart() {
 					</div>
 					<DrawerBody w="full">
 						{/* 购物车内的商品 */}
-						{/* <Item></Item> */}
 						<ShoppingItem setNum={setNum} />
 					</DrawerBody>
 

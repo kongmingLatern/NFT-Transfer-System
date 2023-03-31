@@ -3,20 +3,25 @@ import Tableitem from '../../component/common/table/Tableitem';
 import Tablehead from '../../component/common/table/Tablehead';
 import Tablefooter from '../../component/common/table/Tablefooter';
 import { api } from '../../api';
-import { Table, Tfoot } from '@chakra-ui/react';
+import { Button, Table, Tfoot } from '@chakra-ui/react';
 export default function TableComponent() {
 	const [data, setData] = useState([]);
 	const [checkItems, setCheckItems] = useState([]);
+	const [sellOut, setSellOut] = useState([]);
 	function addcount(id) {
+		if (sellOut.includes(id)) return;
 		data.map((item) => {
-			if (item.shopping_id === id && item.num < item.count) ++item.num;
+			if (item.shopping_id === id && item.num < item.count && item.status !== 3)
+				++item.num;
 		});
 		console.log(data);
 		setData([...data]);
 	}
 	function subcount(id) {
+		if (sellOut.includes(id)) return;
 		data.map((item) => {
-			if (item.shopping_id === id && item.num > 1) --item.num;
+			if (item.shopping_id === id && item.num > 1 && item.status !== 3)
+				--item.num;
 		});
 		setData([...data]);
 	}
@@ -48,8 +53,14 @@ export default function TableComponent() {
 				}
 			});
 			res.data.forEach((item) => {
-				check.push(item.shopping_id);
-				item['num'] = 1;
+				if (item.status !== 3) {
+					check.push(item.shopping_id);
+					item['num'] = 1;
+				} else {
+					setSellOut([...sellOut, item.shopping_id]);
+					item['num'] = 0;
+					item['count'] = 0;
+				}
 			});
 			setCheckItems(check);
 			console.log(res.data);
@@ -73,6 +84,10 @@ export default function TableComponent() {
 		return data.filter((item) => checkItems.includes(item.shopping_id));
 	}
 
+	function removeItem(id) {
+		console.log('id', id);
+	}
+
 	const filterData = useMemo(() => getFilterData(), [checkItems]);
 
 	return (
@@ -83,9 +98,9 @@ export default function TableComponent() {
 					<thead>
 						<tr className="text-center">
 							<Tablehead
-								// len={data.length}
-								// checkItems={checkItems}
-								// changeAllChecked={changeAllChecked}
+							// len={data.length}
+							// checkItems={checkItems}
+							// changeAllChecked={changeAllChecked}
 							/>
 						</tr>
 					</thead>
@@ -93,7 +108,10 @@ export default function TableComponent() {
 						{/* row 1 */}
 						{data.map((item) => {
 							return (
-								<tr key={item.shopping_id}>
+								<tr
+									key={item.shopping_id}
+									className={item.status === 3 ? 'contrast-50 relative' : null}
+								>
 									<Tableitem
 										addcount={addcount}
 										data={item}
@@ -101,6 +119,17 @@ export default function TableComponent() {
 										changeChecked={changeChecked}
 										checkItems={checkItems}
 									/>
+
+									{item.status === 3 ? (
+										<td className="absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] ">
+											<Button
+												colorScheme="red"
+												onClick={() => removeItem(item.shopping_id)}
+											>
+												已售出，点击删除
+											</Button>
+										</td>
+									) : null}
 								</tr>
 							);
 						})}

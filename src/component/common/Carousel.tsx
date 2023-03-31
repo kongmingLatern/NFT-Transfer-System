@@ -1,14 +1,8 @@
-import Carousel, { CarouselProps } from 'nuka-carousel';
+import { Carousel } from 'react-responsive-carousel';
 
 import { useEffect, useState } from 'react';
 import { selectAllData } from '@/api/common';
 export default function SimpleSlider() {
-	const props: CarouselProps = {
-		autoplay: true,
-		zoomScale: 0.5,
-		cellAlign: 'center',
-		cellSpacing: 20
-	};
 	const [dataSource, setDataSource] = useState([]);
 
 	useEffect(() => {
@@ -20,9 +14,16 @@ export default function SimpleSlider() {
 	}, []);
 
 	return (
-		<Carousel {...props}>
+		<Carousel autoPlay infiniteLoop showThumbs={false}>
 			{dataSource.map((item) => (
-				<img className="mx-auto h-[300px]" src={item.swiper_src} key={item} />
+				<div>
+					<img
+						className="mx-auto h-[50vh] object-cover"
+						src={item.swiper_src}
+						key={item}
+					/>
+					<p className="legend">{item.swiper_desc}</p>
+				</div>
 			))}
 		</Carousel>
 	);

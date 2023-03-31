@@ -6,6 +6,7 @@ import '@/assets/index.css';
 import '@/assets/global.css';
 import '@/component/paint/i18n';
 import 'react-datepicker/dist/react-datepicker.css';
+import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import { MessageList } from './component/common/message/Message';
 import { start } from '@/micro';
 

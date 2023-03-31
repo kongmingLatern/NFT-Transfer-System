@@ -1,6 +1,6 @@
 import { Checkbox } from '@chakra-ui/react';
 
-export default function Tablehead({ len, checkItems, changeAllChecked }) {
+export default function Tablehead({ len, checkItems, changeAllChecked }: any) {
 	return (
 		<>
 			<th>
