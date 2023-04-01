@@ -97,7 +97,7 @@ export default function TableComponent() {
 
 	return (
 		<div>
-			<div className="overflow-x-auto w-[60vw] h-[50vh] mx-auto">
+			<div className="overflow-x-auto  h-[50vh] mx-auto">
 				<Table className="table mx-auto">
 					{/* head */}
 					<thead>

@@ -1,10 +1,9 @@
 import { Button } from '@chakra-ui/react';
-import message from '../common/message/Message';
 import Modal from '../common/modal/Modal';
-import Space from '../common/space/Space';
 import { useEffect, useState } from 'react';
 import { api } from '@/api';
 import Table from '../common/table/Table';
+import Card from '../home/Card';
 
 export default function OrderCard() {
 	const columns = [
@@ -59,23 +58,13 @@ export default function OrderCard() {
 						function handleOk(id) {
 							onClose();
 						}
+						return <Card item={record} />;
+					}}
+					footerContent={(onClose) => {
 						return (
-							<>
-								<p className="font-bold text-center text-lg mb-3">
-									确定要删除嘛
-								</p>
-								<Space className="float-right">
-									<Button colorScheme={'blue'} onClick={() => onClose()}>
-										否
-									</Button>
-									<Button
-										colorScheme={'red'}
-										onClick={() => handleOk(record.id)}
-									>
-										是
-									</Button>
-								</Space>
-							</>
+							<Button colorScheme="red" onClick={onClose}>
+								关闭
+							</Button>
 						);
 					}}
 				/>

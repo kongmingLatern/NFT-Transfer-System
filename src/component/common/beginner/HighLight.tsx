@@ -12,7 +12,6 @@ export function HighLight({ cover, children }) {
 		if (!node) {
 			return;
 		}
-		console.log('node', node);
 		const body = document.body;
 		const doc = document.documentElement;
 
@@ -28,19 +27,6 @@ export function HighLight({ cover, children }) {
 			offsetLeft =
 				node.getBoundingClientRect()?.left +
 				(body?.scrollLeft || doc?.scrollLeft);
-
-		console.log('nodesss', node.getBoundingClientRect(), doc.scrollTop);
-		// console.log('instance', getDistanceOfLeft(node));
-		console.log('body.scrollTop', body.scrollTop);
-		console.log('doc.scrollTop', doc.scrollTop);
-		console.log('offsetTop', offsetTop);
-		console.log('offsetLeft', offsetLeft);
-		console.log('targetWidth', targetWidth);
-		console.log('targetHeight', targetHeight);
-		console.log('pageWidth', pageWidth);
-		console.log('pageHeight', pageHeight);
-
-		console.log('getTop', getTop(node));
 
 		const top = offsetTop;
 		const right = pageWidth - targetWidth - offsetLeft;

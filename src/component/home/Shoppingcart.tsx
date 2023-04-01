@@ -25,6 +25,10 @@ export default function Shoppingcart() {
 		navigate('/transaction');
 	}
 
+	function clearAll() {
+		setNum(0);
+	}
+
 	return (
 		<span onClick={onOpen}>
 			<span className="flex" ref={btnRef}>
@@ -51,9 +55,6 @@ export default function Shoppingcart() {
 					</DrawerHeader>
 					<div className="text-sm mx-4">
 						<div className="float-left">总数:{num}</div>
-						<button className="float-right hover:text-gray-500">
-							全部清除
-						</button>
 					</div>
 					<DrawerBody w="full">
 						{/* 购物车内的商品 */}
@@ -61,12 +62,6 @@ export default function Shoppingcart() {
 					</DrawerBody>
 
 					<DrawerFooter display="block">
-						{/* <div className="w-full font-bold">
-							<div className="float-left">总价</div>
-							<button className="float-right hover:text-gray-500">
-								￥100.00
-							</button>
-						</div> */}
 						<button
 							className="w-full mt-2 btn btn-secondary"
 							onClick={handleNavigate}

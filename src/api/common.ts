@@ -1,6 +1,6 @@
 import { api } from '.';
 async function selectAllData(path) {
-	const res = await api.get(`selectAll/${path}`);
+	const res = await api.get(`${path}`);
 	return res.data;
 }
 

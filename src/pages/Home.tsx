@@ -21,23 +21,23 @@ export default function Home() {
 	const tabPanelList = [
 		<>
 			<Title title={'Trending'} />
-			<Trending />
+			{/* <Trending /> */}
 			<Divider />
 
 			<Title title={'Trending In Art'} />
-			<CardList type="All" />
+			{/* <CardList type="All" /> */}
 
 			<Divider />
 			<Title title={'Trending In Art'} />
-			<CardList type="All" />
+			{/* <CardList type="All" /> */}
 
 			<Divider />
 			<Title title={'Trending In Music'} />
-			<CardList type="All" />
+			{/* <CardList type="All" /> */}
 
 			<Divider />
 			<Title title={'Trending In Video'} />
-			<CardList type="All" />
+			{/* <CardList type="All" /> */}
 		</>,
 		'Art',
 		'Music',
