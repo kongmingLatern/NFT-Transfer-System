@@ -56,13 +56,14 @@ export default function Home() {
 	}
 
 	return (
-		<>
-			<Header />
+		<Beginner type="origin">
+			<Step order={1} description="这部分是头部">
+				<Header />
+			</Step>
 
-			{/* <Beginner type={'origin'}> */}
-			{/* <Step order={1} description="123123"> */}
-			<Carousel />
-			{/* </Step> */}
+			<Step order={2} description="这里是分类区域">
+				<Carousel />
+			</Step>
 			{/* <TestBeginer /> */}
 			<Divider />
 			{/* <Step order={3}>1123123</Step> */}
@@ -86,7 +87,6 @@ export default function Home() {
 			{/* <Echarts type="line" data={data} /> */}
 			{/* <Step order={2} description="步骤2"> */}
 			{/* </Step> */}
-			{/* </Beginner> */}
-		</>
+		</Beginner>
 	);
 }

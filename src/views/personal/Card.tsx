@@ -11,6 +11,8 @@ import message from '@/component/common/message/Message';
 import { api } from '@/api';
 import OrderCard from '@/component/personal/OrderCard';
 import Tabs from '@/component/common/Tabs';
+import styles from '@/assets/img.module.css';
+import classNames from 'classnames';
 
 export default function PersonalCard() {
 	const [user, setUser] = useState('凤之兮原');
@@ -33,7 +35,14 @@ export default function PersonalCard() {
 	return (
 		<>
 			{/* 上侧 */}
-			<div className="card flex-row relative">
+			<div
+				className={classNames(
+					'card',
+					'flex-row',
+					'relative',
+					styles.background
+				)}
+			>
 				<div className="mx-auto">
 					<div>
 						<figure>
@@ -50,8 +59,8 @@ export default function PersonalCard() {
 					<aside className="text-center">
 						<p className="font-bold text-2xl">凤之兮原</p>
 						<p className="font-thin text-lg font-sans">KongmingLatern</p>
-						<div className="mt-2 flex">
-							<div className="flex items-center">
+						<div className="mt-2 flex justify-center">
+							<div className="flex items-center ">
 								<Icon icon="ri:user-follow-line" color="#ccc" />
 								<div className="ml-2 whitespace-nowrap">
 									3{' '}
@@ -68,7 +77,10 @@ export default function PersonalCard() {
 								</div>
 							</div>
 						</div>
-						<p className="text-lg font-sans">每天进步一点点~~</p>
+						<p className="mt-3 text-lg font-sans font-bold bg-pink-200 px-4">
+							<span>个人名言：</span>
+							<span>每天进步一点点~~</span>
+						</p>
 
 						{/* 个人信息编辑 */}
 						<div className="absolute right-0 top-[50%]">

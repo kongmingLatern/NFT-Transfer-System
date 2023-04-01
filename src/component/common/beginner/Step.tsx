@@ -5,10 +5,15 @@ interface StepType {
 	order: number;
 	children: any;
 	step: number;
-  description: string
+	description: string;
 }
 // NOTE: 新手导航步骤
-export function Step({ order, children, step, description = '' }: Partial<StepType>) {
+export function Step({
+	order,
+	children,
+	step,
+	description = ''
+}: Partial<StepType>) {
 	const cover = useRef(null);
 	// 根据order来渲染
 	return (

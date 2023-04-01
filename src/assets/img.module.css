@@ -1,6 +1,13 @@
 .img {
-  height: 100vh;
-  background-attachment: fixed;
-  background-origin: border-box;
-  background-image: url('https://www.pixelstalk.net/wp-content/uploads/images6/NFT-Wallpaper-High-Quality.png');
+	height: 100vh;
+	background-attachment: fixed;
+	background-origin: border-box;
+	background-image: url('https://www.pixelstalk.net/wp-content/uploads/images6/NFT-Wallpaper-High-Quality.png');
+}
+
+.background {
+	background-attachment: local;
+	background-image: url('https://images.pexels.com/photos/327509/pexels-photo-327509.jpeg?auto=compress&cs=tinysrgb&w=600');
+	background-repeat: no-repeat;
+	background-size: cover;
 }
