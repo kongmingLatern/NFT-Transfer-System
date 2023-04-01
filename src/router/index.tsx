@@ -15,6 +15,7 @@ import Transaction from '@/pages/Transaction';
 import ReviewNFTManage from '@/pages/admin/ReviewNFTManage';
 import { createBrowserRouter, Navigate } from 'react-router-dom';
 import TypeManage from '@/pages/admin/TypeManage';
+import SearchResult from '@/pages/SearchResult';
 
 export const router = createBrowserRouter([
 	{
@@ -61,6 +62,10 @@ export const router = createBrowserRouter([
 	{
 		path: '/collection',
 		element: <Collection />
+	},
+	{
+		path: '/search/nft',
+		element: <SearchResult />
 	},
 	{
 		path: '/admin',

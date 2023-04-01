@@ -3,7 +3,7 @@ import React from 'react';
 export function HighLight({ cover, children }) {
 	const getTop = (e) => {
 		// e:dom元素
-		var offset = e.offsetTop;
+		let offset = e.offsetTop;
 		if (e.offsetParent != null) offset += getTop(e.offsetParent);
 		return offset;
 	};

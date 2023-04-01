@@ -56,7 +56,7 @@ export default function Home() {
 	}
 
 	return (
-		<Beginner type="origin">
+		<Beginner type="origin" isSkip>
 			<Step order={2}>
 				<Header />
 			</Step>
@@ -66,7 +66,6 @@ export default function Home() {
 				</div>
 			</Step>
 			<Divider />
-			<Step order={3}>1123123</Step>
 			<Tabs
 				className={'px-4'}
 				tabList={tabList}
@@ -75,9 +74,7 @@ export default function Home() {
 			/>
 			<Title title={'Trending'} />
 
-			<Step order={4}>
-				<Footer />
-			</Step>
+			<Footer />
 		</Beginner>
 	);
 }

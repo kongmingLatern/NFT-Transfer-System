@@ -40,6 +40,7 @@ export default function PersonalCard() {
 					'card',
 					'flex-row',
 					'relative',
+					'rounded-none',
 					styles.background
 				)}
 			>
@@ -59,34 +60,36 @@ export default function PersonalCard() {
 					<aside className="text-center">
 						<p className="font-bold text-2xl">凤之兮原</p>
 						<p className="font-thin text-lg font-sans">KongmingLatern</p>
-						<div className="mt-2 flex justify-center">
-							<div className="flex items-center ">
-								<Icon icon="ri:user-follow-line" color="#ccc" />
-								<div className="ml-2 whitespace-nowrap">
-									3{' '}
-									<Link to={''} className="text-blue-400">
-										followers
-									</Link>
-								</div>
-								<div className="divider lg:divider-horizontal lg:mx-0"></div>
-								<div className="ml-2 whitespace-nowrap">
-									3{' '}
-									<Link to={''} className="text-red-400">
-										followings
-									</Link>
+						<div className="bg-[slateblue] p-3 rounded-md text-white">
+							<div className="mt-2 flex justify-center">
+								<div className="flex items-center ">
+									<Icon icon="ri:user-follow-line" color="#ccc" />
+									<div className="ml-2 whitespace-nowrap">
+										3&nbsp;<span>followers</span>
+									</div>
+									<div className="lg:mx-2">|</div>
+									<div className="ml-2 whitespace-nowrap">
+										3&nbsp;<span>followings</span>
+									</div>
 								</div>
 							</div>
+							<p className="mt-3 text-sm font-sans font-thin px-4">
+								<span>个人签名：</span>
+								<span>每天进步一点点~~</span>
+							</p>
 						</div>
-						<p className="mt-3 text-lg font-sans font-bold bg-pink-200 px-4">
-							<span>个人名言：</span>
-							<span>每天进步一点点~~</span>
-						</p>
 
 						{/* 个人信息编辑 */}
 						<div className="absolute right-0 top-[50%]">
 							<Modal
 								open={(onOpen) => (
-									<Button onClick={() => onOpen()}>Edit profile</Button>
+									<Button
+										colorScheme="purple"
+										onClick={() => onOpen()}
+										className="font-thin"
+									>
+										编辑个人信息
+									</Button>
 								)}
 								title={'编辑个人信息'}
 								bodyContent={(onClose) => {
