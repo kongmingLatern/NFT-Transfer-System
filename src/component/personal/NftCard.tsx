@@ -27,9 +27,9 @@ export default function NftCard({ data }) {
 										{item.status === 0 ? (
 											<span className="badge badge-accent">审核中</span>
 										) : item.status === 1 ? (
-											<span className="badge badge-success">直售</span>
+											<span className="badge badge-success">直售中</span>
 										) : item.status === 2 ? (
-											<span className="badge badge-warning ">拍卖</span>
+											<span className="badge badge-warning ">拍卖中</span>
 										) : (
 											<span className="badge text-gray-500">下架</span>
 										)}
@@ -63,3 +63,4 @@ export default function NftCard({ data }) {
 		</>
 	);
 }
+

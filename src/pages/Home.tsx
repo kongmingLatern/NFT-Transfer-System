@@ -29,7 +29,7 @@ export default function Home() {
 
 			<Divider />
 			<Title title={'Trending In Art'} />
-			<CardList type="All" />
+			<CardList type="All" style="chakra" />
 
 			<Divider />
 			<Title title={'Trending In Music'} />

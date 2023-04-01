@@ -35,6 +35,7 @@ export default function BuyTableList() {
 			render: (text, record) => (
 				<Space>
 					<Modal
+						title="响应信息"
 						open={(onOpen) => (
 							<button
 								className="btn btn-secondary w-[100px] font-thin text-white"

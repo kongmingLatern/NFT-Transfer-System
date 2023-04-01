@@ -6,7 +6,7 @@ import { DetailProvider } from '@/pages/Detail';
 import { useContext } from 'react';
 import message from '../common/message/Message';
 export default function BidModal() {
-	const { nft_name, price, lower_bid, high_bid } = useContext(
+	const { nft_id, nft_name, price, lower_bid, high_bid } = useContext(
 		DetailProvider as any
 	);
 	console.log('price', price, lower_bid, high_bid);
@@ -30,6 +30,13 @@ export default function BidModal() {
 				return (
 					<Form
 						formItem={[
+							{
+								label: '竞拍商品唯一标识',
+								type: 'text',
+								name: 'nft_id',
+								disabled: true,
+								value: `竞拍商品唯一标识${nft_id}`
+							},
 							{
 								label: '竞拍商品名称',
 								type: 'text',

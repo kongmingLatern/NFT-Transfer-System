@@ -1,5 +1,5 @@
-import { Step } from '@/component/common/beginner/Step';
 import { columnsType } from '@/views/admin/Main';
+import { Step } from '@/component/common/beginner/Step';
 
 export function combineDate(month: number, day: number) {
 	const result = [];
