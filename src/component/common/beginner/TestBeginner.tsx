@@ -3,7 +3,7 @@ import { Step } from './Step';
 
 export function TestBeginer() {
 	return (
-		<Beginner>
+		<Beginner isSkip={true}>
 			<Step order={1}>
 				<div>第一部分的内容</div>
 				<div>第一部分的内容</div>

@@ -2,7 +2,6 @@ import { registerMicroApps, addGlobalUncaughtErrorHandler } from 'qiankun';
 
 // const baseUrl = base.replace('http://', '');
 // console.log('baseUrl', baseUrl);
-console.log('1');
 registerMicroApps([
 	{
 		name: 'nft_gallery',

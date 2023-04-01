@@ -57,36 +57,27 @@ export default function Home() {
 
 	return (
 		<Beginner type="origin">
-			<Step order={1} description="这部分是头部">
+			<Step order={2}>
 				<Header />
 			</Step>
-
-			<Step order={2} description="这里是分类区域">
-				<Carousel />
+			<Step order={1}>
+				<div className="h-[500px]">
+					<Carousel />
+				</div>
 			</Step>
-			{/* <TestBeginer /> */}
 			<Divider />
-			{/* <Step order={3}>1123123</Step> */}
+			<Step order={3}>1123123</Step>
 			<Tabs
 				className={'px-4'}
 				tabList={tabList}
 				tabPanelList={tabPanelList}
 				tabPaneListJustify="center"
 			/>
+			<Title title={'Trending'} />
 
-			<Footer />
-
-			{/* <Title title={'Trending'} />
-			<Trending />
-			<Divider /> */}
-
-			{/* <Title title={'Trending In Art'} /> */}
-			{/* <CardList /> */}
-
-			{/* <Divider /> */}
-			{/* <Echarts type="line" data={data} /> */}
-			{/* <Step order={2} description="步骤2"> */}
-			{/* </Step> */}
+			<Step order={4}>
+				<Footer />
+			</Step>
 		</Beginner>
 	);
 }

@@ -69,9 +69,7 @@ function Beginner({
 
 	return isSkip
 		? // 渲染所有元素即可
-		  React.Children.map(children, (child) => {
-				return child;
-		  })
+		  children
 		: React.Children.map(children, (child) => {
 				// NOTE: 如果当前的 order 等于当前的步骤，就渲染出来
 

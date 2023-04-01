@@ -1,11 +1,18 @@
 import React from 'react';
 
 export function HighLight({ cover, children }) {
+	const getTop = (e) => {
+		// e:dom元素
+		var offset = e.offsetTop;
+		if (e.offsetParent != null) offset += getTop(e.offsetParent);
+		return offset;
+	};
 	function helpers(node) {
 		// 获取到children的位置
 		if (!node) {
 			return;
 		}
+		console.log('node', node);
 		const body = document.body;
 		const doc = document.documentElement;
 
@@ -15,11 +22,25 @@ export function HighLight({ cover, children }) {
 		const pageWidth = doc?.scrollWidth,
 			pageHeight = doc?.scrollHeight;
 		// offset of node
+
 		const offsetTop =
 				node.getBoundingClientRect()?.top + (body?.scrollTop || doc?.scrollTop),
 			offsetLeft =
 				node.getBoundingClientRect()?.left +
 				(body?.scrollLeft || doc?.scrollLeft);
+
+		console.log('nodesss', node.getBoundingClientRect(), doc.scrollTop);
+		// console.log('instance', getDistanceOfLeft(node));
+		console.log('body.scrollTop', body.scrollTop);
+		console.log('doc.scrollTop', doc.scrollTop);
+		console.log('offsetTop', offsetTop);
+		console.log('offsetLeft', offsetLeft);
+		console.log('targetWidth', targetWidth);
+		console.log('targetHeight', targetHeight);
+		console.log('pageWidth', pageWidth);
+		console.log('pageHeight', pageHeight);
+
+		console.log('getTop', getTop(node));
 
 		const top = offsetTop;
 		const right = pageWidth - targetWidth - offsetLeft;
@@ -55,9 +76,9 @@ export function HighLight({ cover, children }) {
 			root.style.transform = `translateY(-${top}px)`;
 		}
 
-		root.style.position = 'fixed';
-		root.style.inset = 0;
-		root.style.zIndex = 1001;
+		// root.style.position = 'fixed';
+		// root.style.inset = 0;
+		// root.style.zIndex = 1001;
 		node.style.display = 'block';
 
 		// 找到节点 root

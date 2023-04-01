@@ -1,6 +1,8 @@
 import { Icon } from '@iconify-icon/react';
 import { Link } from 'react-router-dom';
 import Shoppingcart from '../../component/home/Shoppingcart';
+import { Step } from '@/component/common/beginner/Step';
+import Beginner from '@/component/common/beginner/Beginner';
 
 export default function NavSubmenu() {
 	return (
