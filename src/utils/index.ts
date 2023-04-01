@@ -12,16 +12,29 @@ export function combineDate(month: number, day: number) {
 	return result;
 }
 
-export function getCurrentDate() {
-	const time = new Date();
-	const year = time.getFullYear(); //  返回的是年份
-	const month = time.getMonth() + 1; //  返回的月份上个月的月份，记得+1才是当月
-	const dates = time.getDate(); //  返回的是几号
-	const hour = time.getHours();
-	const minutes = time.getMinutes();
-	const todaytime =
-		year + '年' + month + '月' + dates + '日' + ' ' + hour + ':' + minutes;
-	return todaytime;
+export function timestampToTime(timestamp) {
+	// 时间戳为10位需*1000，时间戳为13位不需乘1000
+	var date = new Date(timestamp * 1000);
+	var year = date.getFullYear();
+	var month =
+		date.getMonth() + 1 < 10
+			? '0' + (date.getMonth() + 1)
+			: date.getMonth() + 1;
+	var day = date.getDate() < 10 ? '0' + date.getDate() : date.getDate();
+	var hour = date.getHours();
+	var minutes = date.getMinutes();
+	var seconds = date.getSeconds();
+	return {
+		year,
+		month,
+		day,
+		hour,
+		minutes,
+		seconds
+	};
+}
+export function getCurrentDate(target) {
+	return timestampToTime(target - new Date().getTime());
 }
 
 export function getColumnIndexByKey(columns: columnsType[], key: string) {

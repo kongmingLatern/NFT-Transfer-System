@@ -48,19 +48,17 @@ export default function PersonalCard() {
 					<div>
 						<figure>
 							<img
-								className="rounded-full overflow-hidden"
+								className="rounded-full overflow-hidden w-[20rem] h-[20rem]"
 								src={Image}
 								alt="Image"
-								width={'100px'}
-								height={'100px'}
 							/>
 						</figure>
 					</div>
 
-					<aside className="text-center">
+					<aside className="text-center bg-[slateblue] p-3 rounded-md text-white">
 						<p className="font-bold text-2xl">凤之兮原</p>
 						<p className="font-thin text-lg font-sans">KongmingLatern</p>
-						<div className="bg-[slateblue] p-3 rounded-md text-white">
+						<div className="">
 							<div className="mt-2 flex justify-center">
 								<div className="flex items-center ">
 									<Icon icon="ri:user-follow-line" color="#ccc" />
@@ -145,7 +143,7 @@ export default function PersonalCard() {
 				</div>
 			</div>
 			{/* 下侧 */}
-			<div className="card flex-col  relative" style={{ top: '75px' }}>
+			<div className="card flex-col relative mt-5">
 				<h2 className="card-title justify-center font-sans mb-2">
 					我的个人资产
 				</h2>

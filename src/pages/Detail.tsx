@@ -5,7 +5,7 @@ import CardDetail from '@/views/detail/CardDetail';
 import CardInfo from '@/views/detail/CardInfo';
 import { createContext, useEffect, useState } from 'react';
 
-export const DetailProvider = createContext({});
+export const DetailProvider = createContext({} as any);
 
 export default function Detail() {
 	const [data, setData] = useState([]);
@@ -18,9 +18,10 @@ export default function Detail() {
 				}
 			});
 			setData(res.data);
+			console.log('data', data);
 		}
 		getData();
-	});
+	}, []);
 
 	return (
 		<DetailProvider.Provider value={data}>
