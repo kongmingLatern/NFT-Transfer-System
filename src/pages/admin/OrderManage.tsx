@@ -26,8 +26,8 @@ export default function OrderManage() {
 		},
 		{
 			title: '买家',
-			id: 'buyer_username',
-			key: 'buyer_username',
+			id: 'username',
+			key: 'username',
 			type: 'string',
 			render: (text, record) => <div>{text}</div>
 		},

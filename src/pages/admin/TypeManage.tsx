@@ -6,13 +6,13 @@ export default function TypeManage() {
 	const columns = [
 		{
 			title: '分类 ID',
-			id: 'type_id',
-			key: 'type_id'
+			id: 'id',
+			key: 'id'
 		},
 		{
 			title: '分类名称',
-			id: 'type_name',
-			key: 'type_name'
+			id: 'type',
+			key: 'type'
 		},
 		{
 			title: '操作',

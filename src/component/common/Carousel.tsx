@@ -19,10 +19,10 @@ export default function SimpleSlider() {
 				<div key={item.swiper_id} >
 					<img
 						className="mx-auto h-[50vh] object-cover"
-						src={item.swiper_src}
+						src={item.img_src}
 						key={item}
 					/>
-					<p className="legend">{item.swiper_desc}</p>
+					<p className="legend">{item.img_desc}</p>
 				</div>
 			))}
 		</Carousel>

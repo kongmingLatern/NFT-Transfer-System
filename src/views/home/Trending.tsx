@@ -27,7 +27,7 @@ export default function Trending({ type = 'All' }) {
 		}
 		getData();
 	}, []);
-
+	
 	return (
 		<>
 			<TableContainer style={{ display: 'flex', padding: '1em' }}>
@@ -53,7 +53,7 @@ export default function Trending({ type = 'All' }) {
 									<span className="font-thin">{item.nft_name}</span>
 								</Td>
 								<Td isNumeric className="font-semibold">
-									￥{item.price}
+									￥{item.basic_bid}
 								</Td>
 								<Td isNumeric className="font-semibold">
 									￥{item.high_bid}
@@ -84,7 +84,7 @@ export default function Trending({ type = 'All' }) {
 									<span className="font-thin">{item.nft_name}</span>
 								</Td>
 								<Td isNumeric className="font-semibold">
-									￥{item.price}
+									￥{item.basic_bid}
 								</Td>
 								<Td isNumeric className="font-semibold">
 									￥{item.high_bid}

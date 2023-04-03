@@ -169,6 +169,8 @@ export default function NFTManage() {
 		onOpen();
 		setResult(res.data);
 	}
+	console.log(dataSource);
+	
 	return (
 		<>
 			<SearchModalForm

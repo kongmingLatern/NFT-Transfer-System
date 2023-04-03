@@ -6,27 +6,27 @@ export default function SettingManage() {
 	const columns = [
 		{
 			title: '轮播图 ID',
-			id: 'swiper_id',
-			key: 'swiper_id'
+			id: 'img_id',
+			key: 'img_id'
 		},
 		{
 			title: '轮播图图片',
-			id: 'swiper_src',
-			key: 'swiper_src',
+			id: 'img_src',
+			key: 'img_src',
 			type: 'string',
 			render: (text, record) => <img src={text} />
 		},
 		{
 			title: '轮播图分类',
-			id: 'swiper_type',
-			key: 'swiper_type',
+			id: 'type',
+			key: 'type',
 			type: 'string',
 			render: (text, record) => <div>{text}</div>
 		},
 		{
 			title: '描述',
-			id: 'swiper_desc',
-			key: 'swiper_desc',
+			id: 'img_desc',
+			key: 'img_desc',
 			type: 'string',
 			render: (text, record) => <div>{text}</div>
 		},

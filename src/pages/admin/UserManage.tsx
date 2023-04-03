@@ -32,8 +32,8 @@ export default function UserManage() {
 		},
 		{
 			title: '账号余额（￥）',
-			id: 'balance',
-			key: 'balance',
+			id: 'remaining',
+			key: 'remaining',
 			type: 'number',
 			render: (text, record) => <div>{text}</div>
 		},
