@@ -1,10 +1,10 @@
 import { api } from '@/api';
 import { useEffect, useState } from 'react';
+import { Button } from '@chakra-ui/react';
 import Space from '../common/space/Space';
 import AdminTable from '../common/table/Table';
 import Modal from '../common/modal/Modal';
 import Form from '../common/form/Form';
-import { Button } from '@chakra-ui/react';
 
 export default function BuyTableList() {
 	const columns = [
@@ -46,8 +46,14 @@ export default function BuyTableList() {
 						)}
 						bodyContent={(onClose) => (
 							<Form
-								onSubmit={async(data) => {
-								    await uploadRespond(data)
+								onSubmit={async (data) => {
+									console.log(data);
+									const res = await api.post('/upload/respond', data, {
+										headers: {
+											'Content-Type': 'multipart/form-data'
+										}
+									});
+									console.log(res);
 								}}
 								formItem={[
 									{

@@ -72,7 +72,7 @@ export default function Login({ name = '登录' }: LoginType) {
 			options
 		);
 		faceResult.current = result;
-		if (faceResult.current?.score >= 0.85) {
+		if (faceResult.current?.score >= 0.75) {
 			capture();
 			return;
 		}
@@ -112,19 +112,19 @@ export default function Login({ name = '登录' }: LoginType) {
 				faceImg: imageSrc
 			});
 			if (res.code === 200) {
-				
-				const obj=res.data[0]
-				console.log(obj);
-				
-				Object.keys(obj).map((item)=>{
-					localStorage.setItem(item, obj[item])
-					console.log(localStorage.getItem(item));
-				})
+				console.log('res', res);
 				closeCamera(webcamRef.current.video);
 				setTimeout(() => {
 					message.success('登录成功');
+					// NOTE:存储信息
+					localStorage.setItem('token', res.data.token);
+					localStorage.setItem('uid', res.data.uid);
+					localStorage.setItem('username', res.data.username);
 					navigate('/home');
 				}, 2000);
+			} else {
+				closeCamera(webcamRef.current.video);
+				message.error(res.error);
 			}
 		} else {
 			const res: any = await api.post('/register', {

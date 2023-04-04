@@ -59,7 +59,7 @@ export default function ShoppingItem({ setNum }) {
 											display: changingvalue ? 'block' : 'none'
 										}}
 									>
-										￥{item.price}
+										{/* TODO: 根据交易类型来显示当前价格 */}￥{item.basic_bid}
 									</div>
 									<div
 										className="w-full h-full"

@@ -10,7 +10,7 @@ const Tableitem: React.FC<any> = (props: any) => {
 		nft_img,
 		nft_desc,
 		nft_name,
-		owner_username,
+		owner_name,
 		lower_bid,
 		high_bid
 	} = props.data;
@@ -43,7 +43,7 @@ const Tableitem: React.FC<any> = (props: any) => {
 					/>
 				)}
 			</td>
-			<td className="text-center">{owner_username}</td>
+			<td className="text-center">{owner_name}</td>
 			<td>
 				<div className="flex items-center space-x-3">
 					<div className="avatar">

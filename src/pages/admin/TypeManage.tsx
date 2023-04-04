@@ -1,4 +1,6 @@
 import { api } from '@/api';
+import Form from '@/component/common/form/Form';
+import Modal from '@/component/common/modal/Modal';
 import Space from '@/component/common/space/Space';
 import Table from '@/component/common/table/Table';
 import { deleteHandle } from '@/utils/comon/delete';
@@ -46,5 +48,44 @@ export default function TypeManage() {
 		getData();
 	}, []);
 
-	return <Table dataSource={dataSource} columns={columns} />;
+	return (
+		<>
+			<Modal
+				title="添加分类"
+				open={(onOpen) => (
+					<Button
+						colorScheme="linkedin"
+						onClick={onOpen}
+						className="float-right m-2"
+					>
+						添加分类
+					</Button>
+				)}
+				bodyContent={(onClose) => (
+					<Form
+						formItem={[
+							{
+								label: '请输入分类名称',
+								name: 'swiper_type'
+							}
+						]}
+						footer={() => (
+							<Button
+								colorScheme="linkedin"
+								type="submit"
+								className="float-right mt-2"
+								onClick={onClose}
+							>
+								添加
+							</Button>
+						)}
+						onSubmit={(data) => {
+							console.log('upload', data);
+						}}
+					/>
+				)}
+			/>
+			<Table dataSource={dataSource} columns={columns} />;
+		</>
+	);
 }

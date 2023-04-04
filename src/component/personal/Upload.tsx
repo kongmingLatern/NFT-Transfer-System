@@ -65,6 +65,12 @@ export default function Upload() {
 								label: '上限价格',
 								type: 'number',
 								name: 'high_bid'
+							},
+							,
+							{
+								label: '请输入竞拍结束时间',
+								type: 'datetime-local',
+								name: 'date'
 							}
 						]}
 						render={() => (

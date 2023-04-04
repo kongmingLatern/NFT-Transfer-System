@@ -16,11 +16,7 @@ export default function CardList({
 
 	useEffect(() => {
 		async function getData() {
-			let res;
-			if(typeof type === 'undefined'){
-				res= await api.get('/selectAll/nft')
-			} else{
-			    res = await api.get('/selectAll/nft', {
+			const res = await api.get('/select/nft', {
 				params: {
 					type
 					}

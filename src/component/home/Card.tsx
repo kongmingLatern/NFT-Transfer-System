@@ -2,7 +2,7 @@ import { TextBadge } from '@/utils/react';
 import { Link } from 'react-router-dom';
 export default function Card({ item }) {
 	return (
-		<Link to={'/detail'}>
+		<Link to={'/detail/' + item.nft_id}>
 			<div className="card card-compact w-60 bg-base-100 shadow-xl transform hover:-translate-y-1 hover:scale-100 h-[100%] mx-auto">
 				<figure className="h-[60%] relative">
 					<img className="w-full h-[100%]" src={item.nft_img} />
