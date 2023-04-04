@@ -1,5 +1,6 @@
 import message from '@/component/common/message/Message';
 import axios from 'axios';
+import { log } from 'console';
 
 const api = axios.create({
   baseURL: 'http://101.35.251.18:3000',

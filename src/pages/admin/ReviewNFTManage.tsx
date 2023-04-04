@@ -2,9 +2,17 @@ import { api } from '@/api';
 import { SearchModalForm } from '@/component/common/modal/SearchModalForm';
 import Space from '@/component/common/space/Space';
 import Table from '@/component/common/table/Table';
+import { deleteHandle } from '@/utils/comon/delete';
 import { useEffect, useRef, useState } from 'react';
 
 export default function ReviewNFTManage() {
+	async function reviewNft(nft_id:string){
+      const res= await api.post('/admin/add/nft',{
+			nft_id:nft_id
+	  })
+	  console.log(res);
+	  
+	}
 	const columns = [
 		{
 			title: 'NFT 编号',
@@ -27,8 +35,8 @@ export default function ReviewNFTManage() {
 		},
 		{
 			title: 'NFT 分类',
-			id: 'nft_type',
-			key: 'nft_type',
+			id: 'type',
+			key: 'type',
 			type: 'string',
 			render: (text, record) => <div>{text}</div>
 		},
@@ -46,13 +54,13 @@ export default function ReviewNFTManage() {
 			type: 'string',
 			render: (text, record) => <div>{text}</div>
 		},
-		{
-			title: '出售金额',
-			id: 'price',
-			key: 'price',
-			type: 'number',
-			render: (text, record) => <div>{text}</div>
-		},
+		// {
+		// 	title: '出售金额',
+		// 	id: 'price',
+		// 	key: 'price',
+		// 	type: 'number',
+		// 	render: (text, record) => <div>{text}</div>
+		// },
 		{
 			title: '标价',
 			id: 'basic_bid',
@@ -89,11 +97,13 @@ export default function ReviewNFTManage() {
 				<Space>
 					<button
 						className="btn btn-secondary w-[100px] font-thin text-white"
-						onClick={() => console.log(record.id)}
+						onClick={() => reviewNft(record.nft_id)}
 					>
 						通过审核
 					</button>
-					<button className="btn btn-error w-[100px] font-thin text-white">
+					<button
+					onClick={()=>deleteHandle('/delete/nft',{nft_id:record.nft_id})}
+					className="btn btn-error w-[100px] font-thin text-white">
 						删除
 					</button>
 				</Space>
@@ -121,9 +131,9 @@ export default function ReviewNFTManage() {
 		{
 			title: 'NFT 描述'
 		},
-		{
-			title: '出售金额'
-		},
+		// {
+		// 	title: '出售金额'
+		// },
 		{
 			title: '标价'
 		},
@@ -155,7 +165,8 @@ export default function ReviewNFTManage() {
 		onOpen();
 		setResult(res.data);
 	}
-
+    console.log(dataSource);
+	
 	return (
 		<>
 			<SearchModalForm

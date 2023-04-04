@@ -19,16 +19,29 @@ export default function PersonalCard() {
 	const [data, setData] = useState([]);
 	const tabList = ['我的数字藏品', '我的订单'];
 	const tabPaneList = [<NftCard data={data} />, <OrderCard />];
-
+    
 	useEffect(() => {
 		async function getData() {
-			const res = await api.get('/select/nft', {
+			const res = await api.get('/select/nft/uid', {
 				params: {
-					uid: localStorage.getItem('uid') || ''
+					// uid: localStorage.getItem('uid') || ''
+					uid:'1157'
 				}
-			});
+			});	
+			console.log(res.data);
 			setData(res.data);
 		}
+		async function getPersonalInfromation(){
+			console.log(localStorage.getItem('uid'));
+            const res = await api.get('personal', {
+				params: {
+					uid: localStorage.getItem('uid') || ''	
+					//uid:'1157'
+				}
+			});	
+			console.log('personal',res.data);
+		}
+		getPersonalInfromation();
 		getData();
 	}, []);
 

@@ -4,7 +4,7 @@ import ChakraCard from '@/component/home/CharkCard';
 import { SimpleGrid } from '@chakra-ui/react';
 import { useState, useEffect } from 'react';
 interface CardListType {
-	type: string;
+	type?: string;
 	style: 'daisy' | 'chakra';
 }
 
@@ -19,8 +19,9 @@ export default function CardList({
 			const res = await api.get('/select/nft', {
 				params: {
 					type
-				}
-			});
+					}
+				});
+		    }
 			setDataSource(res.data);
 		}
 		getData();

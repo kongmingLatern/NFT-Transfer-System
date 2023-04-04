@@ -10,9 +10,12 @@ export default function ShoppingItem({ setNum }) {
 		async function getData() {
 			const res = await api.get('/shoppingcart', {
 				params: {
-					uid: localStorage.getItem('uid') || ''
+					// uid: localStorage.getItem('uid') || ''
+					uid:'1157'
 				}
 			});
+			console.log('shoppingcart',res);
+			
 			setData(res.data);
 		}
 		getData();

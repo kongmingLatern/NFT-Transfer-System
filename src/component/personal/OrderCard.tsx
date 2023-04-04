@@ -75,9 +75,10 @@ export default function OrderCard() {
 
 	useEffect(() => {
 		async function getData() {
-			const res = await api.get('/select/order', {
+			const res = await api.get('/selectAll/order', {
 				params: {
-					uid: localStorage.getItem('uid') || ''
+					// uid: localStorage.getItem('uid') || ''
+					uid:'1157'
 				}
 			});
 			setData(res.data);

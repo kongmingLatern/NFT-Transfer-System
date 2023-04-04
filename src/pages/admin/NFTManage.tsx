@@ -7,6 +7,7 @@ import { showText } from './ReviewNFTManage';
 import Modal from '@/component/common/modal/Modal';
 import Card from '@/component/home/Card';
 import { Button } from '@chakra-ui/react';
+import { deleteHandle } from '@/utils/comon/delete';
 
 export default function NFTManage() {
 	const columns = [
@@ -107,7 +108,11 @@ export default function NFTManage() {
 							return <Button onClick={onClose}>关闭</Button>;
 						}}
 					/>
-					<button className="btn btn-error w-[100px] font-thin text-white">
+					<button 
+					onClick={()=>{
+						deleteHandle('/delete/nft',{nft_id:record.nft_id})
+					}}
+					className="btn btn-error w-[100px] font-thin text-white">
 						删除
 					</button>
 				</Space>
@@ -169,6 +174,8 @@ export default function NFTManage() {
 		onOpen();
 		setResult(res.data);
 	}
+	console.log(dataSource);
+	
 	return (
 		<>
 			<SearchModalForm

@@ -5,6 +5,7 @@ import Modal from '@/component/common/modal/Modal';
 import { SearchModalForm } from '@/component/common/modal/SearchModalForm';
 import Space from '@/component/common/space/Space';
 import Table from '@/component/common/table/Table';
+import { deleteHandle } from '@/utils/comon/delete';
 import Main from '@/views/admin/Main';
 import { Button } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
@@ -32,8 +33,8 @@ export default function UserManage() {
 		},
 		{
 			title: '账号余额（￥）',
-			id: 'balance',
-			key: 'balance',
+			id: 'remaining',
+			key: 'remaining',
 			type: 'number',
 			render: (text, record) => <div>{text}</div>
 		},
@@ -100,7 +101,9 @@ export default function UserManage() {
 						open={(onOpen) => (
 							<button
 								className="btn btn-error w-[100px] font-thin text-white"
-								onClick={() => onOpen()}
+								onClick={() => {
+									onOpen()
+								}}
 							>
 								删除用户
 							</button>
@@ -123,7 +126,11 @@ export default function UserManage() {
 										</Button>
 										<Button
 											colorScheme={'red'}
-											onClick={() => handleOk(record.id)}
+											onClick={() => {
+												deleteHandle('/delete/user',{uid:record.uid})
+												handleOk(record.id)
+
+											}}
 										>
 											是
 										</Button>

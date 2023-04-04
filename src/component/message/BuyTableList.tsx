@@ -59,7 +59,7 @@ export default function BuyTableList() {
 									{
 										label: '请上传响应图片',
 										type: 'file',
-										name: 'response_nft_src'
+										name: 'response_file'
 									},
 									{
 										label: '描述信息',
@@ -78,6 +78,7 @@ export default function BuyTableList() {
 										提交
 									</Button>
 								)}
+								
 							/>
 						)}
 					/>
@@ -95,6 +96,16 @@ export default function BuyTableList() {
 	];
 	const [data, setData] = useState([]);
 	const [loading, setLoading] = useState(true);
+	
+	async function uploadRespond(data){
+	    data.uid='1157'
+		const res = await api.post('/upload/respond',data,{
+			headers: {
+				'Content-Type': 'multipart/form-data'
+			}
+		})
+		console.log(res);
+	}
 	useEffect(() => {
 		async function getData() {
 			const res = await api.get('/selectAll/buy_message');

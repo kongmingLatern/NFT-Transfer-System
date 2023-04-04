@@ -3,19 +3,19 @@ import Form from '@/component/common/form/Form';
 import Modal from '@/component/common/modal/Modal';
 import Space from '@/component/common/space/Space';
 import Table from '@/component/common/table/Table';
-import { Button } from '@chakra-ui/react';
+import { deleteHandle } from '@/utils/comon/delete';
 import { useEffect, useState } from 'react';
 export default function TypeManage() {
 	const columns = [
 		{
 			title: '分类 ID',
-			id: 'type_id',
-			key: 'type_id'
+			id: 'id',
+			key: 'id'
 		},
 		{
 			title: '分类名称',
-			id: 'type_name',
-			key: 'type_name'
+			id: 'type',
+			key: 'type'
 		},
 		{
 			title: '操作',
@@ -29,7 +29,9 @@ export default function TypeManage() {
 					>
 						修改
 					</button>
-					<button className="btn btn-error w-[100px] font-thin text-white">
+					<button 
+					onClick={()=>deleteHandle('/delete/type',{id:record.id})}
+					className="btn btn-error w-[100px] font-thin text-white">
 						删除
 					</button>
 				</Space>
