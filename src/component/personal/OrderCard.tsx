@@ -87,3 +87,4 @@ export default function OrderCard() {
 
 	return <Table dataSource={data} columns={columns}></Table>;
 }
+

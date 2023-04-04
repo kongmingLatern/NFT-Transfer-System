@@ -40,7 +40,7 @@ export const router = createBrowserRouter([
 		element: <Register />
 	},
 	{
-		path: '/detail',
+		path: '/detail/:nft_id',
 		element: <Detail />
 	},
 	{

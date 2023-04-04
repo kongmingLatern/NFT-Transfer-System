@@ -2,13 +2,23 @@ import { Icon } from '@iconify-icon/react';
 import BidModal from './BidModal';
 import { useContext } from 'react';
 import { DetailProvider } from '@/pages/Detail';
+import { useParams } from 'react-router-dom';
+import { api } from '@/api';
+import message from '../common/message/Message';
 
 export default function Operation() {
-	const { nft_id } = useContext(DetailProvider as any);
+	// const { nft_id } = useContext(DetailProvider as any);
+	const { nft_id } = useParams();
 
-	function addCart(nft_id) {
+	async function addCart(nft_id) {
 		// NOTE: 添加购物车
-		console.log('nft_id', nft_id);
+		const res: any = await api.post('/add/shoppingcart', {
+			uid: localStorage.getItem('uid') || '',
+			nft_id
+		});
+		if (res.code === 200) {
+			message.success('添加成功');
+		}
 	}
 
 	return (

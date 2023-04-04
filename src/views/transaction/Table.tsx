@@ -48,7 +48,7 @@ export default function TableComponent() {
 	useEffect(() => {
 		async function getData() {
 			const check = [];
-			const res = await api.get('/selectAll/shoppcart', {
+			const res = await api.get('/shoppingcart', {
 				params: {
 					uid: localStorage.getItem('uid') || ''
 				}

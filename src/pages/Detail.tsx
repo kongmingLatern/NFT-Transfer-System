@@ -4,21 +4,24 @@ import Header from '@/component/common/Header';
 import CardDetail from '@/views/detail/CardDetail';
 import CardInfo from '@/views/detail/CardInfo';
 import { createContext, useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 
 export const DetailProvider = createContext({} as any);
 
 export default function Detail() {
 	const [data, setData] = useState([]);
+	const { nft_id } = useParams();
 
 	useEffect(() => {
+		console.log(nft_id);
 		async function getData() {
 			const res = await api.get('/select/nft/nft_id', {
 				params: {
-					nft_id: 1
+					nft_id
 				}
 			});
-			setData(res.data);
-			console.log('data', data);
+			console.log(res.data.nft_data[0]);
+			setData(res.data.nft_data[0]);
 		}
 		getData();
 	}, []);

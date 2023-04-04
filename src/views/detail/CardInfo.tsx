@@ -7,7 +7,7 @@ import SalesTime from '../../component/detail/SalesTime';
 import UserTable from '../../component/detail/UserTable';
 
 export default function CardInfo() {
-	const { nft_name, username, buyer, price, high_bid } =
+	const { nft_name, username, uid, price, high_bid } =
 		useContext(DetailProvider);
 	return (
 		<div className=" ml-5 w-[60%]">
@@ -37,7 +37,7 @@ export default function CardInfo() {
 				</div>
 				<div className="right">
 					<span className="text-red-400 font-semibold">
-						当前最高出价者：{buyer}
+						当前最高出价者编号：{uid}
 					</span>
 				</div>
 			</div>
