@@ -61,7 +61,7 @@ export default function OrderManage() {
 					>
 						查看
 					</button>
-					<button 
+					<button
 					onClick={()=>deleteHandle('/delete/order',{order_id:record.order})}
 					className="btn btn-error w-[100px] font-thin text-white">
 						删除
@@ -90,7 +90,7 @@ export default function OrderManage() {
 			}
 		});
 		onOpen();
-		setResult(res.data);
+		setResult(res.data[0]);
 	}
 	return (
 		<>

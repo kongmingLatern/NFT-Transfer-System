@@ -1,4 +1,5 @@
 import { api } from '@/api';
+import message from '@/component/common/message/Message';
 import { SearchModalForm } from '@/component/common/modal/SearchModalForm';
 import Space from '@/component/common/space/Space';
 import Table from '@/component/common/table/Table';
@@ -7,10 +8,10 @@ import { useEffect, useRef, useState } from 'react';
 
 export default function ReviewNFTManage() {
 	async function reviewNft(nft_id: string) {
-		const res = await api.post('/admin/add/nft', {
+		await api.post('/admin/add/nft', {
 			nft_id
 		});
-		console.log(res);
+		message.success('审核通过');
 	}
 	const columns = [
 		{
@@ -155,14 +156,14 @@ export default function ReviewNFTManage() {
 		getData();
 	}, []);
 
-	async function search(value, onOpen) {
-		const res = await api.get('/search/nft_id', {
+	async function search(value: string, onOpen) {
+		const res = await api.get('/search/nft', {
 			params: {
-				nft_id: value
+				nft_id: value.trim()
 			}
 		});
 		onOpen();
-		setResult(res.data);
+		setResult(res.data[0]);
 	}
 
 	return (
