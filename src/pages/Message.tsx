@@ -6,8 +6,20 @@ import Space from '@/component/common/space/Space';
 import Modal from '@/component/common/modal/Modal';
 import Form from '@/component/common/form/Form';
 import { Button } from '@chakra-ui/react';
+import { useEffect } from 'react';
+import { api } from '@/api';
 export default function BuyMessage() {
 	const tabList = ['所有求购信息', '响应我的'];
+
+	async function upload(obj) {
+		obj.uid='1158'
+		console.log(obj);
+		const res= await api.post('/uploadwant',{
+			...obj
+		})
+		console.log(res);
+	}
+
 	const tabPaneList = [<BuyTableList />, <BuyTableListResponse />];
 	return (
 		<>
@@ -26,7 +38,7 @@ export default function BuyMessage() {
 								formItem={[
 									{
 										label: '想求购的 NFT 介绍',
-										name: 'nft_desc',
+										name: 'desc',
 										rules: [{ required: true, message: '请输入 NFT 介绍信息' }]
 									},
 									{
@@ -42,13 +54,15 @@ export default function BuyMessage() {
 								]}
 								footer={() => (
 									<Space size={10} className="mt-2" align="end">
-										<Button type="submit" colorScheme={'messenger'}>
+										<Button 
+						                 
+										type="submit" colorScheme={'messenger'}>
 											提交
 										</Button>
 									</Space>
 								)}
 								onSubmit={(values) => {
-									console.log('values', values);
+									upload(values)
 									onClose();
 								}}
 							/>

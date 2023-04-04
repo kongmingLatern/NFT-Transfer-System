@@ -112,6 +112,14 @@ export default function Login({ name = '登录' }: LoginType) {
 				faceImg: imageSrc
 			});
 			if (res.code === 200) {
+				
+				const obj=res.data[0]
+				console.log(obj);
+				
+				Object.keys(obj).map((item)=>{
+					localStorage.setItem(item, obj[item])
+					console.log(localStorage.getItem(item));
+				})
 				closeCamera(webcamRef.current.video);
 				setTimeout(() => {
 					message.success('登录成功');

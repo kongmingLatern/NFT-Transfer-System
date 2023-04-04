@@ -105,7 +105,8 @@ export default function BuyTableListResponse() {
 		async function getData() {
 			const res = await api.get('/selectAll/response', {
 				params: {
-					uid: localStorage.getItem('uid') || ''
+					// uid: localStorage.getItem('uid') || ''
+					uid:'1157'
 				}
 			});
 			console.log(res.data);

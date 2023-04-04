@@ -1,10 +1,11 @@
 import message from '@/component/common/message/Message';
 import axios from 'axios';
+import { log } from 'console';
 
 const api = axios.create({
-	// baseURL: 'http://101.35.251.18:3000',
-	baseURL:
-		'https://www.fastmock.site/mock/897825cb4cc73f1ae23df5e97bdd3f66/api',
+	baseURL: 'http://101.35.251.18:3000',
+	// baseURL:
+	// 	'https://www.fastmock.site/mock/897825cb4cc73f1ae23df5e97bdd3f66/api',
 	timeout: 10000
 });
 

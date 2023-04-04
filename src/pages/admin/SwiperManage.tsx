@@ -1,6 +1,7 @@
 import { api } from '@/api';
 import Space from '@/component/common/space/Space';
 import Table from '@/component/common/table/Table';
+import { deleteHandle } from '@/utils/comon/delete';
 import { useEffect, useState } from 'react';
 export default function SettingManage() {
 	const columns = [
@@ -42,7 +43,11 @@ export default function SettingManage() {
 					>
 						查看
 					</button>
-					<button className="btn btn-error w-[100px] font-thin text-white">
+					<button 
+					onClick={()=>{
+						deleteHandle('/delete/swiper',{img_id:record.img_id})
+					}}
+					className="btn btn-error w-[100px] font-thin text-white">
 						删除
 					</button>
 				</Space>

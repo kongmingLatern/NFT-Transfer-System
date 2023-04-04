@@ -14,7 +14,7 @@ export default function Detail() {
 		async function getData() {
 			const res = await api.get('/select/nft/nft_id', {
 				params: {
-					nft_id: 1
+					nft_id: 4
 				}
 			});
 			setData(res.data);

@@ -5,10 +5,15 @@ import Space from '../common/space/Space';
 import message from '../common/message/Message';
 import DatePicker from 'react-datepicker';
 import { useState } from 'react';
-
+import { api } from '@/api';
+import { deleteHandle } from '@/utils/comon/delete';
 export default function Upload() {
 	const [startDate, setStartDate] = useState(new Date());
-
+    async function UploadNft(data){
+       const res = await api.post('/upload/nft',{
+            ...data
+	   })  
+	}
 	return (
 		<Modal
 			open={(onOpen) => <span onClick={() => onOpen()}>Upload</span>}
@@ -24,22 +29,22 @@ export default function Upload() {
 							{
 								label: 'NFT 名称',
 								type: 'text',
-								name: 'NFT_name'
+								name: 'nft_name'
 							},
 							{
 								label: 'NFT 分类',
 								type: 'select',
-								name: 'NFT_type'
+								name: 'nft_type'
 							},
 							{
 								label: 'NFT 图片',
 								type: 'file',
-								name: 'NFT_file'
+								name: 'nft_img'
 							},
 							{
 								label: 'NFT 描述',
 								type: 'textarea',
-								name: 'NFT_description'
+								name: 'nft_desc'
 							},
 							{
 								label: '交易类型',
@@ -87,6 +92,8 @@ export default function Upload() {
 						onSubmit={(data) => {
 							mentionCloseMsg('上传成功');
 							console.log(data, startDate.getTime());
+							data.finsh_date=startDate.getTime()
+                            UploadNft(data);
 						}}
 					/>
 				);

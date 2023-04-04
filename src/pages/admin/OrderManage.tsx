@@ -4,7 +4,7 @@ import { SearchModalForm } from '@/component/common/modal/SearchModalForm';
 import Space from '@/component/common/space/Space';
 import Table from '@/component/common/table/Table';
 import { useState, useEffect, useRef } from 'react';
-
+import { deleteHandle } from '@/utils/comon/delete';
 export default function OrderManage() {
 	const columns = [
 		{
@@ -61,7 +61,9 @@ export default function OrderManage() {
 					>
 						查看
 					</button>
-					<button className="btn btn-error w-[100px] font-thin text-white">
+					<button 
+					onClick={()=>deleteHandle('/delete/order',{order_id:record.order})}
+					className="btn btn-error w-[100px] font-thin text-white">
 						删除
 					</button>
 				</Space>
