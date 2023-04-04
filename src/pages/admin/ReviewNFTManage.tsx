@@ -6,12 +6,11 @@ import { deleteHandle } from '@/utils/comon/delete';
 import { useEffect, useRef, useState } from 'react';
 
 export default function ReviewNFTManage() {
-	async function reviewNft(nft_id:string){
-      const res= await api.post('/admin/add/nft',{
-			nft_id:nft_id
-	  })
-	  console.log(res);
-	  
+	async function reviewNft(nft_id: string) {
+		const res = await api.post('/admin/add/nft', {
+			nft_id
+		});
+		console.log(res);
 	}
 	const columns = [
 		{
@@ -54,13 +53,6 @@ export default function ReviewNFTManage() {
 			type: 'string',
 			render: (text, record) => <div>{text}</div>
 		},
-		// {
-		// 	title: '出售金额',
-		// 	id: 'price',
-		// 	key: 'price',
-		// 	type: 'number',
-		// 	render: (text, record) => <div>{text}</div>
-		// },
 		{
 			title: '标价',
 			id: 'basic_bid',
@@ -102,8 +94,11 @@ export default function ReviewNFTManage() {
 						通过审核
 					</button>
 					<button
-					onClick={()=>deleteHandle('/delete/nft',{nft_id:record.nft_id})}
-					className="btn btn-error w-[100px] font-thin text-white">
+						onClick={() =>
+							deleteHandle('/delete/nft', { nft_id: record.nft_id })
+						}
+						className="btn btn-error w-[100px] font-thin text-white"
+					>
 						删除
 					</button>
 				</Space>
@@ -150,7 +145,11 @@ export default function ReviewNFTManage() {
 
 	useEffect(() => {
 		async function getData() {
-			const res = await api.get('/selectAll/nft');
+			const res = await api.get('/admin/selectAll/nft', {
+				params: {
+					status: 0
+				}
+			});
 			setDataSource(res.data);
 		}
 		getData();
@@ -165,8 +164,7 @@ export default function ReviewNFTManage() {
 		onOpen();
 		setResult(res.data);
 	}
-    console.log(dataSource);
-	
+
 	return (
 		<>
 			<SearchModalForm
@@ -175,10 +173,7 @@ export default function ReviewNFTManage() {
 				result={result}
 				tableTitle={tableTitle}
 			/>
-			<Table
-				dataSource={dataSource.filter((item) => item.status === 0)}
-				columns={columns}
-			/>
+			<Table dataSource={dataSource} columns={columns} />
 		</>
 	);
 }

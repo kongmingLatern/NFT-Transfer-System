@@ -5,6 +5,7 @@ import Space from '../common/space/Space';
 import AdminTable from '../common/table/Table';
 import Modal from '../common/modal/Modal';
 import Form from '../common/form/Form';
+import message from '../common/message/Message';
 
 export default function BuyTableList() {
 	const columns = [
@@ -47,13 +48,8 @@ export default function BuyTableList() {
 						bodyContent={(onClose) => (
 							<Form
 								onSubmit={async (data) => {
-									console.log(data);
-									const res = await api.post('/upload/respond', data, {
-										headers: {
-											'Content-Type': 'multipart/form-data'
-										}
-									});
-									console.log(res);
+									const res = await uploadRespond(data);
+									console.log('res', res);
 								}}
 								formItem={[
 									{
@@ -78,7 +74,6 @@ export default function BuyTableList() {
 										提交
 									</Button>
 								)}
-								
 							/>
 						)}
 					/>
@@ -96,15 +91,23 @@ export default function BuyTableList() {
 	];
 	const [data, setData] = useState([]);
 	const [loading, setLoading] = useState(true);
-	
-	async function uploadRespond(data){
-	    data.uid='1157'
-		const res = await api.post('/upload/respond',data,{
-			headers: {
-				'Content-Type': 'multipart/form-data'
+
+	async function uploadRespond(data) {
+		const res = await api.post(
+			'/upload/respond',
+			{
+				response_file: data.response_file[0],
+				response_desc: data.response_desc,
+				uid: localStorage.getItem('uid') || ''
+			},
+			{
+				headers: {
+					'Content-Type': 'multipart/form-data'
+				}
 			}
-		})
-		console.log(res);
+		);
+		message.success('响应成功');
+		return res;
 	}
 	useEffect(() => {
 		async function getData() {

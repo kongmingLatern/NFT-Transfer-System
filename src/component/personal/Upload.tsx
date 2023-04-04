@@ -9,10 +9,11 @@ import { api } from '@/api';
 import { deleteHandle } from '@/utils/comon/delete';
 export default function Upload() {
 	const [startDate, setStartDate] = useState(new Date());
-    async function UploadNft(data){
-       const res = await api.post('/upload/nft',{
-            ...data
-	   })  
+	async function UploadNft(data) {
+		const res = await api.post('/upload/nft', {
+      ...data,
+      nft_img: data.nft_img[0]
+		});
 	}
 	return (
 		<Modal
@@ -84,7 +85,7 @@ export default function Upload() {
 								</div>
 							</div>
 						)}
-						footer={(handleSubmit) => (
+						footer={() => (
 							<Space className="float-right mt-2">
 								<Button
 									type="submit"
@@ -97,9 +98,9 @@ export default function Upload() {
 						)}
 						onSubmit={(data) => {
 							mentionCloseMsg('上传成功');
-							console.log(data, startDate.getTime());
-							data.finsh_date=startDate.getTime()
-                            UploadNft(data);
+							// console.log(data, startDate.getTime());
+							data.finsh_date = startDate.getTime();
+							UploadNft(data);
 						}}
 					/>
 				);

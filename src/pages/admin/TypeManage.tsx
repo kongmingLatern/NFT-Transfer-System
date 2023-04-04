@@ -4,6 +4,7 @@ import Modal from '@/component/common/modal/Modal';
 import Space from '@/component/common/space/Space';
 import Table from '@/component/common/table/Table';
 import { deleteHandle } from '@/utils/comon/delete';
+import { Button } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 export default function TypeManage() {
 	const columns = [
@@ -29,9 +30,10 @@ export default function TypeManage() {
 					>
 						修改
 					</button>
-					<button 
-					onClick={()=>deleteHandle('/delete/type',{id:record.id})}
-					className="btn btn-error w-[100px] font-thin text-white">
+					<button
+						onClick={() => deleteHandle('/delete/type', { id: record.id })}
+						className="btn btn-error w-[100px] font-thin text-white"
+					>
 						删除
 					</button>
 				</Space>
