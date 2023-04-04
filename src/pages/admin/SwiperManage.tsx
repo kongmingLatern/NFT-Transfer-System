@@ -1,6 +1,9 @@
 import { api } from '@/api';
+import Form from '@/component/common/form/Form';
+import Modal from '@/component/common/modal/Modal';
 import Space from '@/component/common/space/Space';
 import Table from '@/component/common/table/Table';
+import { Button } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 export default function SettingManage() {
 	const columns = [
@@ -57,7 +60,56 @@ export default function SettingManage() {
 			setDataSource(res.data);
 		}
 		getData();
-	},[]);
+	}, []);
 
-	return <Table dataSource={dataSource} columns={columns} />;
+	return (
+		<>
+			<Modal
+				size="xl"
+				title="添加轮播图"
+				open={(onOpen) => (
+					<Button
+						colorScheme="linkedin"
+						onClick={onOpen}
+						className="float-right m-2"
+					>
+						添加轮播图
+					</Button>
+				)}
+				bodyContent={(onClose) => (
+					<Form
+						formItem={[
+							{
+								label: '请上传轮播图图片',
+								name: 'swiper_src',
+								type: 'file'
+							},
+							{
+								label: '请输入分类名称',
+								name: 'swiper_type'
+							},
+							{
+								label: '请输入描述信息',
+								name: 'swiper_desc'
+							}
+						]}
+						footer={() => (
+							<Button
+								colorScheme="linkedin"
+								type="submit"
+								className="float-right mt-2"
+								onClick={onClose}
+							>
+								添加
+							</Button>
+						)}
+						onSubmit={(data) => {
+							console.log('upload', data);
+						}}
+					/>
+				)}
+			/>
+			<Table dataSource={dataSource} columns={columns} />;
+		</>
+	);
 }

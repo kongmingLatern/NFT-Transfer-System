@@ -3,7 +3,7 @@ import { timestampToTime } from '@/utils';
 import { useContext, useEffect, useMemo, useState } from 'react';
 
 export default function SalesTime() {
-	const { transaction_date } = useContext(DetailProvider);
+	const { finish_date } = useContext(DetailProvider);
 
 	const [timeStamp, setTimeStamp] = useState(new Date().getTime());
 
@@ -24,10 +24,8 @@ export default function SalesTime() {
 					<span
 						style={{
 							'--value':
-								transaction_date &&
-								timestampToTime(
-									timeStamp - new Date(transaction_date).getTime()
-								).day
+								finish_date &&
+								timestampToTime(timeStamp - new Date(finish_date).getTime()).day
 						}}
 					></span>
 				</span>
@@ -38,10 +36,9 @@ export default function SalesTime() {
 					<span
 						style={{
 							'--value':
-								transaction_date &&
-								timestampToTime(
-									timeStamp - new Date(transaction_date).getTime()
-								).hour
+								finish_date &&
+								timestampToTime(timeStamp - new Date(finish_date).getTime())
+									.hour
 						}}
 					></span>
 				</span>
@@ -52,10 +49,9 @@ export default function SalesTime() {
 					<span
 						style={{
 							'--value':
-								transaction_date &&
-								timestampToTime(
-									timeStamp - new Date(transaction_date).getTime()
-								).minutes
+								finish_date &&
+								timestampToTime(timeStamp - new Date(finish_date).getTime())
+									.minutes
 						}}
 					></span>
 				</span>
@@ -66,10 +62,9 @@ export default function SalesTime() {
 					<span
 						style={{
 							'--value':
-								transaction_date &&
-								timestampToTime(
-									timeStamp - new Date(transaction_date).getTime()
-								).seconds
+								finish_date &&
+								timestampToTime(timeStamp - new Date(finish_date).getTime())
+									.seconds
 						}}
 					></span>
 				</span>

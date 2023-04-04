@@ -1,6 +1,7 @@
+import { api } from '@/api';
 import React from 'react';
 const Tablefooter: React.FC<any> = ({ total, data }: any) => {
-	function submit(data) {
+	async function submit(data) {
 		// 获取 id 以及 count
 		const result = data.map((item) => {
 			return {
@@ -8,7 +9,14 @@ const Tablefooter: React.FC<any> = ({ total, data }: any) => {
 				count: item.num
 			};
 		});
-		console.log(result);
+		const res = await api.get('/direct/order', {
+			params: {
+				uid: localStorage.getItem('uid') || '',
+				result,
+				price: total
+			}
+		});
+		console.log('res', res);
 	}
 	return (
 		<div>

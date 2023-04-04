@@ -8,7 +8,7 @@ export default function ShoppingItem({ setNum }) {
 
 	useEffect(() => {
 		async function getData() {
-			const res = await api.get('/selectAll/shoppcart', {
+			const res = await api.get('/shoppingcart', {
 				params: {
 					uid: localStorage.getItem('uid') || ''
 				}
@@ -56,7 +56,7 @@ export default function ShoppingItem({ setNum }) {
 											display: changingvalue ? 'block' : 'none'
 										}}
 									>
-										￥{item.price}
+										{/* TODO: 根据交易类型来显示当前价格 */}￥{item.basic_bid}
 									</div>
 									<div
 										className="w-full h-full"

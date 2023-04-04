@@ -25,19 +25,19 @@ export default function Home() {
 			<Divider />
 
 			<Title title={'Trending In Art'} />
-			<CardList type="All" />
+			<CardList />
 
 			<Divider />
 			<Title title={'Trending In Art'} />
-			<CardList type="All" style="chakra" />
+			<CardList style="chakra" />
 
 			<Divider />
 			<Title title={'Trending In Music'} />
-			<CardList type="All" />
+			<CardList />
 
 			<Divider />
 			<Title title={'Trending In Video'} />
-			<CardList type="All" />
+			<CardList />
 		</>,
 		'Art',
 		'Music',

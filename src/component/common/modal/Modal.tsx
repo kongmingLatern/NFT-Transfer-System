@@ -7,11 +7,25 @@ import {
 	ModalCloseButton,
 	ModalBody,
 	ModalFooter,
-	Modal
+	Modal,
+	ModalProps,
+	ModalBodyProps
 } from '@chakra-ui/react';
 
 interface ModalType {
 	open: (fn) => JSX.Element;
+	size?:
+		| 'xs'
+		| 'sm'
+		| 'md'
+		| 'lg'
+		| 'xl'
+		| '2xl'
+		| '3xl'
+		| '4xl'
+		| '5xl'
+		| '6xl'
+		| 'full';
 	title: string;
 	bodyContent: (fn?) => JSX.Element;
 	footerContent?: (fn?) => JSX.Element;
@@ -35,6 +49,7 @@ export default function modal({
 	title = 'Modal Title',
 	bodyContent,
 	footerContent,
+	size = 'md',
 	justifyBody = 'start'
 }: Partial<ModalType>) {
 	const { isOpen, onOpen, onClose } = useDisclosure();
@@ -42,7 +57,7 @@ export default function modal({
 		<>
 			{open(onOpen)}
 
-			<Modal isOpen={isOpenStatus || isOpen} onClose={onClose}>
+			<Modal isOpen={isOpenStatus || isOpen} onClose={onClose} size={size}>
 				<ModalOverlay />
 				<ModalContent justifyContent={'center'}>
 					<ModalHeader>{title}</ModalHeader>

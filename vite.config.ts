@@ -27,13 +27,14 @@ export default defineConfig({
 	},
 	server: {
 		port: 8000,
-		origin: 'http://127.0.0.1:8000'
-		// proxy: {
-		// 	'/api': {
-		// 		target: 'http://101.35.251.18:3000/api',
-		// 		changeOrigin: true,
-		// 		rewrite: (path) => path.replace(/^\/api/, '')
-		// 	}
-		// }
+		origin: 'http://127.0.0.1:8000',
+		proxy: {
+			'/api': {
+				target: 'http://101.35.251.18:3000/api',
+				// target: 'http://localhost:3000/api',
+				changeOrigin: true,
+				rewrite: (path) => path.replace(/^\/api/, '')
+			}
+		}
 	}
 });
