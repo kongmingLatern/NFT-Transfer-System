@@ -50,7 +50,8 @@ export default function TableComponent() {
 			const check = [];
 			const res = await api.get('/shoppingcart', {
 				params: {
-					uid: localStorage.getItem('uid') || ''
+					// uid: localStorage.getItem('uid') || ''
+					uid:'1157'
 				}
 			});
 			res.data.forEach((item) => {

@@ -9,25 +9,26 @@ import { useParams } from 'react-router-dom';
 export const DetailProvider = createContext({} as any);
 
 export default function Detail() {
-	const [data, setData] = useState([]);
+	const [nft_data, setData] = useState([]);
 	const { nft_id } = useParams();
-
+    const [chart,setChart]=useState([])
+	const [transaction,setTransaction]=useState([])
 	useEffect(() => {
-		console.log(nft_id);
 		async function getData() {
 			const res = await api.get('/select/nft/nft_id', {
 				params: {
 					nft_id
 				}
 			});
-			console.log(res.data.nft_data[0]);
-			setData(res.data.nft_data[0]);
+			setChart(res.data.char_data)
+			setTransaction(res.data.transaction)
+			setData(res.data.nft_data[0]);	
 		}
 		getData();
 	}, []);
-
+	console.log(nft_data);
 	return (
-		<DetailProvider.Provider value={data}>
+		<DetailProvider.Provider value={nft_data}>
 			<Header />
 			<Divider />
 			<div className="mt-10 max-w-screen-lg mx-auto">

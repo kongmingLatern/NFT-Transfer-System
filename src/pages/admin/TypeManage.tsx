@@ -5,6 +5,7 @@ import Space from '@/component/common/space/Space';
 import Table from '@/component/common/table/Table';
 import { deleteHandle } from '@/utils/comon/delete';
 import { useEffect, useState } from 'react';
+import { Button } from '@chakra-ui/react';
 export default function TypeManage() {
 	const columns = [
 		{
@@ -30,7 +31,7 @@ export default function TypeManage() {
 						修改
 					</button>
 					<button 
-					onClick={()=>deleteHandle('/delete/type',{id:record.id})}
+					onClick={()=>deleteHandle('/delete/type',{type_id:record.id})}
 					className="btn btn-error w-[100px] font-thin text-white">
 						删除
 					</button>
@@ -39,7 +40,14 @@ export default function TypeManage() {
 		}
 	];
 	const [dataSource, setDataSource] = useState([]);
+    async function addType(data){
 
+		const res = await api.post('/add/type',{
+			...data
+		})
+		console.log(res);
+		
+	}
 	useEffect(() => {
 		async function getData() {
 			const res = await api.get('/selectAll/type');
@@ -66,7 +74,7 @@ export default function TypeManage() {
 						formItem={[
 							{
 								label: '请输入分类名称',
-								name: 'swiper_type'
+								name: 'type'
 							}
 						]}
 						footer={() => (
@@ -80,6 +88,7 @@ export default function TypeManage() {
 							</Button>
 						)}
 						onSubmit={(data) => {
+							addType(data)
 							console.log('upload', data);
 						}}
 					/>

@@ -13,7 +13,8 @@ export default function Operation() {
 	async function addCart(nft_id) {
 		// NOTE: 添加购物车
 		const res: any = await api.post('/add/shoppingcart', {
-			uid: localStorage.getItem('uid') || '',
+			// uid: localStorage.getItem('uid') || '',
+		    uid:'1157'	,
 			nft_id
 		});
 		if (res.code === 200) {

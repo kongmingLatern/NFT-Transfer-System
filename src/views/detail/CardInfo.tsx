@@ -7,8 +7,9 @@ import SalesTime from '../../component/detail/SalesTime';
 import UserTable from '../../component/detail/UserTable';
 
 export default function CardInfo() {
-	const { nft_name, username, uid, price, high_bid } =
-		useContext(DetailProvider);
+	const { nft_name, username, uid, price, high_bid } =useContext(DetailProvider);
+	// const { chart_data, nft_data, transaction} =useContext(DetailProvider);
+	// const {username,nft_name,high_bid,price,uid}=nft_data[0]
 	return (
 		<div className=" ml-5 w-[60%]">
 			{/* 右侧头部 */}

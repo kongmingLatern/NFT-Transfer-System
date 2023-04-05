@@ -16,7 +16,7 @@ export default function Trending({ type = 'All' }) {
 
 	useEffect(() => {
 		async function getData() {
-			const res = await api.get('/selectAll/nft', {
+			const res = await api.get('/trend', {
 				params: {
 					type
 				}

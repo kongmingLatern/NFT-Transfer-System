@@ -150,7 +150,7 @@ export default function ReviewNFTManage() {
 
 	useEffect(() => {
 		async function getData() {
-			const res = await api.get('/selectAll/nft');
+			const res = await api.get('/admin/selectAll/nft',);
 			setDataSource(res.data);
 		}
 		getData();
@@ -165,7 +165,6 @@ export default function ReviewNFTManage() {
 		onOpen();
 		setResult(res.data);
 	}
-    console.log(dataSource);
 	
 	return (
 		<>

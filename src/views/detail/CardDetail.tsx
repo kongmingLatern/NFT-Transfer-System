@@ -3,6 +3,7 @@ import { DetailProvider } from '@/pages/Detail';
 import { useContext } from 'react';
 export default function CardDetail() {
 	const { nft_img, nft_desc } = useContext(DetailProvider);
+	
 	return (
 		<div className="card bg-base-100 shadow-xl w-[40%]">
 			<img className=" h-96 " src={nft_img} alt="" />
