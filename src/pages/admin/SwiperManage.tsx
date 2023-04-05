@@ -4,6 +4,7 @@ import Modal from '@/component/common/modal/Modal';
 import Space from '@/component/common/space/Space';
 import Table from '@/component/common/table/Table';
 import { deleteHandle } from '@/utils/comon/delete';
+import { Button } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 import { Button } from '@chakra-ui/react';
 import { type } from 'os';
@@ -49,7 +50,6 @@ export default function SettingManage() {
 					</button>
 					<button 
 					onClick={()=>{
-						
 						deleteHandle('/delete/swiper',{img_id:record.img_id})
 					}}
 					className="btn btn-error w-[100px] font-thin text-white">
@@ -62,7 +62,6 @@ export default function SettingManage() {
 	const [dataSource, setDataSource] = useState([]);
     async function addSwiper(data) {
 		data.img=data.img[0]
-        console.log(data);		
 		const res = await api.post('/add/swiper',{
 			...data
 		},{

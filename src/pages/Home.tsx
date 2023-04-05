@@ -24,8 +24,8 @@ export default function Home() {
 			<Trending />
 			<Divider />
 
-			<Title title={'Trending In Art'} />
-			<CardList type='All' />
+			{/* <Title title={'Trending In Art'} />
+			<CardList type='All' /> */}
 
 			<Divider />
 			<Title title={'Trending In Art'} />

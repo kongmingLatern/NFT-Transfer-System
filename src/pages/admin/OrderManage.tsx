@@ -93,7 +93,7 @@ export default function OrderManage() {
 			}
 		});
 		onOpen();
-		setResult(res.data);
+		setResult(res.data[0]);
 	}
 	return (
 		<>

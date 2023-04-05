@@ -75,3 +75,12 @@ export function getChildrenOrderByProps(children: any) {
 export function isObject(obj: any) {
 	return obj !== null && typeof obj === 'object';
 }
+
+export function timeTransformation(datestr:string){
+	const dateObj=new Date(datestr);
+	const year= dateObj.getUTCFullYear();
+	const month=('0'+(dateObj.getUTCMonth()+1)).slice(-2)
+	const day= ('0'+dateObj.getUTCDate()).slice(-2);
+
+	const formattedDate= `${year}-${month}-${day}-`
+}

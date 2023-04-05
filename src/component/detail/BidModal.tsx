@@ -6,9 +6,8 @@ import { DetailProvider } from '@/pages/Detail';
 import { useContext } from 'react';
 import message from '../common/message/Message';
 export default function BidModal() {
-	const { nft_id, nft_name, price, lower_bid, high_bid } = useContext(
-		DetailProvider as any
-	);
+	const { nft_id, nft_name, price, lower_bid, high_bid } = useContext(DetailProvider as any);
+	
 	console.log('price', price, lower_bid, high_bid);
 	return (
 		<Modal

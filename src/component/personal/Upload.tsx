@@ -93,7 +93,7 @@ export default function Upload() {
 								</div>
 							</div>
 						)}
-						footer={(handleSubmit) => (
+						footer={() => (
 							<Space className="float-right mt-2">
 								<Button
 									type="submit"

@@ -6,10 +6,13 @@ import Operation from '../../component/detail/Operation';
 import SalesTime from '../../component/detail/SalesTime';
 import UserTable from '../../component/detail/UserTable';
 
-export default function CardInfo() {
-	const { nft_name, username, uid, price, high_bid } =useContext(DetailProvider);
-	// const { chart_data, nft_data, transaction} =useContext(DetailProvider);
-	// const {username,nft_name,high_bid,price,uid}=nft_data[0]
+export default function CardInfo({
+	chart_data,
+	transaction
+}) {
+	const { nft_name, username, uid, price, high_bid,transfer_type,bid_username
+	} =useContext(DetailProvider);
+    
 	return (
 		<div className=" ml-5 w-[60%]">
 			{/* 右侧头部 */}
@@ -38,7 +41,9 @@ export default function CardInfo() {
 				</div>
 				<div className="right">
 					<span className="text-red-400 font-semibold">
-						当前最高出价者编号：{uid}
+						{
+							transfer_type ===1 ? ('当前最高出价者编号：'+{uid}):null
+						}
 					</span>
 				</div>
 			</div>
@@ -46,7 +51,9 @@ export default function CardInfo() {
 			<Echarts type="line" data={[100, 200, 300, 500, 200, 10, 250]} />
 			{/* 时间 */}
 			<div className="mt-3 pl-2">
-				<SalesTime />
+				{
+					transfer_type !== 1 ? null :  <SalesTime />
+				}
 			</div>
 
 			{/* 按钮 */}

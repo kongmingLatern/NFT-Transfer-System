@@ -3,7 +3,7 @@ import { Button, Checkbox } from '@chakra-ui/react';
 const Tableitem: React.FC<any> = (props: any) => {
 	const {
 		num,
-		shopping_id,
+		nft_id,
 		price,
 		checkItems,
 		status,
@@ -38,8 +38,8 @@ const Tableitem: React.FC<any> = (props: any) => {
 				{status === 3 ? null : (
 					<Checkbox
 						defaultChecked
-						isChecked={checkItems && !checkItems?.includes(shopping_id)}
-						onChange={(e) => props.changeChecked(shopping_id)}
+						isChecked={checkItems && !checkItems?.includes(nft_id)}
+						onChange={(e) => props.changeChecked(nft_id)}
 					/>
 				)}
 			</td>
@@ -102,11 +102,11 @@ const Tableitem: React.FC<any> = (props: any) => {
 				</label>
 			</td>
 			<td className="w-10">
-				<Button onClick={() => props.subcount(shopping_id)}>-</Button>
+				<Button onClick={() => props.subcount(nft_id)}>-</Button>
 				<label className="mx-3" htmlFor="">
 					{num}
 				</label>
-				<Button onClick={() => props.addcount(shopping_id)}>+</Button>
+				<Button onClick={() => props.addcount(nft_id)}>+</Button>
 			</td>
 		</>
 	);

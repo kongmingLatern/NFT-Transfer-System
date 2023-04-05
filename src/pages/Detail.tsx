@@ -9,9 +9,9 @@ import { useParams } from 'react-router-dom';
 export const DetailProvider = createContext({} as any);
 
 export default function Detail() {
-	const [nft_data, setData] = useState([]);
+	const [nft_data, setNftData] = useState({});
 	const { nft_id } = useParams();
-    const [chart,setChart]=useState([])
+    const [chart_data,setChart]=useState([])
 	const [transaction,setTransaction]=useState([])
 	useEffect(() => {
 		async function getData() {
@@ -22,11 +22,13 @@ export default function Detail() {
 			});
 			setChart(res.data.char_data)
 			setTransaction(res.data.transaction)
-			setData(res.data.nft_data[0]);	
+			const nft= !Array.isArray(res.data.nft_data) ? res.data.nft_data : res.data.nft_data[0]
+			console.log(nft);
+            setNftData(nft)  		
 		}
 		getData();
 	}, []);
-	console.log(nft_data);
+    
 	return (
 		<DetailProvider.Provider value={nft_data}>
 			<Header />
@@ -34,7 +36,7 @@ export default function Detail() {
 			<div className="mt-10 max-w-screen-lg mx-auto">
 				<div className="flex">
 					<CardDetail />
-					<CardInfo />
+					<CardInfo chart_data={chart_data} transaction={transaction} />
 				</div>
 			</div>
 		</DetailProvider.Provider>

@@ -108,11 +108,12 @@ export default function NFTManage() {
 							return <Button onClick={onClose}>关闭</Button>;
 						}}
 					/>
-					<button 
-					onClick={()=>{
-						deleteHandle('/delete/nft',{nft_id:record.nft_id})
-					}}
-					className="btn btn-error w-[100px] font-thin text-white">
+					<button
+						onClick={() => {
+							deleteHandle('/delete/nft', { nft_id: record.nft_id });
+						}}
+						className="btn btn-error w-[100px] font-thin text-white"
+					>
 						删除
 					</button>
 				</Space>
@@ -159,6 +160,7 @@ export default function NFTManage() {
 	const [result, setResult] = useState([]);
 	useEffect(() => {
 		async function getData() {
+			const res = await api.get('/admin/selectAll/nft');
 			const res = await api.get('/admin/selectAll/nft');
 			setDataSource(res.data);
 		}

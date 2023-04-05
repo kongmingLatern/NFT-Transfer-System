@@ -29,10 +29,6 @@ export function SearchModalForm({
 	result,
 	tableTitle
 }: Partial<SearchModalFormType>) {
-	useEffect(() => {
-		console.log('result', result);
-	}, [result]);
-
 	return (
 		<Modal
 			open={(onOpen) => {

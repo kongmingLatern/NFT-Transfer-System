@@ -1,4 +1,5 @@
 import { api } from '@/api';
+import message from '@/component/common/message/Message';
 import { SearchModalForm } from '@/component/common/modal/SearchModalForm';
 import Space from '@/component/common/space/Space';
 import Table from '@/component/common/table/Table';
@@ -6,12 +7,11 @@ import { deleteHandle } from '@/utils/comon/delete';
 import { useEffect, useRef, useState } from 'react';
 
 export default function ReviewNFTManage() {
-	async function reviewNft(nft_id:string){
-      const res= await api.post('/admin/add/nft',{
+	async function reviewNft(nft_id: string) {
+		await api.post('/admin/add/nft', {
 			nft_id:nft_id
-	  })
-	  console.log(res);
-	  
+		});
+		message.success('审核通过');
 	}
 	const columns = [
 		{
@@ -54,13 +54,6 @@ export default function ReviewNFTManage() {
 			type: 'string',
 			render: (text, record) => <div>{text}</div>
 		},
-		// {
-		// 	title: '出售金额',
-		// 	id: 'price',
-		// 	key: 'price',
-		// 	type: 'number',
-		// 	render: (text, record) => <div>{text}</div>
-		// },
 		{
 			title: '标价',
 			id: 'basic_bid',
@@ -102,8 +95,11 @@ export default function ReviewNFTManage() {
 						通过审核
 					</button>
 					<button
-					onClick={()=>deleteHandle('/delete/nft',{nft_id:record.nft_id})}
-					className="btn btn-error w-[100px] font-thin text-white">
+						onClick={() =>
+							deleteHandle('/delete/nft', { nft_id: record.nft_id })
+						}
+						className="btn btn-error w-[100px] font-thin text-white"
+					>
 						删除
 					</button>
 				</Space>
@@ -156,14 +152,14 @@ export default function ReviewNFTManage() {
 		getData();
 	}, []);
 
-	async function search(value, onOpen) {
-		const res = await api.get('/search/nft_id', {
+	async function search(value: string, onOpen) {
+		const res = await api.get('/search/nft', {
 			params: {
-				nft_id: value
+				nft_id: value.trim()
 			}
 		});
 		onOpen();
-		setResult(res.data);
+		setResult(res.data[0]);
 	}
 	
 	return (
@@ -174,10 +170,7 @@ export default function ReviewNFTManage() {
 				result={result}
 				tableTitle={tableTitle}
 			/>
-			<Table
-				dataSource={dataSource.filter((item) => item.status === 0)}
-				columns={columns}
-			/>
+			<Table dataSource={dataSource} columns={columns} />
 		</>
 	);
 }

@@ -30,9 +30,10 @@ export default function TypeManage() {
 					>
 						修改
 					</button>
-					<button 
-					onClick={()=>deleteHandle('/delete/type',{type_id:record.id})}
-					className="btn btn-error w-[100px] font-thin text-white">
+					<button
+						onClick={() => deleteHandle('/delete/type', { id: record.id })}
+						className="btn btn-error w-[100px] font-thin text-white"
+					>
 						删除
 					</button>
 				</Space>

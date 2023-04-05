@@ -5,9 +5,9 @@ import { DetailProvider } from '@/pages/Detail';
 import { useParams } from 'react-router-dom';
 import { api } from '@/api';
 import message from '../common/message/Message';
-
+import { Button } from '@chakra-ui/react';
 export default function Operation() {
-	// const { nft_id } = useContext(DetailProvider as any);
+	const { transfer_type } = useContext(DetailProvider);
 	const { nft_id } = useParams();
 
 	async function addCart(nft_id) {
@@ -37,7 +37,10 @@ export default function Operation() {
 				</button>
 			</div>
 			<div className="w-1/3 text-center inline-block">
-				<BidModal />
+				{
+                  transfer_type !== 1 ? <button className='btn  bg-red-600 h-8 rounded-xl w-full'>立即购买</button> :<BidModal />
+				}
+
 			</div>
 		</>
 	);
