@@ -4,8 +4,6 @@ import Divider from '../common/Divider';
 import Modal from '../common/modal/Modal';
 import DetailNFTCard from './DetailNFTCard';
 export default function NftCard({ data }) {
-	console.log(data);
-	
 	return (
 		<>
 			{data &&
@@ -43,7 +41,7 @@ export default function NftCard({ data }) {
 									</p>
 									<p>
 										<span>原作者：</span>
-										<span className="italic">{item.username}</span>
+										<span className="italic">{item.owner_username}</span>
 									</p>
 									<div className="card-actions justify-end">
 										<Modal

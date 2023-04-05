@@ -9,7 +9,7 @@ import { useEffect, useRef, useState } from 'react';
 export default function ReviewNFTManage() {
 	async function reviewNft(nft_id: string) {
 		await api.post('/admin/add/nft', {
-			nft_id:nft_id
+			nft_id
 		});
 		message.success('审核通过');
 	}
@@ -146,7 +146,11 @@ export default function ReviewNFTManage() {
 
 	useEffect(() => {
 		async function getData() {
-			const res = await api.get('/admin/selectAll/nft',);
+			const res = await api.get('/admin/selectAll/nft', {
+				params: {
+					status: 0
+				}
+			});
 			setDataSource(res.data);
 		}
 		getData();
@@ -161,7 +165,7 @@ export default function ReviewNFTManage() {
 		onOpen();
 		setResult(res.data[0]);
 	}
-	
+
 	return (
 		<>
 			<SearchModalForm

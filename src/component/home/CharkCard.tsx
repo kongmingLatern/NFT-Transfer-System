@@ -14,23 +14,9 @@ import {
 import { Icon } from '@iconify-icon/react';
 import { Link } from 'react-router-dom';
 import Space from '../common/space/Space';
-import { api } from '@/api';
-import { data } from 'autoprefixer';
+
 export default function ChakraCard({ item }) {
-	//介入购物车
-	console.log(item);
-	
-	async function addShoppingcart(data){
-		data.uid='1157'
-		// data.uid=localStorage.getItem('uid')
-		console.log(data);
-		
-		const res = await api.post('/add/shoppingcart',{
-			...data
-		})
-		console.log(res);
-		
-	}
+	console.log('item', item);
 	return (
 		<Card maxW="sm" alignItems={'center'}>
 			<Link to={'/detail'}>
@@ -57,11 +43,7 @@ export default function ChakraCard({ item }) {
 			<Divider />
 			<CardFooter>
 				<ButtonGroup spacing="2">
-					<Button 
-					onClick={()=>{
-						addShoppingcart({nft_id:item.nft_id})
-					}}
-					 variant="ghost" colorScheme="blue">
+					<Button variant="ghost" colorScheme="blue">
 						<Icon
 							icon="material-symbols:shopping-cart-rounded"
 							color="rgba(204, 204, 204, 0.8)"

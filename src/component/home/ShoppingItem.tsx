@@ -2,10 +2,10 @@ import { api } from '@/api';
 import { Icon } from '@iconify-icon/react';
 import { useState, useEffect, useMemo } from 'react';
 
-export default function ShoppingItem({ setNum}) {
+export default function ShoppingItem({ setNum }) {
 	const [changingvalue, setChangevalue] = useState(true);
 	const [data, setData] = useState([]);
-    
+
 	useEffect(() => {
 		async function getData() {
 			const res = await api.get('/shoppingcart', {
@@ -14,16 +14,14 @@ export default function ShoppingItem({ setNum}) {
 					uid:'1157'
 				}
 			});
-			setData(res.data);
-			console.log(res.data);
+			console.log('shoppingcart',res);
 			
+			setData(res.data);
 		}
 		getData();
 	}, []);
 
-	useMemo(() =>{ 
-		setNum(data.length)
-	}, [data]);
+	useMemo(() => setNum(data.length), [data]);
 
 	function onMouseEnter() {
 		setChangevalue(false);
@@ -33,16 +31,7 @@ export default function ShoppingItem({ setNum}) {
 	}
 
 	// NOTE: 删除商品
-	async function removeItem(nft_id) {
-		const data1={
-			nft_id:nft_id,
-			uid:'1157'
-		}
-		const res= await api.delete('/shoppingcart',{
-			data:data1
-		})
-		console.log(res);
-		
+	function removeItem(nft_id) {
 		return setData(data.filter((item) => item.nft_id !== nft_id));
 	}
 

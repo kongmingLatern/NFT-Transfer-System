@@ -2,7 +2,6 @@ import { api } from '@/api';
 import Card from '@/component/home/Card';
 import ChakraCard from '@/component/home/CharkCard';
 import { SimpleGrid } from '@chakra-ui/react';
-import { data } from 'autoprefixer';
 import { useState, useEffect } from 'react';
 interface CardListType {
 	type?: string;
@@ -20,12 +19,6 @@ export default function CardList({
 			const res = await api.get('/select/nft', {
 				params: {
 					type
-					}
-				});
-				setDataSource(res.data);
-		    }
-			getData();
-	},[]);
 				}
 			});
 			setDataSource(res.data);

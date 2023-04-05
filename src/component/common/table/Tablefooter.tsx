@@ -5,15 +5,16 @@ const Tablefooter: React.FC<any> = ({ total, data }: any) => {
 		// 获取 id 以及 count
 		const result = data.map((item) => {
 			return {
-				nft_id: item.nft_id,
-				count: item.num,
+				id: item.shopping_id,
+				count: item.num
 			};
 		});
-		const res = await api.post('/direct/order', {
-				// uid: localStorage.getItem('uid') || '',
-				uid:'1157',
-				data:result,
+		const res = await api.get('/direct/order', {
+			params: {
+				uid: localStorage.getItem('uid') || '',
+				result,
 				price: total
+			}
 		});
 		console.log('res', res);
 	}

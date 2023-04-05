@@ -15,7 +15,7 @@ import styles from '@/assets/img.module.css';
 import classNames from 'classnames';
 
 export default function PersonalCard() {
-	const [user, setUser] = useState<any>({});
+	const [user, setUser] = useState('凤之兮原');
 	const [data, setData] = useState([]);
 	const tabList = ['我的数字藏品', '我的订单'];
 	const tabPaneList = [<NftCard data={data} />, <OrderCard />];
@@ -28,39 +28,22 @@ export default function PersonalCard() {
 					uid:'1157'
 				}
 			});	
+			console.log(res.data);
 			setData(res.data);
-			console.log(data);
 		}
 		async function getPersonalInfromation(){
-            const res = await api.get('/personal', {
+			console.log(localStorage.getItem('uid'));
+            const res = await api.get('personal', {
 				params: {
-					// uid: localStorage.getItem('uid') || ''	
-					uid:'1157'
+					uid: localStorage.getItem('uid') || ''	
+					//uid:'1157'
 				}
 			});	
-			setUser(res.data[0])	
+			console.log('personal',res.data);
 		}
 		getPersonalInfromation();
 		getData();
 	}, []);
-	//修改用户
-	async function changeUser(data) {
-		// data.uid=localStorage('uid')
-		console.log();
-		
-		data.uid='1157'
-		data.avatar=data.avatar[0]
-		console.log(data);
-		const res= await api.put('/personal',{
-			...data
-	    },
-		{
-	    	headers: {
-	    		'Content-Type': 'multipart/form-data'
-	    	}
-	    })
-		console.log(res);	
-	}
 
 	return (
 		<>
@@ -79,15 +62,15 @@ export default function PersonalCard() {
 						<figure>
 							<img
 								className="rounded-full overflow-hidden w-[20rem] h-[20rem]"
-								src={user.avatar}
+								src={Image}
 								alt="Image"
 							/>
 						</figure>
 					</div>
 
 					<aside className="text-center bg-[slateblue] p-3 rounded-md text-white">
-						<p className="font-bold text-2xl">{user.username}</p>
-						{/* <p className="font-thin text-lg font-sans">KongmingLatern</p> */}
+						<p className="font-bold text-2xl">凤之兮原</p>
+						<p className="font-thin text-lg font-sans">KongmingLatern</p>
 						<div className="">
 							<div className="mt-2 flex justify-center">
 								<div className="flex items-center ">
@@ -103,7 +86,7 @@ export default function PersonalCard() {
 							</div>
 							<p className="mt-3 text-sm font-sans font-thin px-4">
 								<span>个人签名：</span>
-								<span>{user.signature}</span>
+								<span>每天进步一点点~~</span>
 							</p>
 						</div>
 
@@ -131,7 +114,7 @@ export default function PersonalCard() {
 													label: '用户名',
 													name: 'username',
 													type: 'text',
-													value: user.username,
+													value: user,
 													onChange: setUser
 												},
 												{
@@ -141,9 +124,9 @@ export default function PersonalCard() {
 												},
 												{
 													label: '个人简介',
-													name: 'signature',
+													name: 'introduction',
 													type: 'textarea',
-													value: user.signature
+													value: '每天进步一点点'
 												},
 												{
 													label: '头像',
@@ -159,7 +142,8 @@ export default function PersonalCard() {
 												</Space>
 											)}
 											onSubmit={(data) => {
-												changeUser(data)
+												mentionCloseMsg('更新信息成功');
+												console.log('data', data);
 												onClose();
 											}}
 										/>

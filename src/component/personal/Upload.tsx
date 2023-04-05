@@ -9,19 +9,11 @@ import { api } from '@/api';
 import { deleteHandle } from '@/utils/comon/delete';
 export default function Upload() {
 	const [startDate, setStartDate] = useState(new Date());
-    async function UploadNft(data){
-       // data.uid=localStorage.getItem('uid')
-		data.uid='1157'
-		const res = await api.post('/upload/nft',{
-			...data,
-			nft_img:data.nft_img[0]
-		},{
-			headers: {
-				'Content-Type': 'multipart/form-data'
-			}
-		})
-		console.log(res);
-		
+	async function UploadNft(data) {
+		const res = await api.post('/upload/nft', {
+      ...data,
+      nft_img: data.nft_img[0]
+		});
 	}
 	return (
 		<Modal
@@ -57,7 +49,7 @@ export default function Upload() {
 							},
 							{
 								label: '交易类型',
-								type: '',
+								type: 'select',
 								name: 'transfer_type'
 							},
 							{
@@ -75,12 +67,12 @@ export default function Upload() {
 								type: 'number',
 								name: 'high_bid'
 							},
-			
-							// {
-							// 	label: '请输入竞拍结束时间',
-							// 	type: 'datetime-local',
-							// 	name: 'date'
-							// }
+							,
+							{
+								label: '请输入竞拍结束时间',
+								type: 'datetime-local',
+								name: 'date'
+							}
 						]}
 						render={() => (
 							<div className="flex justify-around border h-[50px] items-center">
@@ -106,8 +98,9 @@ export default function Upload() {
 						)}
 						onSubmit={(data) => {
 							mentionCloseMsg('上传成功');
-							data.finish_date=startDate.getTime()
-                            UploadNft(data);
+							// console.log(data, startDate.getTime());
+							data.finsh_date = startDate.getTime();
+							UploadNft(data);
 						}}
 					/>
 				);

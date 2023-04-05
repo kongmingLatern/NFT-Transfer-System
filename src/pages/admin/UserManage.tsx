@@ -57,7 +57,7 @@ export default function UserManage() {
 						bodyContent={(onClose) => {
 							function handleOk(id) {
 								message.success('修改成功');
-								console.log('changeUser', id);
+								console.log('removeUser', id);
 								onClose();
 							}
 							return (
@@ -70,7 +70,7 @@ export default function UserManage() {
 										},
 										{
 											label: '账号余额',
-											name: 'remaining',
+											name: 'balance',
 											type: 'number'
 										},
 										{
@@ -91,8 +91,6 @@ export default function UserManage() {
 										);
 									}}
 									onSubmit={(data) => {
-										data.uid=record.uid
-										changeUser(data)
 										console.log('Userdata', data, record.uid);
 									}}
 								/>
@@ -178,16 +176,6 @@ export default function UserManage() {
 		});
 		onOpen();
 		setResult(res.data);
-	}
-    async function changeUser(data) {
-		console.log(data);
-		
-		const res = await api.put('/change/user',{
-			
-			...data
-		})
-		console.log(res);
-		
 	}
 
 	return (

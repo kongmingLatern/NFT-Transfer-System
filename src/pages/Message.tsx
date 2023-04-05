@@ -44,7 +44,7 @@ export default function BuyMessage() {
 									{
 										label: 'NFT 分类',
 										name: 'nft_type',
-										rules: [{ required: true, message: '请输入 NFT 分类是一个数字' }]
+										rules: [{ required: true, message: '请输入 NFT 分类' }]
 									},
 									{
 										label: '预算价格',
@@ -54,7 +54,8 @@ export default function BuyMessage() {
 								]}
 								footer={() => (
 									<Space size={10} className="mt-2" align="end">
-										<Button 					                 
+										<Button 
+						                 
 										type="submit" colorScheme={'messenger'}>
 											提交
 										</Button>

@@ -29,7 +29,7 @@ export default function Header({
 							<SearchInput
 								className={'w-[400px]'}
 								search={(value) => {
-                                    navigate('/search/nft')
+                  navigate('/search/nft')
 									console.log('search', value);
 
 								}}

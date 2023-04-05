@@ -10,10 +10,9 @@ export default function TableComponent() {
 	const [sellOut, setSellOut] = useState([]);
 	let [total, setTotal] = useState(0);
 	function addcount(id) {
-		console.log(id);
 		if (sellOut.includes(id)) return;
 		data.map((item) => {
-			if (item.nft_id === id && item.num < item.count && item.status !== 3)
+			if (item.shopping_id === id && item.num < item.count && item.status !== 3)
 				++item.num;
 		});
 		console.log(data);
@@ -22,7 +21,7 @@ export default function TableComponent() {
 	function subcount(id) {
 		if (sellOut.includes(id)) return;
 		data.map((item) => {
-			if (item.nft_id === id && item.num > 1 && item.status !== 3)
+			if (item.shopping_id === id && item.num > 1 && item.status !== 3)
 				--item.num;
 		});
 		setData([...data]);
@@ -33,13 +32,13 @@ export default function TableComponent() {
 		const newCheckedItems = isChecked
 			? checkItems.filter((i) => i !== id)
 			: [...checkItems, id];
-		setCheckItems(newCheckedItems);		
+		setCheckItems(newCheckedItems);
 	}
 
 	// function changeAllChecked() {
 	// 	if (checkItems.length === 0) {
 	// 		// NOTE: 清空了数组，需要全选
-	// 		setCheckItems(data.map((item) => item.nft_id));
+	// 		setCheckItems(data.map((item) => item.shopping_id));
 	// 	} else {
 	// 		// NOTE: 当前全选状态，清空数组
 	// 		setCheckItems([]);
@@ -51,21 +50,21 @@ export default function TableComponent() {
 			const check = [];
 			const res = await api.get('/shoppingcart', {
 				params: {
-					// uid: localStorage.getItem('uid') || ''
-					uid:'1157'
+					uid: localStorage.getItem('uid') || ''
 				}
 			});
 			res.data.forEach((item) => {
 				if (item.status !== 3) {
-					check.push(item.nft_id);
+					check.push(item.shopping_id);
 					item['num'] = 1;
 				} else {
-					setSellOut([...sellOut, item.nft_id]);
+					setSellOut([...sellOut, item.shopping_id]);
 					item['num'] = 0;
 					item['count'] = 0;
 				}
 			});
 			setCheckItems(check);
+			console.log(res.data);
 			setData(res.data);
 		}
 		getData();
@@ -74,7 +73,7 @@ export default function TableComponent() {
 	useEffect(() => {
 		let sum = 0;
 		data.map((item) => {
-			if (checkItems.includes(item.nft_id)) {
+			if (checkItems.includes(item.shopping_id)) {
 				if (item.status === 2) {
 					sum += item.lower_bid * item.num;
 				} else {
@@ -87,8 +86,7 @@ export default function TableComponent() {
 
 	function getFilterData() {
 		// 去除 checked 字段
-		// return data.filter((item) => checkItems.includes(item.nft_id));
-		return data;
+		return data.filter((item) => checkItems.includes(item.shopping_id));
 	}
 
 	function removeItem(id) {
@@ -114,18 +112,15 @@ export default function TableComponent() {
 					<tbody>
 						{/* row 1 */}
 						{data.map((item) => {
-							
 							return (
 								<tr
-									key={item.nft_id}
+									key={item.shopping_id}
 									className={item.status === 3 ? 'contrast-50 relative' : null}
 								>
 									<Tableitem
-										addcount={()=>{
-                                            addcount(item.nft_id)											
-										}}
+										addcount={addcount}
 										data={item}
-										subcount={()=>subcount(item.nft_id)}
+										subcount={subcount}
 										changeChecked={changeChecked}
 										checkItems={checkItems}
 									/>
@@ -134,7 +129,7 @@ export default function TableComponent() {
 										<td className="absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] ">
 											<Button
 												colorScheme="red"
-												onClick={() => removeItem(item.nft_id)}
+												onClick={() => removeItem(item.shopping_id)}
 											>
 												已售出，点击删除
 											</Button>
