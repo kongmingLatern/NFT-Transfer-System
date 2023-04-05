@@ -48,16 +48,6 @@ export default function BuyTableList() {
 						bodyContent={(onClose) => (
 							<Form
 								onSubmit={async (data) => {
-									data.uid='1158'
-									const res = await api.post('/upload/respond',{
-										...data,
-										response_file:data.response_file[0]
-									}, {
-										headers: {
-											'Content-Type': 'multipart/form-data'
-										}
-									});
-									console.log(res);
 									const res = await uploadRespond(data);
 									console.log('res', res);
 								}}

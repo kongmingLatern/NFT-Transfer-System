@@ -20,12 +20,6 @@ export default function CardList({
 			const res = await api.get('/select/nft', {
 				params: {
 					type
-					}
-				});
-				setDataSource(res.data);
-		    }
-			getData();
-	},[]);
 				}
 			});
 			setDataSource(res.data);

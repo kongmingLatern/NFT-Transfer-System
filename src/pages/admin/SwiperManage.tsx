@@ -6,8 +6,6 @@ import Table from '@/component/common/table/Table';
 import { deleteHandle } from '@/utils/comon/delete';
 import { Button } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
-import { Button } from '@chakra-ui/react';
-import { type } from 'os';
 export default function SettingManage() {
 	const columns = [
 		{
@@ -48,11 +46,12 @@ export default function SettingManage() {
 					>
 						查看
 					</button>
-					<button 
-					onClick={()=>{
-						deleteHandle('/delete/swiper',{img_id:record.img_id})
-					}}
-					className="btn btn-error w-[100px] font-thin text-white">
+					<button
+						onClick={() => {
+							deleteHandle('/delete/swiper', { img_id: record.img_id });
+						}}
+						className="btn btn-error w-[100px] font-thin text-white"
+					>
 						删除
 					</button>
 				</Space>
@@ -60,15 +59,19 @@ export default function SettingManage() {
 		}
 	];
 	const [dataSource, setDataSource] = useState([]);
-    async function addSwiper(data) {
-		data.img=data.img[0]
-		const res = await api.post('/add/swiper',{
-			...data
-		},{
-			headers: {
-				'Content-Type': 'multipart/form-data'
+	async function addSwiper(data) {
+		data.img = data.img[0];
+		const res = await api.post(
+			'/add/swiper',
+			{
+				...data
+			},
+			{
+				headers: {
+					'Content-Type': 'multipart/form-data'
+				}
 			}
-		})
+		);
 		console.log(res);
 	}
 	useEffect(() => {
@@ -121,7 +124,7 @@ export default function SettingManage() {
 							</Button>
 						)}
 						onSubmit={(data) => {
-							addSwiper(data)
+							addSwiper(data);
 						}}
 					/>
 				)}

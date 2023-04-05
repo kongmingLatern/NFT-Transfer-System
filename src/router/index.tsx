@@ -16,6 +16,7 @@ import ReviewNFTManage from '@/pages/admin/ReviewNFTManage';
 import { createBrowserRouter, Navigate } from 'react-router-dom';
 import TypeManage from '@/pages/admin/TypeManage';
 import SearchResult from '@/pages/SearchResult';
+import Submit from '@/pages/Submit';
 
 export const router = createBrowserRouter([
 	{
@@ -38,6 +39,10 @@ export const router = createBrowserRouter([
 	{
 		path: '/register',
 		element: <Register />
+	},
+	{
+		path: '/submit',
+		element: <Submit />
 	},
 	{
 		path: '/detail/:nft_id',
