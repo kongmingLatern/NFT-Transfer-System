@@ -161,6 +161,7 @@ export default function NFTManage() {
 	useEffect(() => {
 		async function getData() {
 			const res = await api.get('/admin/selectAll/nft');
+			const res = await api.get('/admin/selectAll/nft');
 			setDataSource(res.data);
 		}
 		getData();
@@ -175,8 +176,6 @@ export default function NFTManage() {
 		onOpen();
 		setResult(res.data);
 	}
-	console.log(dataSource);
-
 	return (
 		<>
 			<SearchModalForm

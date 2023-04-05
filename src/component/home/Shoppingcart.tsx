@@ -19,7 +19,6 @@ export default function Shoppingcart() {
 	const [num, setNum] = useState(0);
 	const navigate = useNavigate();
 	const btnRef = useRef();
-
 	function handleNavigate() {
 		onClose();
 		navigate('/transaction');
@@ -58,7 +57,7 @@ export default function Shoppingcart() {
 					</div>
 					<DrawerBody w="full">
 						{/* 购物车内的商品 */}
-						<ShoppingItem setNum={setNum} />
+						<ShoppingItem  setNum={setNum} />
 					</DrawerBody>
 
 					<DrawerFooter display="block">

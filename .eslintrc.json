@@ -25,7 +25,6 @@
 		"@typescript-eslint/ban-ts-comment": "off",
 		"no-undef": "off",
 		"react/jsx-key": "off",
-		"prefer-const": "off",
-		"no-sparse-arrays": "off"
+		"prefer-const": "off"
 	}
 }
