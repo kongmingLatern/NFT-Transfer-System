@@ -48,7 +48,10 @@ export default function BuyTableList() {
 						bodyContent={(onClose) => (
 							<Form
 								onSubmit={async (data) => {
-									const res = await uploadRespond(data);
+									const res = await uploadRespond({
+										...data,
+										want_id: record.buy_uid
+									});
 									console.log('res', res);
 								}}
 								formItem={[
@@ -93,12 +96,14 @@ export default function BuyTableList() {
 	const [loading, setLoading] = useState(true);
 
 	async function uploadRespond(data) {
-
-		const res = await api.post('/upload/respond',
+		console.log(data);
+		const res = await api.post(
+			'/upload/respond',
 			{
 				response_file: data.response_file[0],
 				response_desc: data.response_desc,
-				uid: localStorage.getItem('uid') || ''
+				uid: localStorage.getItem('uid') || '',
+				want_id: data.want_id
 			},
 			{
 				headers: {

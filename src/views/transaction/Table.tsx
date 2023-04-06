@@ -4,6 +4,7 @@ import Tablehead from '../../component/common/table/Tablehead';
 import Tablefooter from '../../component/common/table/Tablefooter';
 import { api } from '../../api';
 import { Button, Table } from '@chakra-ui/react';
+import message from '@/component/common/message/Message';
 export default function TableComponent() {
 	const [data, setData] = useState([]);
 	const [checkItems, setCheckItems] = useState([]);
@@ -90,8 +91,17 @@ export default function TableComponent() {
 		return data;
 	}
 
-	function removeItem(id) {
-		console.log('id', id);
+	async function removeItem(id) {
+		const res: any = await api.delete('/shoppingcart', {
+			data: {
+				nft_id: id,
+				uid: localStorage.getItem('uid') || ''
+			}
+		});
+		if (res.code === 200) {
+			message.success('删除成功');
+			setData(data.filter((item) => item.nft_id !== id));
+		}
 	}
 
 	const filterData = useMemo(() => getFilterData(), [checkItems]);

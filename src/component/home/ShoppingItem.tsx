@@ -59,7 +59,7 @@ export default function ShoppingItem({ setNum }) {
 						<div className="flex-[3]">
 							<div className="mt-3 font-semibold text-sm">{item.nft_name}</div>
 							<div className="flex text-sm mt-1 ">
-								<div className="w-36 text-sm">介绍</div>
+								<div className="w-36 text-sm font-thin">介绍</div>
 								<div className="w-10  mr-0">
 									<div
 										className="w-full h-full text-right whitespace-nowrap "
@@ -67,7 +67,8 @@ export default function ShoppingItem({ setNum }) {
 											display: changingvalue ? 'block' : 'none'
 										}}
 									>
-										{/* TODO: 根据交易类型来显示当前价格 */}￥{item.basic_bid}
+										{/* TODO: 根据交易类型来显示当前价格 */}
+										{item.basic_bid} CS
 									</div>
 									<div
 										className="w-full h-full"

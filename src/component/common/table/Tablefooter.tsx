@@ -24,12 +24,11 @@ const Tablefooter: React.FC<any> = ({ total, data }: any) => {
 		console.log(res);
 	}
 	async function removeItem(nft_id) {
-		const data1 = {
-			nft_id,
-			uid: localStorage.getItem('uid') || ''
-		};
 		const res = await api.delete('/shoppingcart', {
-			data: data1
+			data: {
+				nft_id,
+				uid: localStorage.getItem('uid') || ''
+			}
 		});
 		console.log(res);
 	}

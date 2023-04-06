@@ -10,8 +10,8 @@ export default function BuyTableListResponse() {
 	const columns = [
 		{
 			title: '序号',
-			id: 'id',
-			key: 'id'
+			id: 'respond_id',
+			key: 'respond_id'
 		},
 		{
 			title: '我的求购信息',
@@ -20,8 +20,8 @@ export default function BuyTableListResponse() {
 		},
 		{
 			title: '响应者姓名',
-			id: 'response_username',
-			key: 'response_username'
+			id: 'username',
+			key: 'username'
 		},
 		{
 			title: 'NFT 图片',
@@ -35,9 +35,12 @@ export default function BuyTableListResponse() {
 			key: 'response_desc'
 		},
 		{
-			title: '响应金额',
+			title: '响应价格',
 			id: 'response_price',
-			key: 'response_price'
+			key: 'response_price',
+			render: (text, record) => (
+				<span className="text-lg font-bold text-red-500">{text} CS</span>
+			)
 		},
 		{
 			title: '操作',
@@ -77,8 +80,22 @@ export default function BuyTableListResponse() {
 										<Button
 											colorScheme={'red'}
 											onClick={() => {
-												acceptRespond({ id: record.response_id });
-												handleOk(record.response_id);
+												const {
+													respond_id,
+													respond_uid,
+													buy_id,
+													response_price
+												} = record;
+
+												acceptRespond({
+													respond_id,
+													seller_id: respond_uid,
+													buyer_id: buy_id,
+													price: response_price
+												});
+
+												onClose();
+												// handleOk(record.response_id);
 											}}
 										>
 											是
@@ -117,10 +134,17 @@ export default function BuyTableListResponse() {
 		getData();
 	}, []);
 	async function acceptRespond(data) {
-		const res = await api.post('/accept/respond', {
+		const res: any = await api.put('/accept/respond', {
 			...data
 		});
-		console.log(res);
+		if (res.code === 200) {
+			message.success('交易成功');
+		}
 	}
-	return <AdminTable columns={columns} dataSource={data} />;
+	return (
+		<AdminTable
+			columns={columns}
+			dataSource={data.filter((item) => item.sell_out === 0)}
+		/>
+	);
 }
