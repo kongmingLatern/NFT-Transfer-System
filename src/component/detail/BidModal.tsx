@@ -5,10 +5,22 @@ import { Button } from '@chakra-ui/react';
 import { DetailProvider } from '@/pages/Detail';
 import { useContext } from 'react';
 import message from '../common/message/Message';
+import { api } from '@/api';
 export default function BidModal() {
-	const { nft_id, nft_name, price, lower_bid, high_bid } = useContext(DetailProvider as any);
-	
-	console.log('price', price, lower_bid, high_bid);
+	const { nft_id, nft_name, price, lower_bid, high_bid} = useContext(DetailProvider);
+
+    async function joinAuction({price}){
+		const data:any ={}
+		data.uid='1157'
+		data.nft_id=nft_id
+		data.price=price
+		console.log(data);
+		// data.uid=localStorage.getItem('uid')
+		const res = await api.put('/auction',{
+           ...data
+		})
+		console.log(res);
+	}
 	return (
 		<Modal
 			open={(onOpen) => (
@@ -39,7 +51,7 @@ export default function BidModal() {
 							{
 								label: '竞拍商品名称',
 								type: 'text',
-								name: 'bid_name',
+								name: 'nft_name',
 								disabled: true,
 								value: `竞拍商品名称${nft_name}`
 							},
@@ -82,7 +94,7 @@ export default function BidModal() {
 							</Space>
 						)}
 						onSubmit={(data) => {
-							mentionCloseMsg('竞拍成功');
+							joinAuction(data)
 							console.log('data', data);
 						}}
 					/>

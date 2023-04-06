@@ -1,41 +1,40 @@
-export default function UserTable() {
+
+export default function UserTable({transaction}) {
   return (
     <table className="table table-zebra w-full">
       {/* head */}
       <thead>
         <tr>
-          <th></th>
-          <th>Name</th>
-          <th>Job</th>
-          <th>Favorite Color</th>
-          <th>Price</th>
+          <th>名字</th>
+          <th>描述</th>
+          <th>卖家</th>
+          <th>价格</th>
         </tr>
       </thead>
       <tbody>
-        {/* row 1 */}
-        <tr>
-          <th>1</th>
-          <td>Cy Ganderton</td>
-          <td>Quality Control Specialist</td>
-          <td>Blue</td>
-          <td>10 CS</td>
-        </tr>
+        {
+          transaction.map((item)=>{
+            return(
+              <tr>{
+                Object.keys(item).map((it)=>{
+                  return(
+                    <th>{item[it]}</th>
+                  )
+                })
+                }</tr>
+                 )
+          })
+        }
         {/* row 2 */}
-        <tr className="active font-bold">
+        {/* <tr className="active font-bold">
           <th>2</th>
           <td>Hart Hagerty</td>
           <td>Desktop Support Technician</td>
           <td>Purple</td>
           <td>100 CS</td>
-        </tr>
+        </tr> */}
         {/* row 3 */}
-        <tr>
-          <th>3</th>
-          <td>Brice Swyre</td>
-          <td>Tax Accountant</td>
-          <td>Red</td>
-          <td>30 CS</td>
-        </tr>
+
       </tbody>
     </table>
   )

@@ -6,9 +6,11 @@ import { useParams } from 'react-router-dom';
 import { api } from '@/api';
 import message from '../common/message/Message';
 import { Button } from '@chakra-ui/react';
+import { useNavigate } from 'react-router-dom';
 export default function Operation() {
 	const { transfer_type } = useContext(DetailProvider);
 	const { nft_id } = useParams();
+	const navigate=useNavigate()
 
 	async function addCart(nft_id) {
 		// NOTE: 添加购物车
@@ -21,7 +23,11 @@ export default function Operation() {
 			message.success('添加成功');
 		}
 	}
-
+    async function immediately(){
+		navigate('/submit',{
+			state:{nft_id}
+		});
+	}
 	return (
 		<>
 			<div className="w-1/3  text-center inline-block">

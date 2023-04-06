@@ -16,14 +16,27 @@ export default function Card({ item }) {
 					<img src="" alt="" />
 				</div>
 				<div className="w-full flex mt-4 mb-4 text-center ">
-					<div className="w-1/2">
-						<div className="text-md font-bold text-[#707a83]">低价</div>
-						<div className="text-lg font-bold">￥{item.lower_bid}</div>
-					</div>
-					<div className="w-1/2">
-						<div className="text-md font-bold text-[#707a83]">24 小时</div>
-						<div className="text-lg font-bold">￥{item.price}</div>
-					</div>
+					{
+						item.transfer_type ===0 ? (
+							<div className='w-ull '>
+								<div className='ml-16  w-24  text-2xl font-bold'>
+									￥{item.basic_bid}
+								</div>
+							</div>
+						):(
+							<>
+								<div className="w-1/2">
+									<div className="text-md font-bold text-[#707a83]">底价</div>
+									<div className="text-lg font-bold">￥{item.basic_bid}</div>
+								</div>
+								<div className="w-1/2">
+									<div className="text-md font-bold text-[#707a83]">最高价</div>
+									<div className="text-lg font-bold">￥{item.high_bid}</div>
+								</div>
+							</>
+						)
+					}
+					
 				</div>
 			</div>
 		</Link>

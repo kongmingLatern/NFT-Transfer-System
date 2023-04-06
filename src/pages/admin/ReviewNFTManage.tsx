@@ -35,8 +35,8 @@ export default function ReviewNFTManage() {
 		},
 		{
 			title: 'NFT 分类',
-			id: 'type',
-			key: 'type',
+			id: 'nft_type',
+			key: 'nft_type',
 			type: 'string',
 			render: (text, record) => <div>{text}</div>
 		},
@@ -146,8 +146,8 @@ export default function ReviewNFTManage() {
 
 	useEffect(() => {
 		async function getData() {
-			const res = await api.get('/admin/selectAll/nft',);
-			setDataSource(res.data);
+			const res = await api.get('/admin/selectAll/nft');
+			setDataSource(res.data.filter((item)=> item.status === 0));
 		}
 		getData();
 	}, []);

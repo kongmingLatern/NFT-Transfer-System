@@ -6,8 +6,7 @@ import Table from '@/component/common/table/Table';
 import { deleteHandle } from '@/utils/comon/delete';
 import { Button } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
-import { Button } from '@chakra-ui/react';
-import { type } from 'os';
+
 export default function SettingManage() {
 	const columns = [
 		{

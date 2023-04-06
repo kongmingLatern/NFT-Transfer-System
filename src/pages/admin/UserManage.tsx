@@ -180,14 +180,10 @@ export default function UserManage() {
 		setResult(res.data);
 	}
     async function changeUser(data) {
-		console.log(data);
-		
 		const res = await api.put('/change/user',{
-			
 			...data
 		})
 		console.log(res);
-		
 	}
 
 	return (

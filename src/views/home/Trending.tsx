@@ -10,13 +10,13 @@ import {
 import { api } from '@/api';
 import { useState, useEffect } from 'react';
 
-export default function Trending({ type = 'All' }) {
+export default function Trending({ type }) {
 	const [leftData, setLeftData] = useState([]);
 	const [rightData, setRightData] = useState([]);
 
 	useEffect(() => {
 		async function getData() {
-			const res = await api.get('/trend', {
+	        const res = await api.get('/trend', {
 				params: {
 					type
 				}
