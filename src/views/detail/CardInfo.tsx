@@ -45,7 +45,9 @@ export default function CardInfo({ chart_data, transaction }) {
 				</div>
 				<div className="right">
 					<span className="text-red-400 font-semibold">
-						{transfer_type === 1 ? '当前最高出价者编号：' + { uid } : null}
+						{
+							transfer_type === 1 ? ('当前最高出价者编号：'+ { bid_username }) : null
+						}
 					</span>
 				</div>
 			</div>
@@ -63,7 +65,7 @@ export default function CardInfo({ chart_data, transaction }) {
 			<div>
 				<div>
 					<div className="overflow-x-auto mt-7">
-						<UserTable />
+						<UserTable transaction={transaction} />
 					</div>
 				</div>
 			</div>

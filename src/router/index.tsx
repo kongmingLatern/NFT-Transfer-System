@@ -61,6 +61,10 @@ export const router = createBrowserRouter([
 		element: <Transaction />
 	},
 	{
+     path:'/submit',
+	 element: <Submit />
+	},
+	{
 		path: '/message',
 		element: <BuyMessage />
 	},

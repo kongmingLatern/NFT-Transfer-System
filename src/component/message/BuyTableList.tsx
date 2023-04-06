@@ -93,8 +93,8 @@ export default function BuyTableList() {
 	const [loading, setLoading] = useState(true);
 
 	async function uploadRespond(data) {
-		const res = await api.post(
-			'/upload/respond',
+
+		const res = await api.post('/upload/respond',
 			{
 				response_file: data.response_file[0],
 				response_desc: data.response_desc,

@@ -12,6 +12,8 @@ export default function Upload() {
     async function UploadNft(data){
        // data.uid=localStorage.getItem('uid')
 		data.uid='1157'
+		console.log(data);
+		
 		const res = await api.post('/upload/nft',{
 			...data,
 			nft_img:data.nft_img[0]

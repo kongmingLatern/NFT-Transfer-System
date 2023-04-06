@@ -7,6 +7,13 @@ import { deleteHandle } from '@/utils/comon/delete';
 import { useEffect, useState } from 'react';
 import { Button } from '@chakra-ui/react';
 export default function TypeManage() {
+	async function changeType(id){
+		const res = await api.put('/change/type',{
+			id:id
+		})
+		console.log(res);
+		
+	}
 	const columns = [
 		{
 			title: '分类 ID',
@@ -26,7 +33,7 @@ export default function TypeManage() {
 				<Space>
 					<button
 						className="btn btn-secondary w-[100px] font-thin text-white"
-						onClick={() => console.log(record.type_id)}
+						onClick={() => changeType(record.id)}
 					>
 						修改
 					</button>

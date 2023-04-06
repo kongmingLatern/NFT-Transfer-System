@@ -10,8 +10,8 @@ export default function BuyTableListResponse() {
 	const columns = [
 		{
 			title: '序号',
-			id: 'response_id',
-			key: 'response_id'
+			id: 'id',
+			key: 'id'
 		},
 		{
 			title: '我的求购信息',
@@ -76,7 +76,10 @@ export default function BuyTableListResponse() {
 										</Button>
 										<Button
 											colorScheme={'red'}
-											onClick={() => handleOk(record.response_id)}
+											onClick={() => {
+												acceptRespond( {id:record.response_id})
+												handleOk(record.response_id)
+											}}
 										>
 											是
 										</Button>
@@ -114,5 +117,12 @@ export default function BuyTableListResponse() {
 		}
 		getData();
 	}, []);
+	async function acceptRespond(data) {
+		const res = await api.post('/accept/respond',{
+			...data
+		})
+		console.log(res);
+		
+	}
 	return <AdminTable columns={columns} dataSource={data} />;
 }
