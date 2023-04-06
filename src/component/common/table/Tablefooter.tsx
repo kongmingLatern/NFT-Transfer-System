@@ -4,17 +4,23 @@ const Tablefooter: React.FC<any> = ({ total, data }: any) => {
 	async function submit(data) {
 		// 获取 id 以及 count
 		const result = data.map((item) => {
-			removeItem(item.nft_id);
 			return {
 				nft_id: item.nft_id,
 				count: item.num
 			};
 		});
-		const res = await api.post('/direct/order', {
+		const res: any = await api.post('/direct/order', {
 			data: result,
 			price: total,
 			uid: localStorage.getItem('uid') || ''
 		});
+
+		if (res.code === 200) {
+			data.map((item) => {
+				removeItem(item.nft_id);
+			});
+		}
+
 		console.log(res);
 	}
 	async function removeItem(nft_id) {

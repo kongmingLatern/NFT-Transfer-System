@@ -21,8 +21,8 @@ export default function OrderCard() {
 		},
 		{
 			title: '卖家',
-			id: 'seller_username',
-			key: 'seller_username',
+			id: 'owner',
+			key: 'owner',
 			type: 'string'
 		},
 		{
