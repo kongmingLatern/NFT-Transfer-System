@@ -61,11 +61,12 @@ export default function SettingManage() {
 	];
 	const [dataSource, setDataSource] = useState([]);
 	async function addSwiper(data) {
-		data.img = data.img[0];
-		const res = await api.post(
+		// data.img = data.img[0];
+		const res: any = await api.post(
 			'/add/swiper',
 			{
-				...data
+				...data,
+				img: data.img[0]
 			},
 			{
 				headers: {
@@ -73,7 +74,9 @@ export default function SettingManage() {
 				}
 			}
 		);
-		console.log(res);
+		if (res.code === 200) {
+			message.success('添加成功');
+		}
 	}
 	useEffect(() => {
 		async function getData() {

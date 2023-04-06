@@ -75,8 +75,10 @@ export default function TableComponent() {
 		data.map((item) => {
 			if (checkItems.includes(item.nft_id)) {
 				if (item.status === 2) {
-					sum += item.price;
-					sum += item.lower_bid * (item.num - 1);
+					sum +=
+						item.price + item.lower_bid * (item.num - 1) > item.high_bid
+							? item.high_bid
+							: item.price + item.lower_bid * (item.num - 1);
 				} else {
 					sum += item.num * item.price;
 				}
