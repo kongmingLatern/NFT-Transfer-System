@@ -48,8 +48,6 @@ export default function BuyTableList() {
 						bodyContent={(onClose) => (
 							<Form
 								onSubmit={async (data) => {
-									data.uid='1158'
-									console.log(data);
 									const res = await uploadRespond(data);
 									console.log('res', res);
 								}}

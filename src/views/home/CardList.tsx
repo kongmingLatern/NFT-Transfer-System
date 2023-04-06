@@ -20,12 +20,12 @@ export default function CardList({
 			const res = await api.get('/select/nft', {
 				params: {
 					type
-					}
-				});
-				setDataSource(res.data);
-		    }
-			getData();
-	    },[]);
+				}
+			});
+			setDataSource(res.data);
+		}
+		getData();
+	}, []);
 
 	return style === 'daisy' ? (
 		<SimpleGrid className="grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 px-3 justify-items-center gap-5">

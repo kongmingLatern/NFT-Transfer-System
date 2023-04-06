@@ -41,6 +41,10 @@ export const router = createBrowserRouter([
 		element: <Register />
 	},
 	{
+		path: '/submit/:nft_id',
+		element: <Submit />
+	},
+	{
 		path: '/detail/:nft_id',
 		element: <Detail />
 	},

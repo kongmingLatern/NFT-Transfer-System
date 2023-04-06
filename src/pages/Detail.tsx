@@ -11,8 +11,8 @@ export const DetailProvider = createContext({} as any);
 export default function Detail() {
 	const [nft_data, setNftData] = useState({});
 	const { nft_id } = useParams();
-    const [chart_data,setChart]=useState([])
-	const [transaction,setTransaction]=useState([])
+	const [chart_data, setChart] = useState([]);
+	const [transaction, setTransaction] = useState([]);
 	useEffect(() => {
 		async function getData() {
 			const res = await api.get('/select/nft/nft_id', {
@@ -20,15 +20,17 @@ export default function Detail() {
 					nft_id
 				}
 			});
-			setChart(res.data.char_data)
-			setTransaction(res.data.transaction)
-			const nft= !Array.isArray(res.data.nft_data) ? res.data.nft_data : res.data.nft_data[0]
+			setChart(res.data.char_data);
+			setTransaction(res.data.transaction);
+			const nft = !Array.isArray(res.data.nft_data)
+				? res.data.nft_data
+				: res.data.nft_data[0];
 			console.log(nft);
-            setNftData(nft)  		
+			setNftData(nft);
 		}
 		getData();
 	}, []);
-    
+
 	return (
 		<DetailProvider.Provider value={nft_data}>
 			<Header />
