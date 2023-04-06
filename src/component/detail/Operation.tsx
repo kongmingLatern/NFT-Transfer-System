@@ -2,19 +2,20 @@ import { Icon } from '@iconify-icon/react';
 import BidModal from './BidModal';
 import { useContext } from 'react';
 import { DetailProvider } from '@/pages/Detail';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { api } from '@/api';
 import message from '../common/message/Message';
 import { Button } from '@chakra-ui/react';
 export default function Operation() {
 	const { transfer_type } = useContext(DetailProvider);
 	const { nft_id } = useParams();
+	const navigate = useNavigate();
 
 	async function addCart(nft_id) {
 		// NOTE: 添加购物车
 		const res: any = await api.post('/add/shoppingcart', {
 			// uid: localStorage.getItem('uid') || '',
-		    uid:'1157'	,
+			uid: '1157',
 			nft_id
 		});
 		if (res.code === 200) {
@@ -37,10 +38,16 @@ export default function Operation() {
 				</button>
 			</div>
 			<div className="w-1/3 text-center inline-block">
-				{
-                  transfer_type !== 1 ? <button className='btn  bg-red-600 h-8 rounded-xl w-full'>立即购买</button> :<BidModal />
-				}
-
+				{transfer_type !== 1 ? (
+					<button
+						className="btn  bg-red-600 h-8 rounded-xl w-full"
+						onClick={() => navigate('/submit/' + nft_id)}
+					>
+						立即购买
+					</button>
+				) : (
+					<BidModal />
+				)}
 			</div>
 		</>
 	);
