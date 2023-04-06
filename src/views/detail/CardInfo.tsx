@@ -44,9 +44,19 @@ export default function CardInfo({ chart_data, transaction }) {
 					<span className="line-through ml-5">{high_bid}cs</span>
 				</div>
 				<div className="right">
-					<span className="text-red-400 font-semibold">
-						{transfer_type === 1 ? '当前最高出价者：' + bid_username : null}
-					</span>
+					{/* <span className="text-red-400 font-semibold"> */}
+					{transfer_type === 1 ? (
+						<div className="text-lg">
+							<span>当前最高出价者：</span>
+							{bid_username ? (
+								<span className="text-red-500 font-semibold italic font-meno">
+									{bid_username}
+								</span>
+							) : (
+								<span className="text-blue-500 font-bold">暂无</span>
+							)}
+						</div>
+					) : null}
 				</div>
 			</div>
 			{/* 条形图 */}
@@ -62,9 +72,11 @@ export default function CardInfo({ chart_data, transaction }) {
 			</div>
 			<div>
 				<div>
-					<div className="overflow-x-auto mt-7">
-						<UserTable transaction={transaction} />
-					</div>
+					{transfer_type === 1 ? (
+						<div className="overflow-x-auto mt-7">
+							<UserTable transaction={transaction} />
+						</div>
+					) : null}
 				</div>
 			</div>
 		</div>
