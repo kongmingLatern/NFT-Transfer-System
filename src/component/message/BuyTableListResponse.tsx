@@ -77,8 +77,8 @@ export default function BuyTableListResponse() {
 										<Button
 											colorScheme={'red'}
 											onClick={() => {
-												acceptRespond( {id:record.response_id})
-												handleOk(record.response_id)
+												acceptRespond({ id: record.response_id });
+												handleOk(record.response_id);
 											}}
 										>
 											是
@@ -108,8 +108,7 @@ export default function BuyTableListResponse() {
 		async function getData() {
 			const res = await api.get('/selectAll/response', {
 				params: {
-					// uid: localStorage.getItem('uid') || ''
-					uid:'1157'
+					uid: localStorage.getItem('uid') || ''
 				}
 			});
 			console.log(res.data);
@@ -118,11 +117,10 @@ export default function BuyTableListResponse() {
 		getData();
 	}, []);
 	async function acceptRespond(data) {
-		const res = await api.post('/accept/respond',{
+		const res = await api.post('/accept/respond', {
 			...data
-		})
+		});
 		console.log(res);
-		
 	}
 	return <AdminTable columns={columns} dataSource={data} />;
 }

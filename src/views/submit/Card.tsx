@@ -23,7 +23,7 @@ export default function CommitCard() {
 					nft_id
 				}
 			});
-			setData(res.data.nft_data[0]);
+			setData(res.data.nft_data);
 		}
 		getNFT();
 	}, []);

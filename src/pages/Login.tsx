@@ -109,13 +109,14 @@ export default function Login({ name = '登录' }: LoginType) {
 			const res: any = await api.post('/login', {
 				username: username.value,
 				password: password.value,
-				faceImg: imageSrc
+				face_img: imageSrc
 			});
 			if (res.code === 200) {
 				console.log('res', res);
 				closeCamera(webcamRef.current.video);
 				setTimeout(() => {
 					message.success('登录成功');
+					closeCamera(webcamRef.current.video);
 					// NOTE:存储信息
 					localStorage.setItem('token', res.data.token);
 					localStorage.setItem('uid', res.data.uid);
@@ -130,7 +131,7 @@ export default function Login({ name = '登录' }: LoginType) {
 			const res: any = await api.post('/register', {
 				username: username.value,
 				password: password.value,
-				faceImg: imageSrc
+				face_img: imageSrc
 			});
 			if (res.code === 200) {
 				message.success('注册成功');

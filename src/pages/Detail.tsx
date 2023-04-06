@@ -22,11 +22,7 @@ export default function Detail() {
 			});
 			setChart(res.data.char_data);
 			setTransaction(res.data.transaction);
-			const nft = !Array.isArray(res.data.nft_data)
-				? res.data.nft_data
-				: res.data.nft_data[0];
-			console.log(nft);
-			setNftData(nft);
+			setNftData(res.data.nft_data);
 		}
 		getData();
 	}, []);

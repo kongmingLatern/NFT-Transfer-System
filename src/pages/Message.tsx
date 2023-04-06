@@ -12,11 +12,11 @@ export default function BuyMessage() {
 	const tabList = ['所有求购信息', '响应我的'];
 
 	async function upload(obj) {
-		obj.uid='1158'
-		console.log(obj);
-		const res= await api.post('/uploadwant',{
-			...obj
-		})
+		console.log('upload', obj);
+		const res = await api.post('/uploadwant', {
+			...obj,
+			uid: localStorage.getItem('uid') || ''
+		});
 		console.log(res);
 	}
 
@@ -44,7 +44,9 @@ export default function BuyMessage() {
 									{
 										label: 'NFT 分类',
 										name: 'nft_type',
-										rules: [{ required: true, message: '请输入 NFT 分类是一个数字' }]
+										rules: [
+											{ required: true, message: '请输入 NFT 分类是一个数字' }
+										]
 									},
 									{
 										label: '预算价格',
@@ -54,14 +56,13 @@ export default function BuyMessage() {
 								]}
 								footer={() => (
 									<Space size={10} className="mt-2" align="end">
-										<Button 					                 
-										type="submit" colorScheme={'messenger'}>
+										<Button type="submit" colorScheme={'messenger'}>
 											提交
 										</Button>
 									</Space>
 								)}
 								onSubmit={(values) => {
-									upload(values)
+									upload(values);
 									onClose();
 								}}
 							/>

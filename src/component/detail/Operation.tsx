@@ -5,8 +5,7 @@ import { DetailProvider } from '@/pages/Detail';
 import { useNavigate, useParams } from 'react-router-dom';
 import { api } from '@/api';
 import message from '../common/message/Message';
-import { Button } from '@chakra-ui/react';
-import { useNavigate } from 'react-router-dom';
+
 export default function Operation() {
 	const { transfer_type } = useContext(DetailProvider);
 	const { nft_id } = useParams();
@@ -15,17 +14,16 @@ export default function Operation() {
 	async function addCart(nft_id) {
 		// NOTE: 添加购物车
 		const res: any = await api.post('/add/shoppingcart', {
-			// uid: localStorage.getItem('uid') || '',
-			uid: '1157',
+			uid: localStorage.getItem('uid') || '',
 			nft_id
 		});
 		if (res.code === 200) {
 			message.success('添加成功');
 		}
 	}
-    async function immediately(){
-		navigate('/submit',{
-			state:{nft_id}
+	async function immediately() {
+		navigate('/submit', {
+			state: { nft_id }
 		});
 	}
 	return (

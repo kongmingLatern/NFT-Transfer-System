@@ -7,18 +7,16 @@ import { useContext } from 'react';
 import message from '../common/message/Message';
 import { api } from '@/api';
 export default function BidModal() {
-	const { nft_id, nft_name, price, lower_bid, high_bid} = useContext(DetailProvider);
+	const { nft_id, nft_name, price, lower_bid, high_bid } =
+		useContext(DetailProvider);
 
-    async function joinAuction({price}){
-		const data:any ={}
-		data.uid='1157'
-		data.nft_id=nft_id
-		data.price=price
-		console.log(data);
-		// data.uid=localStorage.getItem('uid')
-		const res = await api.put('/auction',{
-           ...data
-		})
+	// TODO:
+	async function joinAuction({ price }) {
+		const res = await api.put('/auction', {
+			nft_id,
+			price,
+			uid: localStorage.getItem('uid') || ''
+		});
 		console.log(res);
 	}
 	return (
@@ -94,7 +92,7 @@ export default function BidModal() {
 							</Space>
 						)}
 						onSubmit={(data) => {
-							joinAuction(data)
+							joinAuction(data);
 							console.log('data', data);
 						}}
 					/>

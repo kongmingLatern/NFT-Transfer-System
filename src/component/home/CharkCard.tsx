@@ -13,23 +13,15 @@ import {
 } from '@chakra-ui/react';
 import { Icon } from '@iconify-icon/react';
 import { Link } from 'react-router-dom';
-import Space from '../common/space/Space';
 import { api } from '@/api';
-import { data } from 'autoprefixer';
 export default function ChakraCard({ item }) {
 	//介入购物车
-	console.log(item);
-	
-	async function addShoppingcart(data){
-		data.uid='1157'
-		// data.uid=localStorage.getItem('uid')
-		console.log(data);
-		
-		const res = await api.post('/add/shoppingcart',{
-			...data
-		})
+	async function addShoppingcart(data) {
+		const res = await api.post('/add/shoppingcart', {
+			...data,
+			uid: localStorage.getItem('uid') || ''
+		});
 		console.log(res);
-		
 	}
 	return (
 		<Card maxW="sm" alignItems={'center'}>
@@ -42,7 +34,10 @@ export default function ChakraCard({ item }) {
 						alt={item.nft_desc}
 						borderRadius="lg"
 					/>
-					<TextBadge className="absolute right-0 top-0 text-lg h-[2rem]" status={item.status} />
+					<TextBadge
+						className="absolute right-0 top-0 text-lg h-[2rem]"
+						status={item.status}
+					/>
 					<Stack mt="6" spacing="3" alignItems={'center'}>
 						<Heading size="md">
 							<span>{item.nft_name}</span>
@@ -57,11 +52,13 @@ export default function ChakraCard({ item }) {
 			<Divider />
 			<CardFooter>
 				<ButtonGroup spacing="2">
-					<Button 
-					onClick={()=>{
-						addShoppingcart({nft_id:item.nft_id})
-					}}
-					 variant="ghost" colorScheme="blue">
+					<Button
+						onClick={() => {
+							addShoppingcart({ nft_id: item.nft_id });
+						}}
+						variant="ghost"
+						colorScheme="blue"
+					>
 						<Icon
 							icon="material-symbols:shopping-cart-rounded"
 							color="rgba(204, 204, 204, 0.8)"

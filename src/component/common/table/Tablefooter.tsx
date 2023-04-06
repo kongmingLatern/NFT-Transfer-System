@@ -4,28 +4,27 @@ const Tablefooter: React.FC<any> = ({ total, data }: any) => {
 	async function submit(data) {
 		// 获取 id 以及 count
 		const result = data.map((item) => {
-			removeItem(item.nft_id)
+			removeItem(item.nft_id);
 			return {
 				nft_id: item.nft_id,
-				count: item.num,
+				count: item.num
 			};
 		});
 		const res = await api.post('/direct/order', {
-				// uid: localStorage.getItem('uid') || '',
-				uid:'1157',
-				data:result,
-				price: total
+			data: result,
+			price: total,
+			uid: localStorage.getItem('uid') || ''
 		});
 		console.log(res);
 	}
 	async function removeItem(nft_id) {
-		const data1={
-			nft_id:nft_id,
-			uid:'1157'
-		}
-		const res= await api.delete('/shoppingcart',{
-			data:data1
-		})
+		const data1 = {
+			nft_id,
+			uid: localStorage.getItem('uid') || ''
+		};
+		const res = await api.delete('/shoppingcart', {
+			data: data1
+		});
 		console.log(res);
 	}
 	return (

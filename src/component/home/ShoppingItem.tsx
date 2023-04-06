@@ -2,27 +2,25 @@ import { api } from '@/api';
 import { Icon } from '@iconify-icon/react';
 import { useState, useEffect, useMemo } from 'react';
 
-export default function ShoppingItem({ setNum}) {
+export default function ShoppingItem({ setNum }) {
 	const [changingvalue, setChangevalue] = useState(true);
 	const [data, setData] = useState([]);
-    
+
 	useEffect(() => {
 		async function getData() {
 			const res = await api.get('/shoppingcart', {
 				params: {
-					// uid: localStorage.getItem('uid') || ''
-					uid:'1157'
+					uid: localStorage.getItem('uid') || ''
 				}
 			});
 			setData(res.data);
 			console.log(res.data);
-			
 		}
 		getData();
 	}, []);
 
-	useMemo(() =>{ 
-		setNum(data.length)
+	useMemo(() => {
+		setNum(data.length);
 	}, [data]);
 
 	function onMouseEnter() {
@@ -34,15 +32,14 @@ export default function ShoppingItem({ setNum}) {
 
 	// NOTE: 删除商品
 	async function removeItem(nft_id) {
-		const data1={
-			nft_id:nft_id,
-			uid:'1157'
-		}
-		const res= await api.delete('/shoppingcart',{
-			data:data1
-		})
+		const res = await api.delete('/shoppingcart', {
+			data: {
+				nft_id,
+				uid: localStorage.getItem('uid') || ''
+			}
+		});
 		console.log(res);
-		
+
 		return setData(data.filter((item) => item.nft_id !== nft_id));
 	}
 

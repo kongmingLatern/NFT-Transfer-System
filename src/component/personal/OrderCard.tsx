@@ -77,8 +77,7 @@ export default function OrderCard() {
 		async function getData() {
 			const res = await api.get('/selectAll/order', {
 				params: {
-					// uid: localStorage.getItem('uid') || ''
-					uid:'1157'
+					uid: localStorage.getItem('uid') || ''
 				}
 			});
 			setData(res.data);
@@ -88,4 +87,3 @@ export default function OrderCard() {
 
 	return <Table dataSource={data} columns={columns}></Table>;
 }
-

@@ -22,8 +22,7 @@ export default function TableComponent() {
 	function subcount(id) {
 		if (sellOut.includes(id)) return;
 		data.map((item) => {
-			if (item.nft_id === id && item.num > 1 && item.status !== 3)
-				--item.num;
+			if (item.nft_id === id && item.num > 1 && item.status !== 3) --item.num;
 		});
 		setData([...data]);
 	}
@@ -33,7 +32,7 @@ export default function TableComponent() {
 		const newCheckedItems = isChecked
 			? checkItems.filter((i) => i !== id)
 			: [...checkItems, id];
-		setCheckItems(newCheckedItems);		
+		setCheckItems(newCheckedItems);
 	}
 
 	// function changeAllChecked() {
@@ -51,8 +50,7 @@ export default function TableComponent() {
 			const check = [];
 			const res = await api.get('/shoppingcart', {
 				params: {
-					// uid: localStorage.getItem('uid') || ''
-					uid:'1157'
+					uid: localStorage.getItem('uid') || ''
 				}
 			});
 			res.data.forEach((item) => {
@@ -114,18 +112,17 @@ export default function TableComponent() {
 					<tbody>
 						{/* row 1 */}
 						{data.map((item) => {
-							
 							return (
 								<tr
 									key={item.nft_id}
 									className={item.status === 3 ? 'contrast-50 relative' : null}
 								>
 									<Tableitem
-										addcount={()=>{
-                                            addcount(item.nft_id)											
+										addcount={() => {
+											addcount(item.nft_id);
 										}}
 										data={item}
-										subcount={()=>subcount(item.nft_id)}
+										subcount={() => subcount(item.nft_id)}
 										changeChecked={changeChecked}
 										checkItems={checkItems}
 									/>

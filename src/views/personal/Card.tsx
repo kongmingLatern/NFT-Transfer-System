@@ -19,47 +19,45 @@ export default function PersonalCard() {
 	const [data, setData] = useState([]);
 	const tabList = ['我的数字藏品', '我的订单'];
 	const tabPaneList = [<NftCard data={data} />, <OrderCard />];
-    
+
 	useEffect(() => {
 		async function getData() {
 			const res = await api.get('/select/nft/uid', {
 				params: {
-					// uid: localStorage.getItem('uid') || ''
-					uid:'1157'
+					uid: localStorage.getItem('uid') || ''
 				}
-			});	
+			});
 			setData(res.data);
 			console.log(data);
 		}
-		async function getPersonalInfromation(){
-            const res = await api.get('/personal', {
+		async function getPersonalInfromation() {
+			const res = await api.get('/personal', {
 				params: {
-					// uid: localStorage.getItem('uid') || ''	
-					uid:'1157'
+					uid: localStorage.getItem('uid') || ''
 				}
-			});	
-			setUser(res.data[0])	
+			});
+			setUser(res.data[0]);
 		}
 		getPersonalInfromation();
 		getData();
 	}, []);
 	//修改用户
 	async function changeUser(data) {
-		// data.uid=localStorage('uid')
-		console.log();
-		
-		data.uid='1157'
-		data.avatar=data.avatar[0]
+		data.uid = localStorage.getItem('uid') || '';
+		data.avatar = data.avatar[0];
 		console.log(data);
-		const res= await api.put('/personal',{
-			...data
-	    },
-		{
-	    	headers: {
-	    		'Content-Type': 'multipart/form-data'
-	    	}
-	    })
-		console.log(res);	
+		const res = await api.put(
+			'/personal',
+			{
+				...data
+			},
+			{
+				headers: {
+					'Content-Type': 'multipart/form-data'
+				}
+			}
+		);
+		console.log(res);
 	}
 
 	return (
@@ -159,7 +157,7 @@ export default function PersonalCard() {
 												</Space>
 											)}
 											onSubmit={(data) => {
-												changeUser(data)
+												changeUser(data);
 												onClose();
 											}}
 										/>
