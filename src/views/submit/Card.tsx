@@ -1,4 +1,5 @@
 import { api } from '@/api';
+import message from '@/component/common/message/Message';
 import {
 	Card,
 	Stack,
@@ -14,7 +15,7 @@ import { useParams } from 'react-router-dom';
 
 export default function CommitCard() {
 	const { nft_id } = useParams<{ nft_id: string }>();
-	const [data, setData] = useState({});
+	const [data, setData] = useState({} as any);
 
 	useEffect(() => {
 		async function getNFT() {
@@ -27,6 +28,16 @@ export default function CommitCard() {
 		}
 		getNFT();
 	}, []);
+
+	async function submitOrder() {
+		const res = await api.post('/direct/order', {
+			uid: localStorage.getItem('uid') || '',
+			data: [data],
+			price: data.price
+		});
+		message.success('订单提交成功');
+		console.log('submitOrder', res);
+	}
 
 	return (
 		<Card
@@ -81,7 +92,12 @@ export default function CommitCard() {
 					</span>
 					&nbsp;CS
 				</Text>
-				<Button variant="solid" colorScheme="red" className="mt-2">
+				<Button
+					variant="solid"
+					colorScheme="red"
+					className="mt-2"
+					onClick={() => submitOrder()}
+				>
 					提交订单
 				</Button>
 			</CardFooter>

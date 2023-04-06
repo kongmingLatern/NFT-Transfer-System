@@ -12,12 +12,14 @@ export default function BidModal() {
 
 	// TODO:
 	async function joinAuction({ price }) {
-		const res = await api.put('/auction', {
+		const res: any = await api.put('/auction', {
 			nft_id,
-			price,
+			price: Number(price),
 			uid: localStorage.getItem('uid') || ''
 		});
-		console.log(res);
+		if (res.code === 200) {
+			message.success('竞标成功');
+		}
 	}
 	return (
 		<Modal
@@ -91,9 +93,9 @@ export default function BidModal() {
 								</Button>
 							</Space>
 						)}
-						onSubmit={(data) => {
-							joinAuction(data);
-							console.log('data', data);
+						onSubmit={async (data) => {
+							await joinAuction(data);
+							onClose();
 						}}
 					/>
 				);

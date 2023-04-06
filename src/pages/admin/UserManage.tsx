@@ -76,7 +76,8 @@ export default function UserManage() {
 										{
 											label: '权限',
 											name: 'isAuth',
-											type: 'number'
+											type: 'number',
+											value: 0
 										}
 									]}
 									footer={() => {
@@ -90,10 +91,13 @@ export default function UserManage() {
 											</Button>
 										);
 									}}
-									onSubmit={(data) => {
-										data.uid=record.uid
-										changeUser(data)
-										console.log('Userdata', data, record.uid);
+									onSubmit={async (data) => {
+										await changeUser({
+											...data,
+											uid: record.uid
+										});
+										onClose();
+										window.location.reload();
 									}}
 								/>
 							);
@@ -104,7 +108,7 @@ export default function UserManage() {
 							<button
 								className="btn btn-error w-[100px] font-thin text-white"
 								onClick={() => {
-									onOpen()
+									onOpen();
 								}}
 							>
 								删除用户
@@ -129,9 +133,8 @@ export default function UserManage() {
 										<Button
 											colorScheme={'red'}
 											onClick={() => {
-												deleteHandle('/delete/user',{uid:record.uid})
-												handleOk(record.id)
-
+												deleteHandle('/delete/user', { uid: record.uid });
+												handleOk(record.id);
 											}}
 										>
 											是
@@ -179,11 +182,11 @@ export default function UserManage() {
 		onOpen();
 		setResult(res.data);
 	}
-    async function changeUser(data) {
-		const res = await api.put('/change/user',{
+	async function changeUser(data) {
+		await api.put('/change/user', {
 			...data
-		})
-		console.log(res);
+		});
+		message.success('修改成功');
 	}
 
 	return (

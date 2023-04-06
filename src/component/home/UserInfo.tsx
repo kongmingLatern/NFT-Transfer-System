@@ -1,8 +1,25 @@
 import { Icon } from '@iconify-icon/react';
 import { Link } from 'react-router-dom';
 import Upload from '../personal/Upload';
+import { api } from '@/api';
+import { useEffect, useState } from 'react';
 
 export default function UserInfo() {
+	const [balance, setBalance] = useState<number>(0);
+
+	useEffect(() => {
+		async function getPersonalInfromation() {
+			const res = await api.get('/personal', {
+				params: {
+					uid: localStorage.getItem('uid') || ''
+				}
+			});
+			console.log(res);
+			setBalance(res.data.remaining);
+		}
+		getPersonalInfromation();
+	}, []);
+
 	return (
 		<>
 			<div className="dropdown dropdown-end">
@@ -26,7 +43,9 @@ export default function UserInfo() {
 						<div className="flex items-center flex-col justify-start ml-2">
 							<div>
 								余额:
-								<span className="font-bold pl-2 text-lg italic">100 CS</span>
+								<span className="font-bold pl-2 text-lg italic">
+									{balance} CS
+								</span>
 							</div>
 						</div>
 					</li>

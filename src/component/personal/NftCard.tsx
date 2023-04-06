@@ -5,10 +5,12 @@ import Modal from '../common/modal/Modal';
 import DetailNFTCard from './DetailNFTCard';
 export default function NftCard({ data }) {
 	console.log(data);
-	
+
 	return (
 		<>
-			{data &&
+			{data.length === 0 ? (
+				<span>暂无卡片</span>
+			) : (
 				data.map((item, index) => {
 					return (
 						<Fragment key={index}>
@@ -61,8 +63,8 @@ export default function NftCard({ data }) {
 							<Divider />
 						</Fragment>
 					);
-				})}
+				})
+			)}
 		</>
 	);
 }
-

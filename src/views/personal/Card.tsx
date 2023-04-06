@@ -27,8 +27,8 @@ export default function PersonalCard() {
 					uid: localStorage.getItem('uid') || ''
 				}
 			});
+			console.log('getData', res);
 			setData(res.data);
-			console.log(data);
 		}
 		async function getPersonalInfromation() {
 			const res = await api.get('/personal', {
@@ -36,20 +36,21 @@ export default function PersonalCard() {
 					uid: localStorage.getItem('uid') || ''
 				}
 			});
-			setUser(res.data[0]);
+			console.log(res);
+			setUser(res.data);
 		}
+
 		getPersonalInfromation();
 		getData();
 	}, []);
 	//修改用户
 	async function changeUser(data) {
-		data.uid = localStorage.getItem('uid') || '';
-		data.avatar = data.avatar[0];
-		console.log(data);
 		const res = await api.put(
 			'/personal',
 			{
-				...data
+				...data,
+				uid: localStorage.getItem('uid') || '',
+				avatar: data.avatar[0]
 			},
 			{
 				headers: {
@@ -156,9 +157,11 @@ export default function PersonalCard() {
 													</Button>
 												</Space>
 											)}
-											onSubmit={(data) => {
-												changeUser(data);
+											onSubmit={async (data) => {
+												await changeUser(data);
 												onClose();
+												window.location.reload();
+												message.success('更新成功');
 											}}
 										/>
 									);
