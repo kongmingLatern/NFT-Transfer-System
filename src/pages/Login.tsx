@@ -121,6 +121,7 @@ export default function Login({ name = '登录' }: LoginType) {
 					localStorage.setItem('uid', res.data.uid);
 					localStorage.setItem('username', res.data.username);
 					if (res.data.isAuth) {
+						localStorage.setItem('isAuth', res.data.isAuth);
 						navigate('/admin');
 						message.success('欢迎回来，管理员');
 					} else {

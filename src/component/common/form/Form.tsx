@@ -53,7 +53,7 @@ export default function Form({
 							key={item.name}
 							type={item.type}
 							placeholder={item.label}
-							className="rounded-md p-2 text-center border-2"
+							className="select rounded-md p-2 text-center border-2"
 							value={item?.value}
 							onChange={(e) => {
 								console.log(e.target.value);

@@ -121,7 +121,7 @@ export const router = createBrowserRouter([
 	{
 		path: '/admin',
 		element: (
-			<AuthLogin>
+			<AuthLogin isAdmin>
 				<Admin />
 			</AuthLogin>
 		),
@@ -133,7 +133,7 @@ export const router = createBrowserRouter([
 			{
 				path: 'user',
 				element: (
-					<AuthLogin>
+					<AuthLogin isAdmin>
 						<UserManage />
 					</AuthLogin>
 				)
@@ -141,7 +141,7 @@ export const router = createBrowserRouter([
 			{
 				path: 'nft',
 				element: (
-					<AuthLogin>
+					<AuthLogin isAdmin>
 						<NFTManage />
 					</AuthLogin>
 				)
@@ -149,7 +149,7 @@ export const router = createBrowserRouter([
 			{
 				path: 'review',
 				element: (
-					<AuthLogin>
+					<AuthLogin isAdmin>
 						<ReviewNFTManage />
 					</AuthLogin>
 				)
@@ -164,7 +164,7 @@ export const router = createBrowserRouter([
 					{
 						path: 'swiper',
 						element: (
-							<AuthLogin>
+							<AuthLogin isAdmin>
 								<SwiperManage />
 							</AuthLogin>
 						)
@@ -172,7 +172,7 @@ export const router = createBrowserRouter([
 					{
 						path: 'type',
 						element: (
-							<AuthLogin>
+							<AuthLogin isAdmin>
 								<TypeManage />
 							</AuthLogin>
 						)
@@ -186,7 +186,7 @@ export const router = createBrowserRouter([
 			{
 				path: 'order',
 				element: (
-					<AuthLogin>
+					<AuthLogin isAdmin>
 						<OrderManage />
 					</AuthLogin>
 				)
@@ -200,11 +200,17 @@ export const router = createBrowserRouter([
 ]);
 
 // 路由守卫
-export function AuthLogin({ children }) {
-	const isAuth = localStorage.getItem('token') || '';
-	if (isAuth !== '') {
+export function AuthLogin({ isAdmin, children }: any) {
+	const token = localStorage.getItem('token') || '';
+	const isAuth = localStorage.getItem('isAuth') || 0;
+	if (token !== '') {
 		// 说明有登录状态
-		return children;
+		if (isAdmin && isAuth !== '1') {
+			message.error('您没有权限访问此页面');
+			return <Navigate to="/home" />;
+		} else {
+			return children;
+		}
 	} else {
 		// 没有登录
 		if (message) {

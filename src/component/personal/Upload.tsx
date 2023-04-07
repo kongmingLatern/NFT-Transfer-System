@@ -133,6 +133,7 @@ export default function Upload() {
 							mentionCloseMsg('上传成功');
 							data.finish_date = startDate.getTime();
 							UploadNft(data);
+							window.location.reload();
 						}}
 						allType={allType}
 						nft_type={nft_type}
