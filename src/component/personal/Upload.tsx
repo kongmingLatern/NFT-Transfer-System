@@ -8,39 +8,42 @@ import { useEffect, useState } from 'react';
 import { api } from '@/api';
 export default function Upload() {
 	const [startDate, setStartDate] = useState(new Date());
-	const [allType,setAllType]=useState([])
-    async function UploadNft(data){
-       // data.uid=localStorage.getItem('uid')
-		data.uid='1157'
+	const [allType, setAllType] = useState([]);
+	async function UploadNft(data) {
+		data.uid = localStorage.getItem('uid');
 		console.log(data);
-		const res = await api.post('/upload/nft',{
-			...data,
-			nft_img:data.nft_img[0]
-		},{
-			headers: {
-				'Content-Type': 'multipart/form-data'
+		const res = await api.post(
+			'/upload/nft',
+			{
+				...data,
+				nft_img: data.nft_img[0]
+			},
+			{
+				headers: {
+					'Content-Type': 'multipart/form-data'
+				}
 			}
-		})
+		);
 		console.log(res);
 	}
-	const nft_type=[
+	const nft_type = [
 		{
-			name:'直售',
-			value:'0'
+			name: '直售',
+			value: '0'
 		},
 		{
-			name:"拍卖",
-			value:"1"
+			name: '拍卖',
+			value: '1'
 		}
-	]
+	];
 
-	useEffect(()=>{
+	useEffect(() => {
 		async function getAllType() {
-			const res = await api.get('/selectAll/type')
-			setAllType(res.data)
+			const res = await api.get('/selectAll/type');
+			setAllType(res.data);
 		}
-		getAllType()
-	})
+		getAllType();
+	}, []);
 	return (
 		<Modal
 			open={(onOpen) => <span onClick={() => onOpen()}>Upload</span>}
@@ -102,7 +105,7 @@ export default function Upload() {
 						]}
 						render={() => (
 							<div className="flex justify-around border h-[50px] items-center">
-								<div className="text-[blue]">请选择竞拍开始时间</div>
+								<div className="text-[blue]">请选择竞拍结束时间</div>
 								<div>
 									<DatePicker
 										selected={startDate}

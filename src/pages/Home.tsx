@@ -24,24 +24,37 @@ export default function Home() {
 			<Trending />
 			<Divider />
 
-			{/* <Title title={'Trending In Art'} />
-			<CardList type='All' /> */}
-
 			<Divider />
 			<Title title={'Trending In Art'} />
-			<CardList  type='Art'  />
+			<CardList type="Art" />
 
 			<Divider />
 			<Title title={'Trending In Music'} />
-			<CardList type='Music' />
+			<CardList type="Music" />
 
 			<Divider />
 			<Title title={'Trending In Video'} />
-			<CardList type='Video'/>
+			<CardList type="Video" />
 		</>,
-		'Art',
-		'Music',
-		'Video'
+
+		<>
+			<Title title={'Trending'} />
+			<Trending type="Art" />
+			<Title title={'Trending In Art'} />
+			<CardList type="Art" />
+		</>,
+		<>
+			<Title title={'Trending'} />
+			<Trending type="Music" />
+			<Title title={'Trending In Music'} />
+			<CardList type="Music" />
+		</>,
+		<>
+			<Title title={'Trending'} />
+			<Trending type="Video" />
+			<Title title={'Trending In Video'} />
+			<CardList type="Video" />
+		</>
 	];
 
 	function removeCover(

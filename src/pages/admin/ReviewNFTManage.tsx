@@ -4,12 +4,12 @@ import { SearchModalForm } from '@/component/common/modal/SearchModalForm';
 import Space from '@/component/common/space/Space';
 import Table from '@/component/common/table/Table';
 import { deleteHandle } from '@/utils/comon/delete';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export default function ReviewNFTManage() {
 	async function reviewNft(nft_id: string) {
 		await api.post('/admin/add/nft', {
-			nft_id:nft_id
+			nft_id: nft_id
 		});
 		message.success('审核通过');
 	}
@@ -21,8 +21,8 @@ export default function ReviewNFTManage() {
 		},
 		{
 			title: '持有者',
-			id: 'username',
-			key: 'username',
+			id: 'owner',
+			key: 'owner',
 			type: 'string',
 			render: (text, record) => <div>{text}</div>
 		},
@@ -147,7 +147,8 @@ export default function ReviewNFTManage() {
 	useEffect(() => {
 		async function getData() {
 			const res = await api.get('/admin/selectAll/nft');
-			setDataSource(res.data.filter((item)=> item.status === 0));
+			console.log('res', res);
+			setDataSource(res.data.filter((item) => Number(item.status) === 0));
 		}
 		getData();
 	}, []);
@@ -161,7 +162,7 @@ export default function ReviewNFTManage() {
 		onOpen();
 		setResult(res.data[0]);
 	}
-	
+
 	return (
 		<>
 			<SearchModalForm
@@ -174,7 +175,8 @@ export default function ReviewNFTManage() {
 		</>
 	);
 }
-export function showText(text: any) {
+export function showText(num: any) {
+	const text = Number(num);
 	return text === 0 ? (
 		<div className="text-red-500 font-bold text-lg">待审核 </div>
 	) : text === 1 ? (

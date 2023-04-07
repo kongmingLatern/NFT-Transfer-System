@@ -94,7 +94,7 @@ export default function UserManage() {
 									onSubmit={async (data) => {
 										await changeUser({
 											...data,
-											uid: record.uid
+											uid: localStorage.getItem('uid') || ''
 										});
 										onClose();
 										window.location.reload();
@@ -183,6 +183,7 @@ export default function UserManage() {
 		setResult(res.data);
 	}
 	async function changeUser(data) {
+		console.log(data);
 		await api.put('/change/user', {
 			...data
 		});

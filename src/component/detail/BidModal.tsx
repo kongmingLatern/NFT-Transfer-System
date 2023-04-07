@@ -19,6 +19,7 @@ export default function BidModal() {
 		});
 		if (res.code === 200) {
 			message.success('竞标成功');
+			window.location.reload();
 		}
 	}
 	return (

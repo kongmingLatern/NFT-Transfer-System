@@ -128,8 +128,7 @@ export default function BuyTableListResponse() {
 					uid: localStorage.getItem('uid') || ''
 				}
 			});
-			console.log(res.data);
-			setData(res.data);
+			setData(res.data.filter((item) => item.sell_out === 0));
 		}
 		getData();
 	}, []);
@@ -141,10 +140,5 @@ export default function BuyTableListResponse() {
 			message.success('交易成功');
 		}
 	}
-	return (
-		<AdminTable
-			columns={columns}
-			dataSource={data.filter((item) => item.sell_out === 0)}
-		/>
-	);
+	return <AdminTable columns={columns} dataSource={data} />;
 }

@@ -1,6 +1,6 @@
 import Echarts from '@/echarts/Echarts';
 import { DetailProvider } from '@/pages/Detail';
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import DetailIcon from '../../component/detail/DetailIcon';
 import Operation from '../../component/detail/Operation';
 import SalesTime from '../../component/detail/SalesTime';
@@ -16,6 +16,17 @@ export default function CardInfo({ chart_data, transaction }) {
 		transfer_type,
 		bid_username
 	} = useContext(DetailProvider);
+
+	const [count, setCount] = useState(chart_data);
+
+	useEffect(() => {
+		function getCount() {
+			return chart_data && chart_data.map((item) => item.count);
+		}
+
+		setCount(getCount());
+		console.log(chart_data);
+	}, [chart_data]);
 
 	return (
 		<div className=" ml-5 w-[60%]">
@@ -60,7 +71,7 @@ export default function CardInfo({ chart_data, transaction }) {
 				</div>
 			</div>
 			{/* 条形图 */}
-			<Echarts type="line" data={[100, 200, 300, 500, 200, 10, 250]} />
+			<Echarts type="line" data={count} />
 			{/* 时间 */}
 			<div className="mt-3 pl-2">
 				{transfer_type !== 1 ? null : <SalesTime />}

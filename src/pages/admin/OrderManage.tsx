@@ -27,15 +27,15 @@ export default function OrderManage() {
 		},
 		{
 			title: '买家',
-			id: 'username',
-			key: 'username',
+			id: 'buyer_name',
+			key: 'buyer_name',
 			type: 'string',
 			render: (text, record) => <div>{text}</div>
 		},
 		{
 			title: '卖家',
-			id: 'seller_username',
-			key: 'seller_username',
+			id: 'seller_name',
+			key: 'seller_name',
 			type: 'string',
 			render: (text, record) => <div>{text}</div>
 		},
@@ -62,11 +62,12 @@ export default function OrderManage() {
 					>
 						查看
 					</button>
-					<button 
-					onClick={()=>{
-                       deleteHandle('/delete/order',{order_id:record.order_id})
-					}}
-					className="btn btn-error w-[100px] font-thin text-white">
+					<button
+						onClick={() => {
+							deleteHandle('/delete/order', { order_id: record.order_id });
+						}}
+						className="btn btn-error w-[100px] font-thin text-white"
+					>
 						删除
 					</button>
 				</Space>

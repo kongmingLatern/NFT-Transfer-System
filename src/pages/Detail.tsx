@@ -20,7 +20,7 @@ export default function Detail() {
 					nft_id
 				}
 			});
-			setChart(res.data.char_data);
+			setChart(res.data.chart_data);
 			setTransaction(res.data.transaction);
 			setNftData(res.data.nft_data);
 		}
