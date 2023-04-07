@@ -60,23 +60,17 @@ export default function SettingManage() {
 		}
 	];
 	const [dataSource, setDataSource] = useState([]);
-	async function addSwiper(data) {
-		// data.img = data.img[0];
-		const res: any = await api.post(
-			'/add/swiper',
-			{
-				...data,
-				img: data.img[0]
-			},
-			{
-				headers: {
-					'Content-Type': 'multipart/form-data'
-				}
+	const [allType,setAllType]=useState([])
+    async function addSwiper(data) {
+		data.img=data.img[0]
+		const res = await api.post('/add/swiper',{
+			...data
+		},{
+			headers: {
+				'Content-Type': 'multipart/form-data'
 			}
-		);
-		if (res.code === 200) {
-			message.success('添加成功');
-		}
+		})
+		console.log(res);
 	}
 	useEffect(() => {
 		async function getData() {
@@ -84,6 +78,11 @@ export default function SettingManage() {
 			setDataSource(res.data);
 		}
 		getData();
+		async function getAllType() {
+			const res = await api.get('/selectAll/type')
+			setAllType(res.data)
+		}
+		getAllType()
 	}, []);
 
 	return (
@@ -110,6 +109,7 @@ export default function SettingManage() {
 							},
 							{
 								label: '请输入分类名称',
+								type:'select',
 								name: 'img_type'
 							},
 							{
@@ -130,6 +130,7 @@ export default function SettingManage() {
 						onSubmit={(data) => {
 							addSwiper(data);
 						}}
+						allType={allType}
 					/>
 				)}
 			/>
