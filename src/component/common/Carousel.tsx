@@ -14,9 +14,9 @@ export default function SimpleSlider() {
 	}, []);
 
 	return (
-		<Carousel autoPlay infiniteLoop showThumbs={false} >
+		<Carousel autoPlay infiniteLoop showThumbs={false}>
 			{dataSource.map((item) => (
-				<div key={item.swiper_id} >
+				<div key={item.img_id}>
 					<img
 						className="mx-auto h-[50vh] object-cover"
 						src={item.img_src}

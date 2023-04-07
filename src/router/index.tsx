@@ -13,10 +13,26 @@ import Personal from '@/pages/Personal';
 import Register from '@/pages/Register';
 import Transaction from '@/pages/Transaction';
 import ReviewNFTManage from '@/pages/admin/ReviewNFTManage';
-import { createBrowserRouter, Navigate } from 'react-router-dom';
+import {
+	createBrowserRouter,
+	Navigate,
+	Outlet,
+	redirect,
+	Router,
+	useLocation,
+	useNavigate,
+	useRouteError
+} from 'react-router-dom';
 import TypeManage from '@/pages/admin/TypeManage';
 import SearchResult from '@/pages/SearchResult';
 import Submit from '@/pages/Submit';
+import { lazy, Suspense, useEffect } from 'react';
+import KeepAlive from 'react-activation';
+import message from '@/component/common/message/Message';
+
+type IRouterBeforeLoad = (res: any, redirectUrl: string) => Boolean;
+let routerLoader: IRouterBeforeLoad;
+let _redirectUrl: string = '/';
 
 export const router = createBrowserRouter([
 	{
@@ -30,7 +46,11 @@ export const router = createBrowserRouter([
 	},
 	{
 		path: '/home',
-		element: <Home />
+		element: (
+			<AuthLogin>
+				<Home />
+			</AuthLogin>
+		)
 	},
 	{
 		path: '/login',
@@ -42,43 +62,83 @@ export const router = createBrowserRouter([
 	},
 	{
 		path: '/submit/:nft_id',
-		element: <Submit />
+		element: (
+			<AuthLogin>
+				<Submit />
+			</AuthLogin>
+		)
 	},
 	{
 		path: '/detail/:nft_id',
-		element: <Detail />
+		element: (
+			<AuthLogin>
+				<Detail />
+			</AuthLogin>
+		)
 	},
 	{
 		path: '/personal',
-		element: <Personal />
+		element: (
+			<AuthLogin>
+				<Personal />
+			</AuthLogin>
+		)
 	},
 	{
 		path: '/paint',
-		element: <Create />
+		element: (
+			<AuthLogin>
+				<Create />
+			</AuthLogin>
+		)
 	},
 	{
 		path: '/transaction',
-		element: <Transaction />
+		element: (
+			<AuthLogin>
+				<Transaction />
+			</AuthLogin>
+		)
 	},
 	{
-     path:'/submit',
-	 element: <Submit />
+		path: '/submit',
+		element: (
+			<AuthLogin>
+				<Submit />
+			</AuthLogin>
+		)
 	},
 	{
 		path: '/message',
-		element: <BuyMessage />
+		element: (
+			<AuthLogin>
+				<BuyMessage />
+			</AuthLogin>
+		)
 	},
 	{
 		path: '/collection',
-		element: <Collection />
+		element: (
+			<AuthLogin>
+				<Collection />
+			</AuthLogin>
+		)
 	},
 	{
 		path: '/search/nft',
-		element: <SearchResult />
+		element: (
+			<AuthLogin>
+				<SearchResult />
+			</AuthLogin>
+		)
 	},
 	{
 		path: '/admin',
-		element: <Admin />,
+		element: (
+			<AuthLogin>
+				<Admin />
+			</AuthLogin>
+		),
 		children: [
 			{
 				index: true,
@@ -86,15 +146,27 @@ export const router = createBrowserRouter([
 			},
 			{
 				path: 'user',
-				element: <UserManage />
+				element: (
+					<AuthLogin>
+						<UserManage />
+					</AuthLogin>
+				)
 			},
 			{
 				path: 'nft',
-				element: <NFTManage />
+				element: (
+					<AuthLogin>
+						<NFTManage />
+					</AuthLogin>
+				)
 			},
 			{
 				path: 'review',
-				element: <ReviewNFTManage />
+				element: (
+					<AuthLogin>
+						<ReviewNFTManage />
+					</AuthLogin>
+				)
 			},
 			{
 				path: 'setting',
@@ -105,18 +177,81 @@ export const router = createBrowserRouter([
 					},
 					{
 						path: 'swiper',
-						element: <SwiperManage />
+						element: (
+							<AuthLogin>
+								<SwiperManage />
+							</AuthLogin>
+						)
 					},
 					{
 						path: 'type',
-						element: <TypeManage />
+						element: (
+							<AuthLogin>
+								<TypeManage />
+							</AuthLogin>
+						)
+					},
+					{
+						path: '*',
+						element: <ErrorBoundary />
 					}
 				]
 			},
 			{
 				path: 'order',
-				element: <OrderManage />
+				element: (
+					<AuthLogin>
+						<OrderManage />
+					</AuthLogin>
+				)
+			},
+			{
+				path: '*',
+				element: <ErrorBoundary />
 			}
 		]
+	},
+	{
+		path: '*',
+		element: <ErrorBoundary />
 	}
 ]);
+
+// 路由守卫
+export function AuthLogin({ children }) {
+	const isAuth = localStorage.getItem('token') || '';
+	if (isAuth !== '') {
+		// 说明有登录状态
+		return children;
+	} else {
+		// 没有登录
+		if (message) {
+			message.error('请先登录');
+		}
+		// message.error('请先登录');
+		return <Navigate to="/login" />;
+	}
+}
+
+function ErrorBoundary() {
+	let error: any = useRouteError();
+	return (
+		<div>
+			<div>{error.message}</div>
+			<div>{error.stack}</div>
+		</div>
+	);
+}
+const RouterBeforeEach = () => {
+	const location = useLocation();
+	const navigator = useNavigate();
+	console.log(location.pathname);
+	console.log(location.pathname == '/home');
+	useEffect(() => {
+		if (location.pathname == '/home') {
+			navigator('/login');
+		}
+	}, []);
+	return <Outlet />;
+};
+export { Router, RouterBeforeEach };

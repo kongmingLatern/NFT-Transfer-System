@@ -1,11 +1,13 @@
 import { Icon } from '@iconify-icon/react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Upload from '../personal/Upload';
 import { api } from '@/api';
 import { useEffect, useState } from 'react';
+import message from '../common/message/Message';
 
 export default function UserInfo() {
 	const [balance, setBalance] = useState<number>(0);
+	const navigate = useNavigate();
 
 	useEffect(() => {
 		async function getPersonalInfromation() {
@@ -19,6 +21,12 @@ export default function UserInfo() {
 		}
 		getPersonalInfromation();
 	}, []);
+
+	function exit() {
+		localStorage.clear();
+		navigate('/login');
+		message.success('退出成功');
+	}
 
 	return (
 		<>
@@ -66,7 +74,7 @@ export default function UserInfo() {
 						<a>Settings</a>
 					</li>
 					<li>
-						<a>Logout</a>
+						<a onClick={() => exit()}>Logout</a>
 					</li>
 				</ul>
 			</div>
