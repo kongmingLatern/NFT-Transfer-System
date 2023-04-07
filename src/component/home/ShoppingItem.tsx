@@ -45,54 +45,62 @@ export default function ShoppingItem({ setNum }) {
 
 	return (
 		<>
-			{data.map((item) => {
-				return (
-					<div
-						className="h-20 rounded-xl flex hover:bg-gray-200 items-center"
-						onMouseEnter={onMouseEnter}
-						onMouseLeave={onMouseLeave}
-						key={item.nft_id}
-					>
-						<div className="flex-[1] mx-2 ">
-							<img className="w-[100%] rounded-xl my-1" src={item.nft_img} />
-						</div>
-						<div className="flex-[3]">
-							<div className="mt-3 font-semibold text-sm">{item.nft_name}</div>
-							<div className="flex text-sm mt-1 ">
-								<div className="w-36 text-sm font-thin">介绍</div>
-								<div className="w-10  mr-0">
-									<div
-										className="w-full h-full text-right whitespace-nowrap "
-										style={{
-											display: changingvalue ? 'block' : 'none'
-										}}
-									>
-										{/* TODO: 根据交易类型来显示当前价格 */}
-										{item.basic_bid} CS
-									</div>
-									<div
-										className="w-full h-full"
-										style={{
-											display: changingvalue ? 'none' : 'block'
-										}}
-										onClick={() => {
-											removeItem(item.nft_id);
-										}}
-									>
-										<Icon
-											className="w-7"
-											icon="material-symbols:delete-outline"
-										/>
+			{data.length === 0 ? (
+				<div className="flex justify-center items-center h-96">
+					<div className="text-2xl font-semibold">购物车空空如也</div>
+				</div>
+			) : (
+				data.map((item) => {
+					return (
+						<div
+							className="h-20 rounded-xl flex hover:bg-gray-200 items-center"
+							onMouseEnter={onMouseEnter}
+							onMouseLeave={onMouseLeave}
+							key={item.nft_id}
+						>
+							<div className="flex-[1] mx-2 ">
+								<img className="w-[100%] rounded-xl my-1" src={item.nft_img} />
+							</div>
+							<div className="flex-[3]">
+								<div className="mt-3 font-semibold text-sm">
+									{item.nft_name}
+								</div>
+								<div className="flex text-sm mt-1 ">
+									<div className="w-36 text-sm font-thin">介绍</div>
+									<div className="w-10  mr-0">
+										<div
+											className="w-full h-full text-right whitespace-nowrap "
+											style={{
+												display: changingvalue ? 'block' : 'none'
+											}}
+										>
+											{/* TODO: 根据交易类型来显示当前价格 */}
+											{item.basic_bid} CS
+										</div>
+										<div
+											className="w-full h-full"
+											style={{
+												display: changingvalue ? 'none' : 'block'
+											}}
+											onClick={() => {
+												removeItem(item.nft_id);
+											}}
+										>
+											<Icon
+												className="w-7"
+												icon="material-symbols:delete-outline"
+											/>
+										</div>
 									</div>
 								</div>
-							</div>
-							<div className="text-xs text-gray-400 mt-1">
-								描述：<span>{item.nft_desc}</span>
+								<div className="text-xs text-gray-400 mt-1">
+									描述：<span>{item.nft_desc}</span>
+								</div>
 							</div>
 						</div>
-					</div>
-				);
-			})}
+					);
+				})
+			)}
 		</>
 	);
 }

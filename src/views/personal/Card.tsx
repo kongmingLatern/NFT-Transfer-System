@@ -85,7 +85,7 @@ export default function PersonalCard() {
 					</div>
 
 					<aside className="text-center bg-[slateblue] p-3 rounded-md text-white">
-						<p className="font-bold text-2xl">{user.username}</p>
+						<p className="font-bold text-2xl">{user.nickname}</p>
 						{/* <p className="font-thin text-lg font-sans">KongmingLatern</p> */}
 						<div className="">
 							<div className="mt-2 flex justify-center">
@@ -127,10 +127,10 @@ export default function PersonalCard() {
 										<Form
 											formItem={[
 												{
-													label: '用户名',
-													name: 'username',
+													label: '昵称',
+													name: 'nickname',
 													type: 'text',
-													value: user.username,
+													value: user.nickname,
 													onChange: setUser
 												},
 												{

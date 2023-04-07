@@ -45,6 +45,7 @@ const Tablefooter: React.FC<any> = ({ total, data }: any) => {
 					<button
 						className="btn btn-secondary w-36"
 						onClick={() => submit(data)}
+						disabled={data.length === 0}
 					>
 						提交
 					</button>
