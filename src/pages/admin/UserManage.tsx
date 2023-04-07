@@ -180,7 +180,7 @@ export default function UserManage() {
 			}
 		});
 		onOpen();
-		setResult(res.data);
+		setResult(res.data[0]);
 	}
 	async function changeUser(data) {
 		console.log(data);

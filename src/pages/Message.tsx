@@ -6,11 +6,11 @@ import Space from '@/component/common/space/Space';
 import Modal from '@/component/common/modal/Modal';
 import Form from '@/component/common/form/Form';
 import { Button } from '@chakra-ui/react';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { api } from '@/api';
 export default function BuyMessage() {
 	const tabList = ['所有求购信息', '响应我的'];
-
+    const [allType,setAllType]=useState([])
 	async function upload(obj) {
 		console.log('upload', obj);
 		const res = await api.post('/uploadwant', {
@@ -19,6 +19,13 @@ export default function BuyMessage() {
 		});
 		console.log(res);
 	}
+	useEffect(()=>{
+		async function getAllType() {
+			const res = await api.get('/selectAll/type')
+			setAllType(res.data)
+		}
+		getAllType()
+	},[])
 
 	const tabPaneList = [<BuyTableList />, <BuyTableListResponse />];
 	return (
@@ -43,6 +50,7 @@ export default function BuyMessage() {
 									},
 									{
 										label: 'NFT 分类',
+										type:'select',
 										name: 'nft_type',
 										rules: [
 											{ required: true, message: '请输入 NFT 分类是一个数字' }
@@ -65,6 +73,7 @@ export default function BuyMessage() {
 									upload(values);
 									onClose();
 								}}
+								allType={allType}
 							/>
 						);
 					}}
