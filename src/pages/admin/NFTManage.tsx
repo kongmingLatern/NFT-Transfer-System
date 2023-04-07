@@ -173,7 +173,7 @@ export default function NFTManage() {
 			}
 		});
 		onOpen();
-		setResult(res.data);
+		setResult(res.data[0]);
 	}
 	return (
 		<>
