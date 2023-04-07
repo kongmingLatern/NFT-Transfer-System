@@ -46,7 +46,11 @@ export default function Upload() {
 	}, []);
 	return (
 		<Modal
-			open={(onOpen) => <span onClick={() => onOpen()}>Upload</span>}
+			open={(onOpen) => (
+				<span onClick={() => onOpen()}>
+					上传NFT <span className="badge">New</span>
+				</span>
+			)}
 			title="上传"
 			bodyContent={(onClose) => {
 				function mentionCloseMsg(msg) {

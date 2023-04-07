@@ -13,26 +13,12 @@ import Personal from '@/pages/Personal';
 import Register from '@/pages/Register';
 import Transaction from '@/pages/Transaction';
 import ReviewNFTManage from '@/pages/admin/ReviewNFTManage';
-import {
-	createBrowserRouter,
-	Navigate,
-	Outlet,
-	redirect,
-	Router,
-	useLocation,
-	useNavigate,
-	useRouteError
-} from 'react-router-dom';
+import { createBrowserRouter, Navigate } from 'react-router-dom';
 import TypeManage from '@/pages/admin/TypeManage';
 import SearchResult from '@/pages/SearchResult';
 import Submit from '@/pages/Submit';
-import { lazy, Suspense, useEffect } from 'react';
-import KeepAlive from 'react-activation';
 import message from '@/component/common/message/Message';
-
-type IRouterBeforeLoad = (res: any, redirectUrl: string) => Boolean;
-let routerLoader: IRouterBeforeLoad;
-let _redirectUrl: string = '/';
+import NotFound from '@/pages/404';
 
 export const router = createBrowserRouter([
 	{
@@ -193,7 +179,7 @@ export const router = createBrowserRouter([
 					},
 					{
 						path: '*',
-						element: <ErrorBoundary />
+						element: <NotFound />
 					}
 				]
 			},
@@ -204,16 +190,12 @@ export const router = createBrowserRouter([
 						<OrderManage />
 					</AuthLogin>
 				)
-			},
-			{
-				path: '*',
-				element: <ErrorBoundary />
 			}
 		]
 	},
 	{
 		path: '*',
-		element: <ErrorBoundary />
+		element: <NotFound />
 	}
 ]);
 
@@ -232,26 +214,3 @@ export function AuthLogin({ children }) {
 		return <Navigate to="/login" />;
 	}
 }
-
-function ErrorBoundary() {
-	let error: any = useRouteError();
-	return (
-		<div>
-			<div>{error.message}</div>
-			<div>{error.stack}</div>
-		</div>
-	);
-}
-const RouterBeforeEach = () => {
-	const location = useLocation();
-	const navigator = useNavigate();
-	console.log(location.pathname);
-	console.log(location.pathname == '/home');
-	useEffect(() => {
-		if (location.pathname == '/home') {
-			navigator('/login');
-		}
-	}, []);
-	return <Outlet />;
-};
-export { Router, RouterBeforeEach };
