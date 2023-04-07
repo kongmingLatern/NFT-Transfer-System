@@ -10,7 +10,7 @@ import { useEffect, useState } from 'react';
 import { api } from '@/api';
 export default function BuyMessage() {
 	const tabList = ['所有求购信息', '响应我的'];
-    const [allType,setAllType]=useState([])
+	const [allType, setAllType] = useState([]);
 	async function upload(obj) {
 		console.log('upload', obj);
 		const res = await api.post('/uploadwant', {
@@ -19,13 +19,13 @@ export default function BuyMessage() {
 		});
 		console.log(res);
 	}
-	useEffect(()=>{
+	useEffect(() => {
 		async function getAllType() {
-			const res = await api.get('/selectAll/type')
-			setAllType(res.data)
+			const res = await api.get('/selectAll/type');
+			setAllType(res.data);
 		}
-		getAllType()
-	},[])
+		getAllType();
+	}, []);
 
 	const tabPaneList = [<BuyTableList />, <BuyTableListResponse />];
 	return (
@@ -50,7 +50,7 @@ export default function BuyMessage() {
 									},
 									{
 										label: 'NFT 分类',
-										type:'select',
+										type: 'select',
 										name: 'nft_type',
 										rules: [
 											{ required: true, message: '请输入 NFT 分类是一个数字' }
