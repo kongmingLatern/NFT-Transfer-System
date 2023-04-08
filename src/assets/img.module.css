@@ -2,13 +2,13 @@
 	height: 100vh;
 	background-attachment: fixed;
 	background-origin: border-box;
-	background-image: url('https://www.pixelstalk.net/wp-content/uploads/images6/NFT-Wallpaper-High-Quality.png');
+	background-image: url('@/assets/user_background.png');
 }
 
 .background {
 	background-attachment: local;
-	background-image: url('https://www.pixelstalk.net/wp-content/uploads/images6/NFT-Wallpaper-High-Quality.png');
+	background-image: url('@/assets/user_background.png');
 	background-repeat: no-repeat;
 	background-size: cover;
-  color: white;
+	color: white;
 }

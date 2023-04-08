@@ -71,14 +71,14 @@ export default function AdminNav() {
 			<ul className="menu bg-base-100 w-56 p-2 rounded-box">
 				{navArray.map((item, index) =>
 					item.type === 'menu-title' ? (
-						<li className="menu-title">
+						<li className="menu-title" key={index}>
 							<Space size={0} className="items-center">
 								<Icon icon={iconObj[item.icon]} />
 								<span>{item.label}</span>
 							</Space>
 						</li>
 					) : (
-						<li>
+						<li key={index}>
 							<Link
 								onClick={() => setActive(index)}
 								className={index === active ? 'bg-slate-200' : ''}

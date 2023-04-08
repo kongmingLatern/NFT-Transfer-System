@@ -12,7 +12,7 @@ export default function ReviewNFTManage() {
 			nft_id: nft_id
 		});
 		message.success('审核通过');
-		window.location.reload();
+		// window.location.reload();
 	}
 	const columns = [
 		{

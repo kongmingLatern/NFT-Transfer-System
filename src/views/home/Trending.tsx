@@ -33,7 +33,7 @@ export default function Trending({ type }: any) {
 	}, []);
 
 	return (
-		<Skeleton isLoaded={!loading}>
+		<Skeleton isLoaded={!loading} fadeDuration={1}>
 			<TableContainer style={{ display: 'flex', padding: '1em' }}>
 				<Table variant="striped" className="mr-5">
 					<Thead>

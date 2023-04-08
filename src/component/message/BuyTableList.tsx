@@ -96,8 +96,7 @@ export default function BuyTableList() {
 	const [loading, setLoading] = useState(true);
 
 	async function uploadRespond(data) {
-		console.log(data);
-		const res = await api.post(
+		const res: Record<string, any> = await api.post(
 			'/upload/respond',
 			{
 				response_file: data.response_file[0],
@@ -111,7 +110,9 @@ export default function BuyTableList() {
 				}
 			}
 		);
-		message.success('响应成功');
+		if (res.code === 200) {
+			message.success('响应成功');
+		}
 		return res;
 	}
 	useEffect(() => {

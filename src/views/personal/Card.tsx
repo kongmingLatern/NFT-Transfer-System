@@ -1,8 +1,6 @@
-import { Tab, TabList, TabPanel, TabPanels, Button } from '@chakra-ui/react';
-import Image from '@/assets/gd1.png';
+import { Button } from '@chakra-ui/react';
 import NftCard from '../../component/personal/NftCard';
 import { Icon } from '@iconify-icon/react';
-import { Link } from 'react-router-dom';
 import Modal from '@/component/common/modal/Modal';
 import Form from '@/component/common/form/Form';
 import Space from '@/component/common/space/Space';
@@ -17,8 +15,12 @@ import classNames from 'classnames';
 export default function PersonalCard() {
 	const [user, setUser] = useState<any>({});
 	const [data, setData] = useState([]);
+	const [loading, setLoading] = useState(true);
 	const tabList = ['我的数字藏品', '我的订单'];
-	const tabPaneList = [<NftCard data={data} />, <OrderCard />];
+	const tabPaneList = [
+		<NftCard data={data} loading={loading} />,
+		<OrderCard />
+	];
 
 	useEffect(() => {
 		async function getData() {
@@ -29,6 +31,7 @@ export default function PersonalCard() {
 			});
 			console.log('getData', res);
 			setData(res.data);
+			setLoading(false);
 		}
 		async function getPersonalInfromation() {
 			const res = await api.get('/personal', {
@@ -45,7 +48,7 @@ export default function PersonalCard() {
 	}, []);
 	//修改用户
 	async function changeUser(data) {
-		const res = await api.put(
+		const res: any = await api.put(
 			'/personal',
 			{
 				...data,
@@ -58,7 +61,12 @@ export default function PersonalCard() {
 				}
 			}
 		);
-		console.log(res);
+		if (res.code === 200) {
+			message.success('修改成功');
+		} else {
+			message.error('修改失败');
+		}
+		window.location.reload();
 	}
 
 	return (
@@ -86,7 +94,7 @@ export default function PersonalCard() {
 
 					<aside className="text-center bg-[slateblue] p-3 rounded-md text-white">
 						<p className="font-bold text-2xl">{user.nickname}</p>
-						{/* <p className="font-thin text-lg font-sans">KongmingLatern</p> */}
+						<p className="font-thin text-lg font-sans">{user.username}</p>
 						<div className="">
 							<div className="mt-2 flex justify-center">
 								<div className="flex items-center ">

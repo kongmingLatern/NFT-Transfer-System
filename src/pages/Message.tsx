@@ -8,16 +8,18 @@ import Form from '@/component/common/form/Form';
 import { Button } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 import { api } from '@/api';
+import message from '@/component/common/message/Message';
 export default function BuyMessage() {
 	const tabList = ['所有求购信息', '响应我的'];
 	const [allType, setAllType] = useState([]);
 	async function upload(obj) {
-		console.log('upload', obj);
 		const res = await api.post('/uploadwant', {
 			...obj,
 			uid: localStorage.getItem('uid') || ''
 		});
-		console.log(res);
+		if (res.code === 200) {
+			message.success('提交成功');
+		}
 	}
 	useEffect(() => {
 		async function getAllType() {
