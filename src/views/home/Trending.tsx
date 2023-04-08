@@ -5,7 +5,9 @@ import {
 	Tr,
 	Th,
 	Tbody,
-	Td
+	Td,
+	Box,
+	Skeleton
 } from '@chakra-ui/react';
 import { api } from '@/api';
 import { useState, useEffect } from 'react';
@@ -13,6 +15,7 @@ import { useState, useEffect } from 'react';
 export default function Trending({ type }: any) {
 	const [leftData, setLeftData] = useState([]);
 	const [rightData, setRightData] = useState([]);
+	const [loading, setLoading] = useState(true);
 
 	useEffect(() => {
 		async function getData() {
@@ -21,6 +24,7 @@ export default function Trending({ type }: any) {
 					type
 				}
 			});
+			setLoading(false);
 			const result = res.data.slice(0, 10);
 			setLeftData(result.slice(0, 5));
 			setRightData(result.slice(5));
@@ -29,7 +33,7 @@ export default function Trending({ type }: any) {
 	}, []);
 
 	return (
-		<>
+		<Skeleton isLoaded={!loading}>
 			<TableContainer style={{ display: 'flex', padding: '1em' }}>
 				<Table variant="striped" className="mr-5">
 					<Thead>
@@ -94,6 +98,6 @@ export default function Trending({ type }: any) {
 					</Tbody>
 				</Table>
 			</TableContainer>
-		</>
+		</Skeleton>
 	);
 }

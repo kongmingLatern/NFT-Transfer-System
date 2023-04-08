@@ -40,8 +40,6 @@ export default function ShoppingItem({ setNum }) {
 				uid: localStorage.getItem('uid') || ''
 			}
 		});
-		console.log(res);
-
 		return setData(data.filter((item) => item.nft_id !== nft_id));
 	}
 
