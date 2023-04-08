@@ -1,4 +1,5 @@
-import { Button, Skeleton } from '@chakra-ui/react';
+import { Tab, TabList, TabPanel, TabPanels, Button, background, Skeleton } from '@chakra-ui/react';
+import Image from '@/assets/gd1.png';
 import NftCard from '../../component/personal/NftCard';
 import { Icon } from '@iconify-icon/react';
 import Modal from '@/component/common/modal/Modal';
@@ -11,6 +12,7 @@ import OrderCard from '@/component/personal/OrderCard';
 import Tabs from '@/component/common/Tabs';
 import styles from '@/assets/img.module.css';
 import classNames from 'classnames';
+import { url } from 'inspector';
 
 export default function PersonalCard() {
 	const [user, setUser] = useState<any>({});
@@ -18,10 +20,13 @@ export default function PersonalCard() {
 	const [loading, setLoading] = useState(true);
 	const [updateLoading, setUpdateLoading] = useState(false);
 	const tabList = ['我的数字藏品', '我的订单'];
+   const [img,setimg]=useState('')
+
 	const tabPaneList = [
-		<NftCard data={data} loading={loading} />,
+		<NftCard data={data} loading={loading} changeBgimg={changeBgimg}/>,
 		<OrderCard />
 	];
+
 
 	useEffect(() => {
 		async function getData() {
@@ -30,7 +35,6 @@ export default function PersonalCard() {
 					uid: localStorage.getItem('uid') || ''
 				}
 			});
-			console.log('getData', res);
 			setData(res.data);
 			setLoading(false);
 		}
@@ -48,6 +52,10 @@ export default function PersonalCard() {
 		getData();
 	}, []);
 	//修改用户
+    function changeBgimg(src){
+        setimg(src)
+	}
+	
 	async function changeUser(data) {
 		const res: any = await api.put(
 			'/personal',
@@ -82,6 +90,7 @@ export default function PersonalCard() {
 						'rounded-none',
 						styles.background
 					)}
+          style={{backgroundImage:img==='' ? null:`url(${img})`, 
 				>
 					<div className="mx-auto">
 						<div>

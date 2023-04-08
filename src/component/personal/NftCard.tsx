@@ -3,10 +3,9 @@ import { Fragment } from 'react';
 import Divider from '../common/Divider';
 import Modal from '../common/modal/Modal';
 import DetailNFTCard from './DetailNFTCard';
-import { Skeleton } from '@chakra-ui/react';
-export default function NftCard({ data, loading }) {
-	console.log(data);
 
+import { Skeleton } from '@chakra-ui/react';
+export default function NftCard({ data, loading, changeBgimg }) {
 	return (
 		<Skeleton isLoaded={!loading} fadeDuration={1}>
 			{data.length === 0 ? (
@@ -48,6 +47,7 @@ export default function NftCard({ data, loading }) {
 										<span>原作者：</span>
 										<span className="italic">{item.username}</span>
 									</p>
+									
 									<div className="card-actions justify-end">
 										<Modal
 											open={(onOpen) => (
@@ -58,6 +58,9 @@ export default function NftCard({ data, loading }) {
 											title="查看详情"
 											bodyContent={() => <DetailNFTCard item={item} />}
 										/>
+									</div>
+									<div className="card-actions justify-end">
+										<button onClick={()=>changeBgimg(item.nft_img)} className='btn btn-secondary'>将图片设置为背景图片</button>
 									</div>
 								</div>
 							</div>
