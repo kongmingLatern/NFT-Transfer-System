@@ -12,13 +12,22 @@ import message from '@/component/common/message/Message';
 export default function BuyMessage() {
 	const tabList = ['所有求购信息', '响应我的'];
 	const [allType, setAllType] = useState([]);
+	const [loading, setLoading] = useState(false);
 	async function upload(obj) {
-		const res = await api.post('/uploadwant', {
-			...obj,
-			uid: localStorage.getItem('uid') || ''
-		});
-		if (res.code === 200) {
-			message.success('提交成功');
+		try {
+			const res = await api.post('/uploadwant', {
+				...obj,
+				uid: localStorage.getItem('uid') || ''
+			});
+			console.log(res);
+			if (res.code === 200) {
+				setLoading(false);
+				message.success('提交成功');
+			}
+		} catch (e) {
+			const { response } = e;
+			message.error(response.data.error);
+			setLoading(false);
 		}
 	}
 	useEffect(() => {
@@ -66,13 +75,18 @@ export default function BuyMessage() {
 								]}
 								footer={() => (
 									<Space size={10} className="mt-2" align="end">
-										<Button type="submit" colorScheme={'messenger'}>
+										<Button
+											isLoading={loading}
+											type="submit"
+											colorScheme={'messenger'}
+										>
 											提交
 										</Button>
 									</Space>
 								)}
-								onSubmit={(values) => {
-									upload(values);
+								onSubmit={async (values) => {
+									setLoading(true);
+									await upload(values);
 									onClose();
 								}}
 								allType={allType}

@@ -15,6 +15,7 @@ api.interceptors.request.use((config) => {
 });
 
 api.interceptors.response.use((response: any) => {
+  console.log('response', response);
   if (response.data.code !== 200) {
     message.error(response.data.error as string);
     return;
