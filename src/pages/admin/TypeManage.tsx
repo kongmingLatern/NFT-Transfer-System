@@ -6,13 +6,14 @@ import Table from '@/component/common/table/Table';
 import { deleteHandle } from '@/utils/comon/delete';
 import { useEffect, useState } from 'react';
 import { Button } from '@chakra-ui/react';
+import message from '@/component/common/message/Message';
 export default function TypeManage() {
-	async function changeType(id){
-		const res = await api.put('/change/type',{
-			id:id
-		})
+	const [loading, setLoading] = useState(true);
+	async function changeType(id) {
+		const res = await api.put('/change/type', {
+			id: id
+		});
 		console.log(res);
-		
 	}
 	const columns = [
 		{
@@ -31,12 +32,12 @@ export default function TypeManage() {
 			key: 'operation',
 			render: (text, record) => (
 				<Space>
-					<button
+					{/* <button
 						className="btn btn-secondary w-[100px] font-thin text-white"
 						onClick={() => changeType(record.id)}
 					>
 						修改
-					</button>
+					</button> */}
 					<button
 						onClick={() => deleteHandle('/delete/type', { id: record.id })}
 						className="btn btn-error w-[100px] font-thin text-white"
@@ -48,18 +49,21 @@ export default function TypeManage() {
 		}
 	];
 	const [dataSource, setDataSource] = useState([]);
-    async function addType(data){
-
-		const res = await api.post('/add/type',{
+	async function addType(data) {
+		const res: any = await api.post('/add/type', {
 			...data
-		})
-		console.log(res);
-		
+		});
+		if (res.code === 200) {
+			message.success('添加成功');
+		} else {
+			message.success('添加失败');
+		}
 	}
 	useEffect(() => {
 		async function getData() {
 			const res = await api.get('/selectAll/type');
 			setDataSource(res.data);
+			setLoading(false);
 		}
 		getData();
 	}, []);
@@ -96,13 +100,13 @@ export default function TypeManage() {
 							</Button>
 						)}
 						onSubmit={(data) => {
-							addType(data)
+							addType(data);
 							console.log('upload', data);
 						}}
 					/>
 				)}
 			/>
-			<Table dataSource={dataSource} columns={columns} />;
+			<Table dataSource={dataSource} columns={columns} loading={loading} />;
 		</>
 	);
 }

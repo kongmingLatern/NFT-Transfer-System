@@ -5,8 +5,8 @@ import Space from '@/component/common/space/Space';
 import Table from '@/component/common/table/Table';
 import { useState, useEffect, useRef } from 'react';
 import { deleteHandle } from '@/utils/comon/delete';
-import { log } from 'console';
 export default function OrderManage() {
+	const [loading, setLoading] = useState(true);
 	const columns = [
 		{
 			title: '订单编号',
@@ -76,13 +76,14 @@ export default function OrderManage() {
 	];
 
 	const [dataSource, setDataSource] = useState([]);
-	// const result = useRef(null);
+
 	const [result, setResult] = useState([]);
 
 	useEffect(() => {
 		async function getData() {
 			const res = await api.get('/selectAll/order');
 			setDataSource(res.data);
+			setLoading(false);
 		}
 		getData();
 	}, []);
@@ -123,7 +124,7 @@ export default function OrderManage() {
 					}
 				]}
 			/>
-			<Table dataSource={dataSource} columns={columns} />
+			<Table dataSource={dataSource} columns={columns} loading={loading} />
 		</>
 	);
 }

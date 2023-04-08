@@ -7,6 +7,7 @@ import { deleteHandle } from '@/utils/comon/delete';
 import { useEffect, useState } from 'react';
 
 export default function ReviewNFTManage() {
+	const [loading, setLoading] = useState(true);
 	async function reviewNft(nft_id: string) {
 		await api.post('/admin/add/nft', {
 			nft_id: nft_id
@@ -148,8 +149,8 @@ export default function ReviewNFTManage() {
 	useEffect(() => {
 		async function getData() {
 			const res = await api.get('/admin/selectAll/nft');
-			console.log('res', res);
 			setDataSource(res.data.filter((item) => Number(item.status) === 0));
+			setLoading(false);
 		}
 		getData();
 	}, []);
@@ -172,7 +173,7 @@ export default function ReviewNFTManage() {
 				result={result}
 				tableTitle={tableTitle}
 			/>
-			<Table dataSource={dataSource} columns={columns} />
+			<Table dataSource={dataSource} columns={columns} loading={loading} />
 		</>
 	);
 }

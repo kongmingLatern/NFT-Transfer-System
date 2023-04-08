@@ -16,6 +16,7 @@ export default function PersonalCard() {
 	const [user, setUser] = useState<any>({});
 	const [data, setData] = useState([]);
 	const [loading, setLoading] = useState(true);
+	const [updateLoading, setUpdateLoading] = useState(false);
 	const tabList = ['我的数字藏品', '我的订单'];
 	const tabPaneList = [
 		<NftCard data={data} loading={loading} />,
@@ -160,16 +161,21 @@ export default function PersonalCard() {
 											]}
 											footer={() => (
 												<Space className="float-right">
-													<Button colorScheme={'messenger'} type="submit">
+													<Button
+														colorScheme={'messenger'}
+														type="submit"
+														isLoading={updateLoading}
+													>
 														更新信息
 													</Button>
 												</Space>
 											)}
 											onSubmit={async (data) => {
+												setUpdateLoading(true);
 												await changeUser(data);
+												setUpdateLoading(false);
 												onClose();
 												window.location.reload();
-												message.success('更新成功');
 											}}
 										/>
 									);

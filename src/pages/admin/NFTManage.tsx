@@ -120,6 +120,7 @@ export default function NFTManage() {
 			)
 		}
 	];
+	const [loading, setLoading] = useState(true);
 	const [dataSource, setDataSource] = useState([]);
 	const tableTitle = [
 		{
@@ -162,6 +163,7 @@ export default function NFTManage() {
 		async function getData() {
 			const res = await api.get('/admin/selectAll/nft');
 			setDataSource(res.data);
+			setLoading(false);
 		}
 		getData();
 	}, []);
@@ -183,7 +185,7 @@ export default function NFTManage() {
 				result={result}
 				tableTitle={tableTitle}
 			/>
-			<Table dataSource={dataSource} columns={columns} />
+			<Table dataSource={dataSource} columns={columns} loading={loading} />
 		</>
 	);
 }

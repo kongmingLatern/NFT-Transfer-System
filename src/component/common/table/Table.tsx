@@ -42,34 +42,34 @@ export default function AdminTable({
 	};
 	return (
 		<>
-			<TableContainer className="border w-[80vw] overflow-x-scroll">
-				<Table size={'md'} variant="striped" colorScheme="blackAlpha">
-					<TableCaption>
-						<ReactPaginate
-							breakLabel="..."
-							nextLabel="next >"
-							onPageChange={handlePageClick}
-							pageRangeDisplayed={5}
-							pageClassName={'btn'}
-							activeClassName={'btn-active'}
-							breakClassName={'btn'}
-							pageCount={pageCount}
-							previousLabel="< previous"
-							previousClassName='btn btn-outline"'
-							nextClassName='btn btn-outline"'
-							renderOnZeroPageCount={null}
-						/>
-					</TableCaption>
-					<Thead>
-						<ShowTableTitle columns={columns} />
-					</Thead>
-					<Tbody>
-						<Spin loading={loading}>
+			<Spin loading={loading}>
+				<TableContainer className="border w-[80vw] overflow-x-scroll">
+					<Table size={'md'} variant="striped" colorScheme="blackAlpha">
+						<TableCaption>
+							<ReactPaginate
+								breakLabel="..."
+								nextLabel="next >"
+								onPageChange={handlePageClick}
+								pageRangeDisplayed={5}
+								pageClassName={'btn'}
+								activeClassName={'btn-active'}
+								breakClassName={'btn'}
+								pageCount={pageCount}
+								previousLabel="< previous"
+								previousClassName='btn btn-outline"'
+								nextClassName='btn btn-outline"'
+								renderOnZeroPageCount={null}
+							/>
+						</TableCaption>
+						<Thead>
+							<ShowTableTitle columns={columns} />
+						</Thead>
+						<Tbody>
 							<ShowData dataSource={currentItems} columns={columns} />
-						</Spin>
-					</Tbody>
-				</Table>
-			</TableContainer>
+						</Tbody>
+					</Table>
+				</TableContainer>
+			</Spin>
 		</>
 	);
 }

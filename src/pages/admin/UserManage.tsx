@@ -148,6 +148,7 @@ export default function UserManage() {
 			)
 		}
 	];
+	const [loading, setLoading] = useState(true);
 	const [dataSource, setDataSource] = useState([]);
 	const tableTitle = [
 		{
@@ -169,6 +170,7 @@ export default function UserManage() {
 		async function getData() {
 			const res = await api.get('/selectAll/user');
 			setDataSource(res.data);
+			setLoading(false);
 		}
 		getData();
 	}, []);
@@ -251,7 +253,7 @@ export default function UserManage() {
 				</Space>
 			</div> */}
 			<Main />
-			<Table dataSource={dataSource} columns={columns} />
+			<Table dataSource={dataSource} columns={columns} loading={loading} />
 		</>
 	);
 }
