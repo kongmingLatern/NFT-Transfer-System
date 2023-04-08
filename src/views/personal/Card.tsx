@@ -1,4 +1,4 @@
-import { Tab, TabList, TabPanel, TabPanels, Button } from '@chakra-ui/react';
+import { Tab, TabList, TabPanel, TabPanels, Button, background } from '@chakra-ui/react';
 import Image from '@/assets/gd1.png';
 import NftCard from '../../component/personal/NftCard';
 import { Icon } from '@iconify-icon/react';
@@ -13,13 +13,14 @@ import OrderCard from '@/component/personal/OrderCard';
 import Tabs from '@/component/common/Tabs';
 import styles from '@/assets/img.module.css';
 import classNames from 'classnames';
+import { url } from 'inspector';
 
 export default function PersonalCard() {
 	const [user, setUser] = useState<any>({});
 	const [data, setData] = useState([]);
 	const tabList = ['我的数字藏品', '我的订单'];
-	const tabPaneList = [<NftCard data={data} />, <OrderCard />];
-
+	const tabPaneList = [<NftCard changeBgimg={changeBgimg} data={data} />, <OrderCard />];
+    const [img,setimg]=useState('')
 	useEffect(() => {
 		async function getData() {
 			const res = await api.get('/select/nft/uid', {
@@ -27,7 +28,6 @@ export default function PersonalCard() {
 					uid: localStorage.getItem('uid') || ''
 				}
 			});
-			console.log('getData', res);
 			setData(res.data);
 		}
 		async function getPersonalInfromation() {
@@ -44,6 +44,10 @@ export default function PersonalCard() {
 		getData();
 	}, []);
 	//修改用户
+    function changeBgimg(src){
+        setimg(src)
+	}
+	
 	async function changeUser(data) {
 		const res = await api.put(
 			'/personal',
@@ -72,6 +76,9 @@ export default function PersonalCard() {
 					'rounded-none',
 					styles.background
 				)}
+				style={{backgroundImage:img==='' ? null:`url(${img})`, 
+
+				}}
 			>
 				<div className="mx-auto">
 					<div>

@@ -3,8 +3,7 @@ import { Fragment } from 'react';
 import Divider from '../common/Divider';
 import Modal from '../common/modal/Modal';
 import DetailNFTCard from './DetailNFTCard';
-export default function NftCard({ data }) {
-	console.log(data);
+export default function NftCard({ changeBgimg,data }) {
 
 	return (
 		<>
@@ -47,6 +46,7 @@ export default function NftCard({ data }) {
 										<span>原作者：</span>
 										<span className="italic">{item.username}</span>
 									</p>
+									
 									<div className="card-actions justify-end">
 										<Modal
 											open={(onOpen) => (
@@ -57,6 +57,9 @@ export default function NftCard({ data }) {
 											title="查看详情"
 											bodyContent={() => <DetailNFTCard item={item} />}
 										/>
+									</div>
+									<div className="card-actions justify-end">
+										<button onClick={()=>changeBgimg(item.nft_img)} className='btn btn-secondary'>将图片设置为背景图片</button>
 									</div>
 								</div>
 							</div>
