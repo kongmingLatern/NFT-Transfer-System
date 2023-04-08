@@ -6,6 +6,7 @@ import Table from '@/component/common/table/Table';
 import { deleteHandle } from '@/utils/comon/delete';
 import { Button } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
+import message from '@/component/common/message/Message';
 
 export default function SettingManage() {
 	const columns = [
@@ -60,16 +61,20 @@ export default function SettingManage() {
 		}
 	];
 	const [dataSource, setDataSource] = useState([]);
-	const [allType,setAllType]=useState([])
-    async function addSwiper(data) {
-		data.img=data.img[0]
-		const res = await api.post('/add/swiper',{
-			...data
-		},{
-			headers: {
-				'Content-Type': 'multipart/form-data'
+	const [allType, setAllType] = useState([]);
+	async function addSwiper(data) {
+		data.img = data.img[0];
+		const res = await api.post(
+			'/add/swiper',
+			{
+				...data
+			},
+			{
+				headers: {
+					'Content-Type': 'multipart/form-data'
+				}
 			}
-		})
+		);
 		console.log(res);
 	}
 	useEffect(() => {
@@ -79,10 +84,10 @@ export default function SettingManage() {
 		}
 		getData();
 		async function getAllType() {
-			const res = await api.get('/selectAll/type')
-			setAllType(res.data)
+			const res = await api.get('/selectAll/type');
+			setAllType(res.data);
 		}
-		getAllType()
+		getAllType();
 	}, []);
 
 	return (
@@ -109,7 +114,7 @@ export default function SettingManage() {
 							},
 							{
 								label: '请输入分类名称',
-								type:'select',
+								type: 'select',
 								name: 'img_type'
 							},
 							{
@@ -122,7 +127,11 @@ export default function SettingManage() {
 								colorScheme="linkedin"
 								type="submit"
 								className="float-right mt-2"
-								onClick={onClose}
+								onClick={() => {
+									message.success('添加成功');
+									onClose();
+									window.location.reload();
+								}}
 							>
 								添加
 							</Button>

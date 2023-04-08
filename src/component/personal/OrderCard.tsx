@@ -72,6 +72,7 @@ export default function OrderCard() {
 		}
 	];
 	const [data, setData] = useState([]);
+	const [loading, setLoading] = useState(true);
 
 	useEffect(() => {
 		async function getData() {
@@ -81,9 +82,10 @@ export default function OrderCard() {
 				}
 			});
 			setData(res.data);
+			setLoading(false);
 		}
 		getData();
 	}, []);
 
-	return <Table dataSource={data} columns={columns}></Table>;
+	return <Table dataSource={data} columns={columns} loading={loading}></Table>;
 }

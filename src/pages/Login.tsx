@@ -115,13 +115,19 @@ export default function Login({ name = '登录' }: LoginType) {
 				console.log('res', res);
 				closeCamera(webcamRef.current.video);
 				setTimeout(() => {
-					message.success('登录成功');
 					closeCamera(webcamRef.current.video);
 					// NOTE:存储信息
 					localStorage.setItem('token', res.data.token);
 					localStorage.setItem('uid', res.data.uid);
 					localStorage.setItem('username', res.data.username);
-					navigate('/home');
+					if (res.data.isAuth) {
+						localStorage.setItem('isAuth', res.data.isAuth);
+						navigate('/admin');
+						message.success('欢迎回来，管理员');
+					} else {
+						navigate('/home');
+						message.success('登录成功');
+					}
 				}, 2000);
 			} else {
 				closeCamera(webcamRef.current.video);

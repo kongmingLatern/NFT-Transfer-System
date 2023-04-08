@@ -3,16 +3,17 @@ import { Fragment } from 'react';
 import Divider from '../common/Divider';
 import Modal from '../common/modal/Modal';
 import DetailNFTCard from './DetailNFTCard';
-export default function NftCard({ changeBgimg,data }) {
 
+import { Skeleton } from '@chakra-ui/react';
+export default function NftCard({ data, loading, changeBgimg }) {
 	return (
-		<>
+		<Skeleton isLoaded={!loading} fadeDuration={1}>
 			{data.length === 0 ? (
-				<span>暂无卡片</span>
+				<span className="w-full">暂无卡片</span>
 			) : (
 				data.map((item, index) => {
 					return (
-						<Fragment key={index}>
+						<Fragment key={item + index}>
 							<div className="card card-side glass mb-2 rounded-lg overflow-hidden">
 								<figure className="w-1/3">
 									<img
@@ -68,6 +69,6 @@ export default function NftCard({ changeBgimg,data }) {
 					);
 				})
 			)}
-		</>
+		</Skeleton>
 	);
 }

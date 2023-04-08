@@ -42,34 +42,34 @@ export default function AdminTable({
 	};
 	return (
 		<>
-			<TableContainer className="border w-[80vw] overflow-x-scroll">
-				<Table size={'md'} variant="striped" colorScheme="blackAlpha">
-					<TableCaption>
-						<ReactPaginate
-							breakLabel="..."
-							nextLabel="next >"
-							onPageChange={handlePageClick}
-							pageRangeDisplayed={5}
-							pageClassName={'btn'}
-							activeClassName={'btn-active'}
-							breakClassName={'btn'}
-							pageCount={pageCount}
-							previousLabel="< previous"
-							previousClassName='btn btn-outline"'
-							nextClassName='btn btn-outline"'
-							renderOnZeroPageCount={null}
-						/>
-					</TableCaption>
-					<Thead>
-						<ShowTableTitle columns={columns} />
-					</Thead>
-					<Tbody>
-						<Spin loading={loading}>
+			<Spin loading={loading}>
+				<TableContainer className="border w-[80vw] overflow-x-scroll">
+					<Table size={'md'} variant="striped" colorScheme="blackAlpha">
+						<TableCaption>
+							<ReactPaginate
+								breakLabel="..."
+								nextLabel="next >"
+								onPageChange={handlePageClick}
+								pageRangeDisplayed={5}
+								pageClassName={'btn'}
+								activeClassName={'btn-active'}
+								breakClassName={'btn'}
+								pageCount={pageCount}
+								previousLabel="< previous"
+								previousClassName='btn btn-outline"'
+								nextClassName='btn btn-outline"'
+								renderOnZeroPageCount={null}
+							/>
+						</TableCaption>
+						<Thead>
+							<ShowTableTitle columns={columns} />
+						</Thead>
+						<Tbody>
 							<ShowData dataSource={currentItems} columns={columns} />
-						</Spin>
-					</Tbody>
-				</Table>
-			</TableContainer>
+						</Tbody>
+					</Table>
+				</TableContainer>
+			</Spin>
 		</>
 	);
 }
@@ -99,7 +99,7 @@ function ShowData({ dataSource, columns }) {
 			// 元素个数为0时，证明没有数据，显示没有数据
 			return (
 				<Tr key={index}>
-					{columns.map((column) => {
+					{columns.map((column, index) => {
 						if (column.type === 'number') {
 							return (
 								<Td isNumeric key={column.key}>
@@ -126,7 +126,11 @@ function ShowData({ dataSource, columns }) {
 export function EmptyComponent({ columns }: any) {
 	return (
 		<Tr key={'Empty'}>
-			<Td colSpan={columns.length} style={{ textAlign: 'center' }}>
+			<Td
+				key={columns}
+				colSpan={columns.length}
+				style={{ textAlign: 'center' }}
+			>
 				<div>
 					<Empty width={100} height={80} />
 					<p className="mt-2">没有数据</p>

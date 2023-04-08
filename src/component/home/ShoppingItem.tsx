@@ -1,10 +1,12 @@
 import { api } from '@/api';
 import { Icon } from '@iconify-icon/react';
 import { useState, useEffect, useMemo } from 'react';
+import Spin from '../common/spin/Spin';
 
 export default function ShoppingItem({ setNum }) {
 	const [changingvalue, setChangevalue] = useState(true);
 	const [data, setData] = useState([]);
+	const [loading, setLoading] = useState(true);
 
 	useEffect(() => {
 		async function getData() {
@@ -14,7 +16,7 @@ export default function ShoppingItem({ setNum }) {
 				}
 			});
 			setData(res.data);
-			console.log(res.data);
+			setLoading(false);
 		}
 		getData();
 	}, []);
@@ -38,14 +40,12 @@ export default function ShoppingItem({ setNum }) {
 				uid: localStorage.getItem('uid') || ''
 			}
 		});
-		console.log(res);
-
 		return setData(data.filter((item) => item.nft_id !== nft_id));
 	}
 
 	return (
-		<>
-			{data.length === 0 ? (
+		<Spin loading={loading}>
+			{!loading && data.length === 0 ? (
 				<div className="flex justify-center items-center h-96">
 					<div className="text-2xl font-semibold">购物车空空如也</div>
 				</div>
@@ -101,6 +101,6 @@ export default function ShoppingItem({ setNum }) {
 					);
 				})
 			)}
-		</>
+		</Spin>
 	);
 }

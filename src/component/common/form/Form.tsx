@@ -7,8 +7,8 @@ interface FormType {
 	render?: () => JSX.Element | Element;
 	footer?: (fn?) => JSX.Element;
 	onSubmit?: (fn?) => any;
-	allType?:Array<any>;
-	nft_type?:Array<any>
+	allType?: Array<any>;
+	nft_type?: Array<any>;
 }
 
 export default function Form({
@@ -45,41 +45,46 @@ export default function Form({
 						/>
 					</div>
 				) : item.type === 'select' ? (
-                      <div className='flex items-center w-auto'>
-						<span className="whitespace-nowrap">{item.label}:</span> 
-						<select 
-						{...register(item.name)}
-						height={50}
-						key={item.name}
-						type={item.type}
-						placeholder={item.label}
-						className=" text-xl rounded-md p-2.5 text-center border-2 "
-						value={item?.value}
-						onChange={(e)=>{
-							console.log(e.target.value);
-							if (item.onChange) {
-								// 修改 item.value 的值
-								item.onChange(e.target.value);
-							}
-						}}
+					<div className="flex items-center w-auto">
+						<span className="whitespace-nowrap">{item.label}:</span>
+						<select
+							{...register(item.name)}
+							height={50}
+							key={item.name}
+							type={item.type}
+							placeholder={item.label}
+							className="select rounded-md p-2 text-center border-2"
+							value={item?.value}
+							onChange={(e) => {
+								console.log(e.target.value);
+								if (item.onChange) {
+									// 修改 item.value 的值
+									item.onChange(e.target.value);
+								}
+							}}
 						>
-							<option key="-1" value="-1">--请选择--</option>
+							<option key="-1" value="-1">
+								--请选择--
+							</option>
 
-							{
-								item.name !== "transfer_type" ? (
-                                    allType.map((item)=>{
-										return (<option key={item.type} value={item.type}>{item.type}</option>)
-									})
-								):(
-									nft_type.map((item)=>{
-										return <option key={item.value} value={item.value}>{item.name}</option>
-									})
-
-								)
-							}
+							{item.name !== 'transfer_type'
+								? allType.map((item) => {
+										return (
+											<option key={item.type} value={item.type}>
+												{item.type}
+											</option>
+										);
+								  })
+								: nft_type.map((item) => {
+										return (
+											<option key={item.value} value={item.value}>
+												{item.name}
+											</option>
+										);
+								  })}
 						</select>
-					  </div>
-				):(
+					</div>
+				) : (
 					<div className="flex items-center">
 						<span className="whitespace-nowrap">{item.label}:</span>
 						<Input

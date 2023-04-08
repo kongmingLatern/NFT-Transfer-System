@@ -24,12 +24,12 @@ export default function UserTable({ transaction }) {
 				) : (
 					transaction.map((item, index) => {
 						return (
-							<tr>
+							<tr key={item + index}>
 								<td>{index + 1}</td>
 								{Object.keys(item).map((it) => {
 									if (it === 'price') {
 										return (
-											<td className="font-bold text-red-600 text-lg">
+											<td className="font-bold text-red-600 text-lg" key={it}>
 												{item[it]} CS
 											</td>
 										);
@@ -46,12 +46,12 @@ export default function UserTable({ transaction }) {
 												? date.getDate() + 1
 												: '0' + (date.getDate() + 1);
 										return (
-											<td>
+											<td key={it}>
 												{year}-{month}-{day}
 											</td>
 										);
 									}
-									return <td>{item[it]}</td>;
+									return <td key={it}>{item[it]}</td>;
 								})}
 							</tr>
 						);

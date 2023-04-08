@@ -35,8 +35,12 @@ export default function CommitCard() {
 			data: [data],
 			price: data.price
 		});
-		message.success('订单提交成功');
-		console.log('submitOrder', res);
+		if (res.data.code === 400) {
+			message.error(res.data.message);
+		} else {
+			message.success('订单提交成功');
+			console.log('submitOrder');
+		}
 	}
 
 	return (

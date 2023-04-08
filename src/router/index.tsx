@@ -17,6 +17,8 @@ import { createBrowserRouter, Navigate } from 'react-router-dom';
 import TypeManage from '@/pages/admin/TypeManage';
 import SearchResult from '@/pages/SearchResult';
 import Submit from '@/pages/Submit';
+import message from '@/component/common/message/Message';
+import NotFound from '@/pages/404';
 
 export const router = createBrowserRouter([
 	{
@@ -30,7 +32,11 @@ export const router = createBrowserRouter([
 	},
 	{
 		path: '/home',
-		element: <Home />
+		element: (
+			<AuthLogin>
+				<Home />
+			</AuthLogin>
+		)
 	},
 	{
 		path: '/login',
@@ -42,43 +48,83 @@ export const router = createBrowserRouter([
 	},
 	{
 		path: '/submit/:nft_id',
-		element: <Submit />
+		element: (
+			<AuthLogin>
+				<Submit />
+			</AuthLogin>
+		)
 	},
 	{
 		path: '/detail/:nft_id',
-		element: <Detail />
+		element: (
+			<AuthLogin>
+				<Detail />
+			</AuthLogin>
+		)
 	},
 	{
 		path: '/personal',
-		element: <Personal />
+		element: (
+			<AuthLogin>
+				<Personal />
+			</AuthLogin>
+		)
 	},
 	{
 		path: '/paint',
-		element: <Create />
+		element: (
+			<AuthLogin>
+				<Create />
+			</AuthLogin>
+		)
 	},
 	{
 		path: '/transaction',
-		element: <Transaction />
+		element: (
+			<AuthLogin>
+				<Transaction />
+			</AuthLogin>
+		)
 	},
 	{
-     path:'/submit',
-	 element: <Submit />
+		path: '/submit',
+		element: (
+			<AuthLogin>
+				<Submit />
+			</AuthLogin>
+		)
 	},
 	{
 		path: '/message',
-		element: <BuyMessage />
+		element: (
+			<AuthLogin>
+				<BuyMessage />
+			</AuthLogin>
+		)
 	},
 	{
 		path: '/collection',
-		element: <Collection />
+		element: (
+			<AuthLogin>
+				<Collection />
+			</AuthLogin>
+		)
 	},
 	{
-		path: '/search/nft',
-		element: <SearchResult />
+		path: '/search/nft/:nft_name',
+		element: (
+			<AuthLogin>
+				<SearchResult />
+			</AuthLogin>
+		)
 	},
 	{
 		path: '/admin',
-		element: <Admin />,
+		element: (
+			<AuthLogin isAdmin>
+				<Admin />
+			</AuthLogin>
+		),
 		children: [
 			{
 				index: true,
@@ -86,15 +132,27 @@ export const router = createBrowserRouter([
 			},
 			{
 				path: 'user',
-				element: <UserManage />
+				element: (
+					<AuthLogin isAdmin>
+						<UserManage />
+					</AuthLogin>
+				)
 			},
 			{
 				path: 'nft',
-				element: <NFTManage />
+				element: (
+					<AuthLogin isAdmin>
+						<NFTManage />
+					</AuthLogin>
+				)
 			},
 			{
 				path: 'review',
-				element: <ReviewNFTManage />
+				element: (
+					<AuthLogin isAdmin>
+						<ReviewNFTManage />
+					</AuthLogin>
+				)
 			},
 			{
 				path: 'setting',
@@ -105,18 +163,60 @@ export const router = createBrowserRouter([
 					},
 					{
 						path: 'swiper',
-						element: <SwiperManage />
+						element: (
+							<AuthLogin isAdmin>
+								<SwiperManage />
+							</AuthLogin>
+						)
 					},
 					{
 						path: 'type',
-						element: <TypeManage />
+						element: (
+							<AuthLogin isAdmin>
+								<TypeManage />
+							</AuthLogin>
+						)
+					},
+					{
+						path: '*',
+						element: <NotFound />
 					}
 				]
 			},
 			{
 				path: 'order',
-				element: <OrderManage />
+				element: (
+					<AuthLogin isAdmin>
+						<OrderManage />
+					</AuthLogin>
+				)
 			}
 		]
+	},
+	{
+		path: '*',
+		element: <NotFound />
 	}
 ]);
+
+// 路由守卫
+export function AuthLogin({ isAdmin, children }: any) {
+	const token = localStorage.getItem('token') || '';
+	const isAuth = localStorage.getItem('isAuth') || 0;
+	if (token !== '') {
+		// 说明有登录状态
+		if (isAdmin && isAuth !== '1') {
+			message.error('您没有权限访问此页面');
+			return <Navigate to="/home" />;
+		} else {
+			return children;
+		}
+	} else {
+		// 没有登录
+		if (message) {
+			message.error('请先登录');
+		}
+		// message.error('请先登录');
+		return <Navigate to="/login" />;
+	}
+}

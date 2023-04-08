@@ -9,14 +9,14 @@ import { api } from '@/api';
 export default function Upload() {
 	const [startDate, setStartDate] = useState(new Date());
 	const [allType, setAllType] = useState([]);
+	const [loading, setLoading] = useState(false);
 	async function UploadNft(data) {
-		data.uid = localStorage.getItem('uid');
-		console.log(data);
 		const res = await api.post(
 			'/upload/nft',
 			{
 				...data,
-				nft_img: data.nft_img[0]
+				nft_img: data.nft_img[0],
+				uid: localStorage.getItem('uid')
 			},
 			{
 				headers: {
@@ -24,6 +24,11 @@ export default function Upload() {
 				}
 			}
 		);
+		console.log(res);
+		if (res.code === 200) {
+			message.success('上传成功');
+			setLoading(false);
+		}
 		console.log(res);
 	}
 	const nft_type = [
@@ -46,7 +51,11 @@ export default function Upload() {
 	}, []);
 	return (
 		<Modal
-			open={(onOpen) => <span onClick={() => onOpen()}>Upload</span>}
+			open={(onOpen) => (
+				<span onClick={() => onOpen()}>
+					上传NFT <span className="badge">New</span>
+				</span>
+			)}
 			title="上传"
 			bodyContent={(onClose) => {
 				function mentionCloseMsg(msg) {
@@ -117,6 +126,7 @@ export default function Upload() {
 						footer={() => (
 							<Space className="float-right mt-2">
 								<Button
+									isLoading={loading}
 									type="submit"
 									colorScheme={'messenger'}
 									className="btn btn-primary"
@@ -125,10 +135,11 @@ export default function Upload() {
 								</Button>
 							</Space>
 						)}
-						onSubmit={(data) => {
-							mentionCloseMsg('上传成功');
+						onSubmit={async (data) => {
+							setLoading(true);
 							data.finish_date = startDate.getTime();
-							UploadNft(data);
+							await UploadNft(data);
+							onClose();
 						}}
 						allType={allType}
 						nft_type={nft_type}

@@ -1,11 +1,13 @@
 import { Icon } from '@iconify-icon/react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Upload from '../personal/Upload';
 import { api } from '@/api';
 import { useEffect, useState } from 'react';
+import message from '../common/message/Message';
 
 export default function UserInfo() {
 	const [balance, setBalance] = useState<number>(0);
+	const navigate = useNavigate();
 
 	useEffect(() => {
 		async function getPersonalInfromation() {
@@ -19,6 +21,12 @@ export default function UserInfo() {
 		}
 		getPersonalInfromation();
 	}, []);
+
+	function exit() {
+		localStorage.clear();
+		navigate('/login');
+		message.success('退出成功');
+	}
 
 	return (
 		<>
@@ -51,22 +59,21 @@ export default function UserInfo() {
 					</li>
 					<li>
 						<Link className="justify-between" to={'/personal'}>
-							Profile
-							<span className="badge">New</span>
+							个人中心
 						</Link>
 					</li>
 					{/* NOTE: 上传 */}
 					<li>
 						<Upload />
 					</li>
-					<li>
-						<Link to={'/collection'}>Collection</Link>
-					</li>
-					<li>
+					{/* <li>
+						<Link to={'/collection'}>收集</Link>
+					</li> */}
+					{/* <li>
 						<a>Settings</a>
-					</li>
+					</li> */}
 					<li>
-						<a>Logout</a>
+						<a onClick={() => exit()}>退出登录</a>
 					</li>
 				</ul>
 			</div>

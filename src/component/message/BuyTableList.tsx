@@ -34,11 +34,12 @@ export default function BuyTableList() {
 			id: 'operation',
 			key: 'operation',
 			render: (text, record) => (
-				<Space>
+				<>
 					<Modal
 						title="响应信息"
 						open={(onOpen) => (
 							<button
+								disabled={localStorage.getItem('uid') === record.buy_uid}
 								className="btn btn-secondary w-[100px] font-thin text-white"
 								onClick={() => onOpen()}
 							>
@@ -72,7 +73,7 @@ export default function BuyTableList() {
 										colorScheme="blue"
 										type="submit"
 										onClick={() => onClose()}
-										className="float-right mt-2"
+										className="float-right mt-2 mr-2"
 									>
 										提交
 									</Button>
@@ -80,24 +81,45 @@ export default function BuyTableList() {
 							/>
 						)}
 					/>
-					<button
-						className="btn btn-error w-[100px] font-thin text-white"
-						onClick={() =>
-							setData(data.filter((item) => item.buy_id !== record.buy_id))
-						}
-					>
-						忽略
-					</button>
-				</Space>
+					{record.buy_uid === localStorage.getItem('uid') ? (
+						<button
+							className="btn btn-error w-[100px] font-thin text-white ml-2"
+							onClick={() =>
+								deleteMessage(
+									record.buy_id,
+									localStorage.getItem('uid'),
+									record.buy_price
+								)
+							}
+						>
+							删除信息
+						</button>
+					) : null}
+				</>
 			)
 		}
 	];
 	const [data, setData] = useState([]);
 	const [loading, setLoading] = useState(true);
 
+	async function deleteMessage(id, uid, price) {
+		const res: any = await api.delete('/delete/buy_message', {
+			params: {
+				id,
+				uid,
+				price
+			}
+		});
+		if (res.code === 200) {
+			message.success('删除成功');
+		} else {
+			message.error('删除失败');
+		}
+		window.location.reload();
+	}
+
 	async function uploadRespond(data) {
-		console.log(data);
-		const res = await api.post(
+		const res: Record<string, any> = await api.post(
 			'/upload/respond',
 			{
 				response_file: data.response_file[0],
@@ -111,7 +133,9 @@ export default function BuyTableList() {
 				}
 			}
 		);
-		message.success('响应成功');
+		if (res.code === 200) {
+			message.success('响应成功');
+		}
 		return res;
 	}
 	useEffect(() => {

@@ -3,13 +3,15 @@ import Tableitem from '../../component/common/table/Tableitem';
 import Tablehead from '../../component/common/table/Tablehead';
 import Tablefooter from '../../component/common/table/Tablefooter';
 import { api } from '../../api';
-import { Button, Table } from '@chakra-ui/react';
+import { Button, Skeleton, SkeletonText, Table } from '@chakra-ui/react';
 import message from '@/component/common/message/Message';
+import Spin from '@/component/common/spin/Spin';
 export default function TableComponent() {
 	const [data, setData] = useState([]);
 	const [checkItems, setCheckItems] = useState([]);
 	const [sellOut, setSellOut] = useState([]);
 	let [total, setTotal] = useState(0);
+	const [loading, setLoading] = useState(true);
 	function addcount(id) {
 		console.log(id);
 		if (sellOut.includes(id)) return;
@@ -66,6 +68,7 @@ export default function TableComponent() {
 			});
 			setCheckItems(check);
 			setData(res.data);
+			setLoading(false);
 		}
 		getData();
 	}, []);
@@ -109,67 +112,69 @@ export default function TableComponent() {
 	const filterData = useMemo(() => getFilterData(), [checkItems]);
 
 	return (
-		<div>
+		<>
 			<div className="overflow-x-auto  h-[50vh] mx-auto">
-				<Table className="table mx-auto">
-					{/* head */}
-					<thead>
-						<tr className="text-center">
-							<Tablehead
-							// len={data.length}
-							// checkItems={checkItems}
-							// changeAllChecked={changeAllChecked}
-							/>
-						</tr>
-					</thead>
-					<tbody>
-						{/* row 1 */}
-						{data.length === 0 ? (
-							<tr>
-								<td colSpan={6} className="text-center text-lg font-bold ">
-									目前购物车没有商品哦
-								</td>
+				<SkeletonText isLoaded={!loading} noOfLines={15} fadeDuration={1}>
+					<Table className="table mx-auto">
+						{/* head */}
+						<thead>
+							<tr className="text-center">
+								<Tablehead
+								// len={data.length}
+								// checkItems={checkItems}
+								// changeAllChecked={changeAllChecked}
+								/>
 							</tr>
-						) : (
-							data.map((item) => {
-								return (
-									<tr
-										key={item.nft_id}
-										className={
-											item.status === 3 ? 'contrast-50 relative' : null
-										}
-									>
-										<Tableitem
-											addcount={() => {
-												addcount(item.nft_id);
-											}}
-											data={item}
-											subcount={() => subcount(item.nft_id)}
-											changeChecked={changeChecked}
-											checkItems={checkItems}
-										/>
+						</thead>
+						<tbody>
+							{/* row 1 */}
+							{data.length === 0 ? (
+								<tr>
+									<td colSpan={6} className="text-center text-lg font-bold ">
+										目前购物车没有商品哦
+									</td>
+								</tr>
+							) : (
+								data.map((item) => {
+									return (
+										<tr
+											key={item.nft_id}
+											className={
+												item.status === 3 ? 'contrast-50 relative' : null
+											}
+										>
+											<Tableitem
+												addcount={() => {
+													addcount(item.nft_id);
+												}}
+												data={item}
+												subcount={() => subcount(item.nft_id)}
+												changeChecked={changeChecked}
+												checkItems={checkItems}
+											/>
 
-										{item.status === 3 ? (
-											<td className="absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] ">
-												<Button
-													colorScheme="red"
-													onClick={() => removeItem(item.nft_id)}
-												>
-													已售出，点击删除
-												</Button>
-											</td>
-										) : null}
-									</tr>
-								);
-							})
-						)}
-					</tbody>
-				</Table>
+											{item.status === 3 ? (
+												<td className="absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] ">
+													<Button
+														colorScheme="red"
+														onClick={() => removeItem(item.nft_id)}
+													>
+														已售出，点击删除
+													</Button>
+												</td>
+											) : null}
+										</tr>
+									);
+								})
+							)}
+						</tbody>
+					</Table>
+				</SkeletonText>
 			</div>
 
 			<footer className="w-[60vw] h-[100%] mx-auto">
 				<Tablefooter total={total} data={filterData} />
 			</footer>
-		</div>
+		</>
 	);
 }
