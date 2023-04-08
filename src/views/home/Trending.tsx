@@ -45,25 +45,37 @@ export default function Trending({ type }: any) {
 						</Tr>
 					</Thead>
 					<Tbody>
-						{leftData.map((item, index) => (
-							<Tr key={index}>
-								<Td>{index + 1}</Td>
-								<Td className="flex items-center">
-									<img
-										src={item.nft_img}
-										width={60 + 'px'}
-										className="mr-3 rounded-lg overflow-hidden"
-									/>
-									<span className="font-thin">{item.nft_name}</span>
-								</Td>
-								<Td isNumeric className="font-semibold">
-									￥{item.basic_bid}
-								</Td>
-								<Td isNumeric className="font-semibold">
-									￥{item.high_bid}
+						{leftData.length === 0 ? (
+							<Tr>
+								<Td
+									className="font-bold text-lg"
+									colSpan={4}
+									style={{ textAlign: 'center' }}
+								>
+									暂无数据
 								</Td>
 							</Tr>
-						))}
+						) : (
+							leftData.map((item, index) => (
+								<Tr key={index}>
+									<Td>{index + 1}</Td>
+									<Td className="flex items-center">
+										<img
+											src={item.nft_img}
+											width={60 + 'px'}
+											className="mr-3 rounded-lg overflow-hidden"
+										/>
+										<span className="font-thin">{item.nft_name}</span>
+									</Td>
+									<Td isNumeric className="font-semibold">
+										￥{item.basic_bid}
+									</Td>
+									<Td isNumeric className="font-semibold">
+										￥{item.high_bid}
+									</Td>
+								</Tr>
+							))
+						)}
 					</Tbody>
 				</Table>
 				<Table variant="striped">
@@ -76,25 +88,37 @@ export default function Trending({ type }: any) {
 						</Tr>
 					</Thead>
 					<Tbody>
-						{rightData.map((item, index) => (
-							<Tr key={index}>
-								<Td>{index + 6}</Td>
-								<Td className="flex items-center">
-									<img
-										src={item.nft_img}
-										width={60 + 'px'}
-										className="mr-3 rounded-lg overflow-hidden"
-									/>
-									<span className="font-thin">{item.nft_name}</span>
-								</Td>
-								<Td isNumeric className="font-semibold">
-									￥{item.basic_bid}
-								</Td>
-								<Td isNumeric className="font-semibold">
-									￥{item.high_bid}
+						{rightData.length === 0 ? (
+							<Tr>
+								<Td
+									className="font-bold  text-lg"
+									colSpan={4}
+									style={{ textAlign: 'center' }}
+								>
+									暂无数据
 								</Td>
 							</Tr>
-						))}
+						) : (
+							rightData.map((item, index) => (
+								<Tr key={index}>
+									<Td>{index + 6}</Td>
+									<Td className="flex items-center">
+										<img
+											src={item.nft_img}
+											width={60 + 'px'}
+											className="mr-3 rounded-lg overflow-hidden"
+										/>
+										<span className="font-thin">{item.nft_name}</span>
+									</Td>
+									<Td isNumeric className="font-semibold">
+										￥{item.basic_bid}
+									</Td>
+									<Td isNumeric className="font-semibold">
+										￥{item.high_bid}
+									</Td>
+								</Tr>
+							))
+						)}
 					</Tbody>
 				</Table>
 			</TableContainer>

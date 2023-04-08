@@ -21,7 +21,7 @@ export default function NftCard({ data, loading, changeBgimg }) {
 										style={{
 											width: '100%',
 											minHeight: '100px',
-											height: '260px'
+											height: '300px'
 										}}
 									/>
 								</figure>
@@ -45,9 +45,9 @@ export default function NftCard({ data, loading, changeBgimg }) {
 									</p>
 									<p>
 										<span>原作者：</span>
-										<span className="italic">{item.username}</span>
+										<span className="italic">{item.owner}</span>
 									</p>
-									
+
 									<div className="card-actions justify-end">
 										<Modal
 											open={(onOpen) => (
@@ -60,7 +60,12 @@ export default function NftCard({ data, loading, changeBgimg }) {
 										/>
 									</div>
 									<div className="card-actions justify-end">
-										<button onClick={()=>changeBgimg(item.nft_img)} className='btn btn-secondary'>将图片设置为背景图片</button>
+										<button
+											onClick={() => changeBgimg(item.nft_img)}
+											className="btn btn-secondary"
+										>
+											将图片设置为背景图片
+										</button>
 									</div>
 								</div>
 							</div>

@@ -1,18 +1,17 @@
-import { Tab, TabList, TabPanel, TabPanels, Button, background, Skeleton } from '@chakra-ui/react';
-import Image from '@/assets/gd1.png';
-import NftCard from '../../component/personal/NftCard';
+import { useEffect, useState } from 'react';
+import { Button, Skeleton } from '@chakra-ui/react';
 import { Icon } from '@iconify-icon/react';
+import { api } from '@/api';
+import NftCard from '../../component/personal/NftCard';
 import Modal from '@/component/common/modal/Modal';
 import Form from '@/component/common/form/Form';
 import Space from '@/component/common/space/Space';
-import { useEffect, useState } from 'react';
 import message from '@/component/common/message/Message';
-import { api } from '@/api';
 import OrderCard from '@/component/personal/OrderCard';
 import Tabs from '@/component/common/Tabs';
 import styles from '@/assets/img.module.css';
 import classNames from 'classnames';
-import { url } from 'inspector';
+import DefaultImage from '@/assets/user_background.png';
 
 export default function PersonalCard() {
 	const [user, setUser] = useState<any>({});
@@ -20,13 +19,14 @@ export default function PersonalCard() {
 	const [loading, setLoading] = useState(true);
 	const [updateLoading, setUpdateLoading] = useState(false);
 	const tabList = ['我的数字藏品', '我的订单'];
-   const [img,setimg]=useState('')
+	const [img, setimg] = useState(
+		localStorage.getItem('background') || DefaultImage
+	);
 
 	const tabPaneList = [
-		<NftCard data={data} loading={loading} changeBgimg={changeBgimg}/>,
+		<NftCard data={data} loading={loading} changeBgimg={changeBgimg} />,
 		<OrderCard />
 	];
-
 
 	useEffect(() => {
 		async function getData() {
@@ -51,11 +51,15 @@ export default function PersonalCard() {
 		getPersonalInfromation();
 		getData();
 	}, []);
-	//修改用户
-    function changeBgimg(src){
-        setimg(src)
+
+	// 将背景图片进行缓存
+
+	function changeBgimg(src) {
+		setimg(src);
+		localStorage.setItem('background', src);
 	}
-	
+
+	//修改用户
 	async function changeUser(data) {
 		const res: any = await api.put(
 			'/personal',
@@ -90,7 +94,9 @@ export default function PersonalCard() {
 						'rounded-none',
 						styles.background
 					)}
-          style={{backgroundImage:img==='' ? null:`url(${img})`, 
+					style={{
+						backgroundImage: `url(${img})`
+					}}
 				>
 					<div className="mx-auto">
 						<div>

@@ -75,7 +75,7 @@ export default function ShoppingItem({ setNum }) {
 											}}
 										>
 											{/* TODO: 根据交易类型来显示当前价格 */}
-											{item.basic_bid} CS
+											{item.price} CS
 										</div>
 										<div
 											className="w-full h-full"

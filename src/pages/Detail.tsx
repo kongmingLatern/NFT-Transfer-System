@@ -1,10 +1,9 @@
 import { api } from '@/api';
 import Divider from '@/component/common/Divider';
 import Header from '@/component/common/Header';
-import Spin from '@/component/common/spin/Spin';
 import CardDetail from '@/views/detail/CardDetail';
 import CardInfo from '@/views/detail/CardInfo';
-import { Skeleton, SkeletonText } from '@chakra-ui/react';
+import { SkeletonText } from '@chakra-ui/react';
 import { createContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
@@ -37,7 +36,7 @@ export default function Detail() {
 			<Divider />
 			<DetailProvider.Provider value={nft_data}>
 				<SkeletonText isLoaded={!loading} noOfLines={5} fadeDuration={1}>
-					<div className="mt-10 max-w-screen-lg mx-auto">
+					<div className="max-w-screen-lg mx-auto bg-white">
 						<div className="flex">
 							<CardDetail />
 							<CardInfo chart_data={chart_data} transaction={transaction} />

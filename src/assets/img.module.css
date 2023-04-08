@@ -7,8 +7,18 @@
 
 .background {
 	background-attachment: local;
-	background-image: url('@/assets/user_background.png');
 	background-repeat: no-repeat;
 	background-size: cover;
 	color: white;
+}
+
+.frame {
+	background: hsl(0, 0%, 90%);
+}
+
+.detail_bg {
+	background-image: url('@/assets/background.jpg');
+	background-attachment: fixed;
+	background-origin: border-box;
+	background-size: cover;
 }

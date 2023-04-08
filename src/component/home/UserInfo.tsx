@@ -4,10 +4,15 @@ import Upload from '../personal/Upload';
 import { api } from '@/api';
 import { useEffect, useState } from 'react';
 import message from '../common/message/Message';
+import Modal from '../common/modal/Modal';
+import Form from '../common/form/Form';
+import { Button } from '@chakra-ui/react';
+import Space from '../common/space/Space';
 
 export default function UserInfo() {
 	const [balance, setBalance] = useState<number>(0);
 	const navigate = useNavigate();
+	const [loading, setLoading] = useState(false);
 
 	useEffect(() => {
 		async function getPersonalInfromation() {
@@ -61,6 +66,46 @@ export default function UserInfo() {
 						<Link className="justify-between" to={'/personal'}>
 							个人中心
 						</Link>
+					</li>
+					<li>
+						<Modal
+							open={(onOpen) => <span onClick={onOpen}>充值</span>}
+							title="充值"
+							bodyContent={(onClose) => (
+								<Form
+									formItem={[
+										{
+											label: '请输入要充值的金额',
+											name: 'remaining',
+											type: 'number'
+										}
+									]}
+									onSubmit={async (data) => {
+										console.log('data', data);
+										setLoading(true);
+										const res = await api.put('/change/remaining', {
+											uid: localStorage.getItem('uid'),
+											price: data.remaining
+										});
+										setLoading(false);
+										message.success('充值成功');
+										onClose();
+										window.location.reload();
+									}}
+									footer={() => (
+										<Space className="float-right mt-2" size={12}>
+											<Button
+												type="submit"
+												colorScheme="red"
+												isLoading={loading}
+											>
+												点击充值
+											</Button>
+										</Space>
+									)}
+								/>
+							)}
+						/>
 					</li>
 					{/* NOTE: 上传 */}
 					<li>

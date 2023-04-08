@@ -14,7 +14,11 @@ export function combineDate(month: number, day: number) {
 
 export function timestampToTime(timestamp) {
   // 时间戳为10位需*1000，时间戳为13位不需乘1000
-  let date = new Date(timestamp * 1000);
+  // 判断时间戳是否是10位
+  if (timestamp.toString().length === 10) {
+    timestamp = timestamp * 1000;
+  }
+  let date = new Date(timestamp);
   let year = date.getFullYear();
   let month =
     date.getMonth() + 1 < 10
@@ -22,30 +26,35 @@ export function timestampToTime(timestamp) {
       : date.getMonth() + 1;
   let day = date.getDate() < 10 ? '0' + date.getDate() : date.getDate();
   let hour = date.getHours();
-  let minutes = date.getMinutes();
-  let seconds = date.getSeconds();
+  let minutes = date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes();
+  let seconds = date.getSeconds() < 10 ? '0' + date.getSeconds() : date.getSeconds();
+
+  // 连接年月日时分秒
+  let result = `${year}年${month}月${day}日 ${hour}:${minutes}:${seconds}`;
+
   return {
     year,
     month,
     day,
     hour,
     minutes,
-    seconds
+    seconds,
+    result
   };
 }
-export function lastTime(diffTime){
+export function lastTime(diffTime) {
   const time = diffTime > 0 ? diffTime / 1000 : 0
-  const day=(time / (24 * 60 * 60))^0
-  const hour=((time / (60 * 60)) % 24)^0
-  const minutes=((time / 60) % 60)^0
-  const seconds =60-(diffTime % 60)^0
+  const day = (time / (24 * 60 * 60)) ^ 0
+  const hour = ((time / (60 * 60)) % 24) ^ 0
+  const minutes = ((time / 60) % 60) ^ 0
+  const seconds = 60 - (diffTime % 60) ^ 0
   return {
     day,
     hour,
     minutes,
     seconds
   }
-}   
+}
 
 
 export function getCurrentDate(target) {

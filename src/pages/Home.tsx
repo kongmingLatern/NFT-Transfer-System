@@ -6,56 +6,77 @@ import Title from '@/component/common/Title';
 import Tabs from '@/component/common/Tabs';
 import CardList from '@/views/home/CardList';
 import Echarts from '@/echarts/Echarts';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import message from '@/component/common/message/Message';
 import Beginner from '@/component/common/beginner/Beginner';
 import { Step } from '@/component/common/beginner/Step';
 import { TestBeginer } from '@/component/common/beginner/TestBeginner';
 import Footer from '@/component/common/footer/Footer';
+import { api } from '@/api';
 
 export default function Home() {
-	const [data, setData] = useState([820, 932, 901, 934, 1290, 1330, 1320]);
-	const [loading, setLoading] = useState(true);
+	// const tabList = ['All', 'Art', 'Music', 'Video'];
+	const [tabList, setTabList] = useState([]);
+	const [tabPaneList, setTabPaneList] = useState([]);
 
-	const tabList = ['All', 'Art', 'Music', 'Video'];
-	const tabPanelList = [
-		<>
-			<Title title={'Trending'} />
-			<Trending />
-			<Divider />
+	useEffect(() => {
+		async function getType() {
+			const res: any = await api.get('selectAll/type');
+			// console.log(res.data.map((item) => item.type));
+			setTabList(res.data.map((item) => item.type));
+			setTabPaneList(
+				res.data.map((item) => (
+					<>
+						<Title title={'Trending'} />
+						<Trending type={item.type} />
+						<Divider />
+						<Title title={`Trending in ${item.type}`} />
+						<CardList type={item.type} />
+					</>
+				))
+			);
+		}
+		getType();
+	}, []);
 
-			<Divider />
-			<Title title={'Trending In Art'} />
-			<CardList type="Art" />
+	// const tabPanelList = [
+	// 	<>
+	// 		<Title title={'Trending'} />
+	// 		<Trending />
+	// 		<Divider />
 
-			<Divider />
-			<Title title={'Trending In Music'} />
-			<CardList type="Music" />
+	// 		<Divider />
+	// 		<Title title={'Trending In Art'} />
+	// 		<CardList type="Art" />
 
-			<Divider />
-			<Title title={'Trending In Video'} />
-			<CardList type="Video" />
-		</>,
+	// 		<Divider />
+	// 		<Title title={'Trending In Music'} />
+	// 		<CardList type="Music" />
 
-		<>
-			<Title title={'Trending'} />
-			<Trending type="Art" />
-			<Title title={'Trending In Art'} />
-			<CardList type="Art" />
-		</>,
-		<>
-			<Title title={'Trending'} />
-			<Trending type="Music" />
-			<Title title={'Trending In Music'} />
-			<CardList type="Music" />
-		</>,
-		<>
-			<Title title={'Trending'} />
-			<Trending type="Video" />
-			<Title title={'Trending In Video'} />
-			<CardList type="Video" />
-		</>
-	];
+	// 		<Divider />
+	// 		<Title title={'Trending In Video'} />
+	// 		<CardList type="Video" />
+	// 	</>,
+
+	// 	<>
+	// 		<Title title={'Trending'} />
+	// 		<Trending type="Art" />
+	// 		<Title title={'Trending In Art'} />
+	// 		<CardList type="Art" />
+	// 	</>,
+	// 	<>
+	// 		<Title title={'Trending'} />
+	// 		<Trending type="Music" />
+	// 		<Title title={'Trending In Music'} />
+	// 		<CardList type="Music" />
+	// 	</>,
+	// 	<>
+	// 		<Title title={'Trending'} />
+	// 		<Trending type="Video" />
+	// 		<Title title={'Trending In Video'} />
+	// 		<CardList type="Video" />
+	// 	</>
+	// ];
 
 	function removeCover(
 		step: number,
@@ -82,10 +103,9 @@ export default function Home() {
 			<Tabs
 				className={'px-4'}
 				tabList={tabList}
-				tabPanelList={tabPanelList}
+				tabPanelList={tabPaneList}
 				tabPaneListJustify="center"
 			/>
-			<Title title={'Trending'} />
 
 			<Footer />
 		</Beginner>

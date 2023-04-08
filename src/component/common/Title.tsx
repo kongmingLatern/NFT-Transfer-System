@@ -8,7 +8,7 @@ type IProps = {
 const Title = ({ title, className }: IProps) => {
 	return (
 		<h1 className={classNames('mb-2', className)}>
-			<span className="text-2xl font-bold tracking-wide font-['Poppins'] pl-3">
+			<span className="text-2xl font-bold tracking-wide font-['Poppins'] ">
 				{title}
 			</span>
 		</h1>

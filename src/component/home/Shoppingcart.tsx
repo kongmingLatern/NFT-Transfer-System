@@ -57,7 +57,7 @@ export default function Shoppingcart() {
 					</div>
 					<DrawerBody w="full">
 						{/* 购物车内的商品 */}
-						<ShoppingItem  setNum={setNum} />
+						<ShoppingItem setNum={setNum} />
 					</DrawerBody>
 
 					<DrawerFooter display="block">
