@@ -33,6 +33,21 @@ export function timestampToTime(timestamp) {
     seconds
   };
 }
+export function lastTime(diffTime){
+  const time = diffTime > 0 ? diffTime / 1000 : 0
+  const day=(time / (24 * 60 * 60))^0
+  const hour=((time / (60 * 60)) % 24)^0
+  const minutes=((time / 60) % 60)^0
+  const seconds =60-(diffTime % 60)^0
+  return {
+    day,
+    hour,
+    minutes,
+    seconds
+  }
+}   
+
+
 export function getCurrentDate(target) {
   return timestampToTime(target - new Date().getTime());
 }
