@@ -111,7 +111,7 @@ export const router = createBrowserRouter([
 		)
 	},
 	{
-		path: '/search/nft',
+		path: '/search/nft/:nft_name',
 		element: (
 			<AuthLogin>
 				<SearchResult />

@@ -13,7 +13,7 @@ export default function Header({
 	text = '',
 	fixed = true
 }: HeaderType) {
-  const navigate = useNavigate()
+	const navigate = useNavigate();
 	return fixed ? (
 		<div className="min-h-[4rem]">
 			<div className="navbar text-black justify-between fixed top-0 left-0 bg-white z-20">
@@ -29,9 +29,8 @@ export default function Header({
 							<SearchInput
 								className={'w-[400px]'}
 								search={(value) => {
-                                    navigate('/search/nft')
+									navigate('/search/nft/' + value);
 									console.log('search', value);
-
 								}}
 							/>
 						</>
