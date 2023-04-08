@@ -5,11 +5,13 @@ import Tablefooter from '../../component/common/table/Tablefooter';
 import { api } from '../../api';
 import { Button, Table } from '@chakra-ui/react';
 import message from '@/component/common/message/Message';
+import Spin from '@/component/common/spin/Spin';
 export default function TableComponent() {
 	const [data, setData] = useState([]);
 	const [checkItems, setCheckItems] = useState([]);
 	const [sellOut, setSellOut] = useState([]);
 	let [total, setTotal] = useState(0);
+	const [loading, setLoading] = useState(true);
 	function addcount(id) {
 		console.log(id);
 		if (sellOut.includes(id)) return;
@@ -66,6 +68,7 @@ export default function TableComponent() {
 			});
 			setCheckItems(check);
 			setData(res.data);
+			setLoading(false);
 		}
 		getData();
 	}, []);
@@ -109,7 +112,7 @@ export default function TableComponent() {
 	const filterData = useMemo(() => getFilterData(), [checkItems]);
 
 	return (
-		<div>
+		<Spin loading={loading}>
 			<div className="overflow-x-auto  h-[50vh] mx-auto">
 				<Table className="table mx-auto">
 					{/* head */}
@@ -170,6 +173,6 @@ export default function TableComponent() {
 			<footer className="w-[60vw] h-[100%] mx-auto">
 				<Tablefooter total={total} data={filterData} />
 			</footer>
-		</div>
+		</Spin>
 	);
 }
